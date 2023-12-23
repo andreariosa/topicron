@@ -8,39 +8,68 @@
 
 Next.js project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) containing:
 
-- An [app router](https://nextjs.org/learn) version of the [pages router](https://nextjs.org/learn-pages-router) tutorial for building a simple [blog](https://github.com/vercel/next-learn/tree/main/basics/demo)
+- An [app router](https://nextjs.org/learn) version of the [pages router](https://nextjs.org/learn-pages-router) tutorial for building a simple [blog](https://github.com/vercel/next-learn/tree/main/basics/demo).
 
-## Getting Started
+# Getting Started
 
-First, run the development server:
+After cloning the repository open a terminal window, go into the root project folder and run: `npm install`.
+
+## Run the Development Server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Then, visit [http://localhost:3000](http://localhost:3000) with a browser.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+# Dependencies
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+| Package | Link | Size | Description | Where is used |
+| - | - | - | - | - |
+| `gray-matter` | [1](https://www.npmjs.com/package/gray-matter) | [1](https://bundlephobia.com/package/gray-matter) | For parsing metadata of markdown files | **Blog**, lib |
+| `remark` `remark-html` | [1](https://www.npmjs.com/package/remark) [2](https://www.npmjs.com/package/remark-html) | [1](https://bundlephobia.com/package/remark) [2](https://bundlephobia.com/package/remark-html) | For rendering markdown content of markdown files | **Blog**, lib |
+| `date-fns` | [1](https://www.npmjs.com/package/date-fns) | [1](https://bundlephobia.com/package/date-fns) | For formatting dates | **Blog**, components |
 
-## Learn More
+# Best Practices
 
-To learn more about Next.js, take a look at the following resources:
+## Module dependencies ordering
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+| Keyword  | Description                                            |
+| -------- | ------------------------------------------------------ |
+| Builtin  | Standard libraries                                     |
+| External | Third party libraries                                  |
+| Internal | Own code imports                                       |
+| Specific | Imports specific to the module (e.g. css, png, etc.)   |
+| Test     | Code only used for tests                               |
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Subject line terminology for committing
 
-## Deploy on Vercel
+| First Word | Meaning                                              |
+| ---------- | ---------------------------------------------------- |
+| Add        | Create a capability e.g. feature, test, dependency.  |
+| Cut        | Remove a capability e.g. feature, test, dependency.  |
+| Fix        | Fix an issue e.g. bug, typo, accident, misstatement. |
+| Bump       | Increase the version of something e.g. dependency.   |
+| Make       | Change the build process, or tooling, or infra.      |
+| Start      | Begin doing something e.g. create a feature flag.    |
+| Stop       | End doing something e.g. remove a feature flag.      |
+| Refactor   | A code change that MUST be just a refactoring.       |
+| Reformat   | Refactor of formatting e.g. omit white space.        |
+| Optimize   | Refactor of performance e.g. speed up code.          |
+| Document   | Refactor of documentation e.g. help files.           |
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Accidentally pushed to main
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+1. Don't panic.
+2. If you are not sure what you'll going to do, ask for help.
+3. For reverse to the last commit `git reset --hard HEAD~1`.
+4. For reverse to a specific commit `git reset --hard <SHA> (ex. git reset --hard 3ffd44f)`.
+5. Then do `git push origin +main --force`.
+6. Remember to also fix the commits on the production repository.
+
+# Documentation references
+
+- GitHub: https://docs.github.com/en
+- Visual Studio Code: https://code.visualstudio.com/docs
+- NextJS: https://nextjs.org/docs
+- TailwindCSS: https://tailwindcss.com/docs
