@@ -1,4 +1,14 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Introduction
+
+[TopiCron](https://topicron.com/) is my open source project that serves as a "playground" where I can experiment, keep up to date with new technologies and quickly access resources that might be useful.
+
+## What you find here
+
+### Core
+
+Next.js project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) containing:
+
+- An [app router](https://nextjs.org/learn) version of the [pages router](https://nextjs.org/learn-pages-router) tutorial for building a simple [blog](https://github.com/vercel/next-learn/tree/main/basics/demo)
 
 ## Getting Started
 
