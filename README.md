@@ -24,11 +24,12 @@ Then, visit [http://localhost:3000](http://localhost:3000) with a browser.
 
 # Dependencies
 
-| Package | Link | Size | Description | Where is used |
+| Package | Link | Size | Import | Description |
 | - | - | - | - | - |
-| `gray-matter` | [1](https://www.npmjs.com/package/gray-matter) | [1](https://bundlephobia.com/package/gray-matter) | For parsing metadata of markdown files | **Blog**, lib |
-| `remark` `remark-html` | [1](https://www.npmjs.com/package/remark) [2](https://www.npmjs.com/package/remark-html) | [1](https://bundlephobia.com/package/remark) [2](https://bundlephobia.com/package/remark-html) | For rendering markdown content of markdown files | **Blog**, lib |
-| `date-fns` | [1](https://www.npmjs.com/package/date-fns) | [1](https://bundlephobia.com/package/date-fns) | For formatting dates | **Blog**, components |
+| `gray-matter` | [npm](https://www.npmjs.com/package/gray-matter) | [bundlephobia](https://bundlephobia.com/package/gray-matter) | **Blog** lib | For parsing metadata of markdown files |
+| `remark` | [npm](https://www.npmjs.com/package/remark) | [bundlephobia](https://bundlephobia.com/package/remark) | **Blog** lib | For rendering markdown content of markdown files |
+| `remark-html` | [npm](https://www.npmjs.com/package/remark-html) | [bundlephobia](https://bundlephobia.com/package/remark-html) | **Blog** lib | Part of `remark` |
+| `date-fns` | [npm](https://www.npmjs.com/package/date-fns) | [bundlephobia](https://bundlephobia.com/package/date-fns) | **Blog** components | For formatting dates |
 
 # Best Practices
 
