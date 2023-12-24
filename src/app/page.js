@@ -3,7 +3,12 @@ import Link from "next/link";
 export default function Home() {
   return (
     <main>
-      <Link href="/blog">Blog</Link>
+      <div>
+        <Link href="/blog">Blog</Link>
+      </div>
+      <div>
+        <Link href="/rss">RSS</Link>
+      </div>
     </main>
   );
 }

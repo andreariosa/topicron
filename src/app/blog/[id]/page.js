@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 import { getPostData } from "@/lib/blog/posts";
-import Date from "@/components/blog/date";
+import BlogDate from "@/components/blog/date";
 
 export async function generateMetadata({ params }) {
   const postData = await getPostData(params.id);
@@ -18,7 +18,7 @@ export default async function Post({ params }) {
     <>
       <h1>{postData.title}</h1>
       <div>
-        <Date dateString={postData.date} />
+        <BlogDate dateString={postData.date} />
       </div>
       <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
       <div>

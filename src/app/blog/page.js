@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 import { getSortedPostsData } from "@/lib/blog/posts";
-import Date from "@/components/blog/date";
+import BlogDate from "@/components/blog/date";
 
 export default function Blog() {
   const allPostsData = getSortedPostsData();
@@ -15,7 +15,7 @@ export default function Blog() {
               <Link href={`/blog/${id}`}>{title}</Link>
             </div>
             <small>
-              <Date dateString={date} />
+              <BlogDate dateString={date} />
             </small>
           </li>
         ))}
