@@ -9,6 +9,7 @@
 Next.js project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) containing:
 
 - An [app router](https://nextjs.org/learn) version of the [pages router](https://nextjs.org/learn-pages-router) tutorial for building a simple [blog](https://github.com/vercel/next-learn/tree/main/basics/demo).
+- An RSS parser.
 
 # Getting Started
 
@@ -24,12 +25,13 @@ Then, visit [http://localhost:3000](http://localhost:3000) with a browser.
 
 # Dependencies
 
-| Package | Link | Size | Import | Description |
-| - | - | - | - | - |
-| `gray-matter` | [npm](https://www.npmjs.com/package/gray-matter) | [bundlephobia](https://bundlephobia.com/package/gray-matter) | **Blog** lib | For parsing metadata of markdown files |
-| `remark` | [npm](https://www.npmjs.com/package/remark) | [bundlephobia](https://bundlephobia.com/package/remark) | **Blog** lib | For rendering markdown content of markdown files |
-| `remark-html` | [npm](https://www.npmjs.com/package/remark-html) | [bundlephobia](https://bundlephobia.com/package/remark-html) | **Blog** lib | Part of `remark` |
-| `date-fns` | [npm](https://www.npmjs.com/package/date-fns) | [bundlephobia](https://bundlephobia.com/package/date-fns) | **Blog** components | For formatting dates |
+| Package name | Link | Size | Import |
+| - | - | - | - |
+| `gray-matter` | [npm](https://www.npmjs.com/package/gray-matter) | [bundlephobia](https://bundlephobia.com/package/gray-matter) | **Blog** lib |
+| `remark` | [npm](https://www.npmjs.com/package/remark) | [bundlephobia](https://bundlephobia.com/package/remark) | **Blog** lib |
+| `remark-html` | [npm](https://www.npmjs.com/package/remark-html) | [bundlephobia](https://bundlephobia.com/package/remark-html) | **Blog** lib |
+| `rss-parser` | [npm](https://www.npmjs.com/package/rss-parser) | [bundlephobia](https://bundlephobia.com/package/rss-parser) | **RSS** lib |
+| `date-fns` | [npm](https://www.npmjs.com/package/date-fns) | [bundlephobia](https://bundlephobia.com/package/date-fns) | **Blog** + **RSS** components |
 
 # Best Practices
 

@@ -19,6 +19,9 @@ export default async function Feed({ params }) {
     <>
       <h1>{feed.title}</h1>
       <div>
+        <Link href="/rss">&larr; Back</Link>
+      </div>
+      <div>
         {rss.items.map((item) => (
           <div key={item.link}>
             <Link href={item.link} target="_blank">
@@ -30,9 +33,6 @@ export default async function Feed({ params }) {
             <hr></hr>
           </div>
         ))}
-      </div>
-      <div>
-        <Link href="/rss">&larr; Back</Link>
       </div>
     </>
   );
