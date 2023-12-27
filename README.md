@@ -1,6 +1,6 @@
 # Introduction
 
-[TopiCron](https://topicron.com/) is my open source project that serves as a "playground" where I can experiment, keep up to date with new technologies and quickly access resources that might be useful.
+[TopiCron](https://topicron.com/) is my open source project that serves as a "playground" where I can experiment, keep up to date with new technologies and quickly access useful resources.
 
 ## What you find here
 
@@ -10,6 +10,15 @@ Next.js project bootstrapped with [`create-next-app`](https://github.com/vercel/
 
 - An [app router](https://nextjs.org/learn) version of the [pages router](https://nextjs.org/learn-pages-router) tutorial for building a simple [blog](https://github.com/vercel/next-learn/tree/main/basics/demo).
 - An RSS parser.
+
+### Extra
+
+The "extra" folder contains other small projects for which it doesn't make sense to create a separate repository. Each project is stand-alone and contains a description within it.
+
+### Upcoming
+
+- [ ] Add **core** styling
+- [ ] Add **extra** market-cap project
 
 # Getting Started
 
