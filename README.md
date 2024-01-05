@@ -18,7 +18,6 @@ The "extra" folder contains other small projects for which it doesn't make sense
 ### Upcoming
 
 - [ ] Add **core** styling
-- [ ] Add **extra** market-cap project
 
 # Getting Started
 
@@ -48,11 +47,11 @@ Then, visit [http://localhost:3000](http://localhost:3000) with a browser.
 
 | Keyword  | Description                                            |
 | -------- | ------------------------------------------------------ |
-| Builtin  | Standard libraries                                     |
-| External | Third party libraries                                  |
-| Internal | Own code imports                                       |
-| Specific | Imports specific to the module (e.g. css, png, etc.)   |
-| Test     | Code only used for tests                               |
+| Builtin  | Standard libraries.                                    |
+| External | Third party libraries.                                 |
+| Internal | Own code imports.                                      |
+| Specific | Imports specific to the module e.g. css, png, etc.     |
+| Test     | Code only used for tests.                              |
 
 ## Subject line terminology for committing
 
