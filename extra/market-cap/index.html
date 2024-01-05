@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Market Cap</title>
+
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1" />
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+
+    <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css" />
+    <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css" />
+    <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
+    <script src="https://unpkg.com/jquery/dist/jquery.min.js"></script>
+    <style>
+      ons-col {
+        border: 1px solid #ccc;
+        background: #fff;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        padding: 4px;
+        color: #999;
+      }
+      .right {
+        text-align: right;
+      }
+      .positive {
+        color: #00b2b2;
+      }
+      .negative {
+        color: #ff4d4d;
+      }
+    </style>
+  </head>
+  <body>
+    <ons-splitter>
+      <ons-splitter-side id="menu" side="left" width="220px" collapse swipeable>
+        <ons-page>
+          <ons-list>
+            <ons-list-item onclick="fn.load('home.html')" tappable> Home </ons-list-item>
+            <ons-list-item onclick="fn.load('settings.html')" tappable> Settings </ons-list-item>
+            <ons-list-item onclick="fn.load('about.html')" tappable> About </ons-list-item>
+          </ons-list>
+        </ons-page>
+      </ons-splitter-side>
+      <ons-splitter-content id="content" page="home.html"></ons-splitter-content>
+    </ons-splitter>
+
+    <template id="home.html">
+      <ons-page id="home">
+        <ons-toolbar>
+          <div class="left">
+            <ons-toolbar-button onclick="fn.open()">
+              <ons-icon icon="md-menu"></ons-icon>
+            </ons-toolbar-button>
+          </div>
+          <div class="center">Market Cap</div>
+        </ons-toolbar>
+        <p id="test" style="text-align: center; opacity: 0.6">
+          <ons-progress-circular indeterminate></ons-progress-circular>
+        </p>
+        <ons-row>
+          <ons-col
+            ><div class="colButton">
+              <ons-button id="coinsCurrency" modifier="large" onclick="app.filterSelectCurrency()"></ons-button></div
+          ></ons-col>
+          <ons-col
+            ><div class="colButton">
+              <ons-button id="coinsPerPage" modifier="large" onclick="app.filterSelectPerPage()"></ons-button></div
+          ></ons-col>
+        </ons-row>
+        <ons-row>
+          <ons-col width="10%">
+            <div class="col">
+              <center><b>&#9733;</b></center>
+            </div>
+          </ons-col>
+          <ons-col width="40%">
+            <div class="col"><b>Name</b></div>
+          </ons-col>
+          <ons-col width="25%">
+            <div class="col right"><b>Price</b></div>
+          </ons-col>
+          <ons-col width="25%">
+            <div class="col right"><b>Change</b></div>
+          </ons-col>
+        </ons-row>
+      </ons-page>
+    </template>
+
+    <template id="settings.html">
+      <ons-page id="settings">
+        <ons-toolbar>
+          <div class="left">
+            <ons-toolbar-button onclick="fn.open()">
+              <ons-icon icon="md-menu"></ons-icon>
+            </ons-toolbar-button>
+          </div>
+          <div class="center">Settings</div>
+        </ons-toolbar>
+        <p style="text-align: center; opacity: 0.6; padding-top: 20px">Swipe right to open the menu!</p>
+        <ons-list modifier="inset">
+          <ons-list-header>TODO</ons-list-header>
+          <ons-list-item modifier="longdivider"
+            ><ons-icon size="14px" icon="fa-code" class="list-item__icon"></ons-icon> Fix "clearInterval"
+            bug</ons-list-item
+          >
+          <ons-list-item modifier="longdivider"
+            ><ons-icon size="14px" icon="fa-plus" class="list-item__icon"></ons-icon> Add "Settings"</ons-list-item
+          >
+          <ons-list-item modifier="longdivider"
+            ><ons-icon size="14px" icon="fa-plus" class="list-item__icon"></ons-icon> Add "About"</ons-list-item
+          >
+        </ons-list>
+      </ons-page>
+    </template>
+
+    <template id="about.html">
+      <ons-page id="about">
+        <ons-toolbar>
+          <div class="left">
+            <ons-toolbar-button onclick="fn.open()">
+              <ons-icon icon="md-menu"></ons-icon>
+            </ons-toolbar-button>
+          </div>
+          <div class="center">About</div>
+        </ons-toolbar>
+        <p style="text-align: center; opacity: 0.6; padding-top: 20px">Swipe right to open the menu!</p>
+      </ons-page>
+    </template>
+
+    <script>
+      //Parameters
+      var params = {};
+
+      if (location.search) {
+        var parts = location.search.substring(1).split("&");
+
+        for (var i = 0; i < parts.length; i++) {
+          var nv = parts[i].split("=");
+          if (!nv[0]) continue;
+          params[nv[0]] = nv[1] || true;
+        }
+      }
+
+      var coinsCurrency = params.coinsCurrency ? params.coinsCurrency : "EUR";
+      var coinsPerPage = params.coinsPerPage ? params.coinsPerPage : 25;
+      var coinsPage = params.coinsPage ? params.coinsPage : 1;
+
+      //AJAX
+      var ajaxUrl = "https://api.coingecko.com/api/v3";
+      var ajaxEndpoint = "/coins/markets";
+      var ajaxMethod = "GET";
+      var ajaxDataType = "json";
+
+      var ajaxParametersName = [
+        "vs_currency", //[string] eur or usd
+        "ids", //[string] empty (refers to /coins/list)
+        "order", //[string] market_cap_desc
+        "per_page", //[integer] 1 to 250
+        "page", //[integer] 1
+        "sparkline", //[boolean] false
+        "price_change_percentage", //[string] 1h
+      ];
+      var ajaxParametersValue = [coinsCurrency, "", "market_cap_desc", coinsPerPage, coinsPage, "false", "1h"];
+      var ajaxParametersSize = ajaxParametersName.length;
+      var ajaxParameters = "";
+      for (var i = 0; i < ajaxParametersSize; i++) {
+        ajaxParameters += ajaxParametersName[i] + "=" + ajaxParametersValue[i];
+        if (i < ajaxParametersSize - 1) ajaxParameters += "&";
+      }
+
+      //https://onsen.io/v2/guide/lifecycle.html#page-lifecycle
+      document.addEventListener(
+        "init",
+        function (event) {
+          for (var i = 1; i < 99999; i++) window.clearInterval(i);
+          if (event.target.matches("#home")) {
+            document.getElementById("coinsCurrency").innerHTML = coinsCurrency;
+            document.getElementById("coinsPerPage").innerHTML = "Top " + coinsPerPage;
+            sendAjax(ajaxUrl, ajaxEndpoint, ajaxMethod, ajaxDataType, ajaxParameters);
+          }
+          if (event.target.matches("#settings")) {
+            //Do nothing
+          }
+          if (event.target.matches("#about")) {
+            //Do nothing
+          }
+        },
+        false
+      );
+
+      function sendAjax(ajaxUrl, ajaxEndpoint, ajaxMethod, ajaxDataType, ajaxParameters) {
+        //Send ajax
+        $.ajax({
+          url: ajaxUrl + ajaxEndpoint,
+          type: ajaxMethod,
+          dataType: ajaxDataType,
+          data: ajaxParameters,
+          success: function (result) {
+            //Output START
+            myObject = result;
+            for (var name in myObject) {
+              if (myObject.hasOwnProperty(name)) {
+                var columns =
+                  '<ons-col width="10%"><div class="col"><center>' +
+                  myObject[name].market_cap_rank +
+                  "</center></div></ons-col>" +
+                  '<ons-col width="40%"><div class="col">' +
+                  myObject[name].name +
+                  "</div></ons-col>";
+                if (coinsCurrency == "EUR") {
+                  columns +=
+                    '<ons-col width="25%"><div class="col right">' +
+                    parseFloat(myObject[name].current_price).toFixed(2) +
+                    " €</div></ons-col>";
+                } else if (coinsCurrency == "USD") {
+                  columns +=
+                    '<ons-col width="25%"><div class="col right">' +
+                    parseFloat(myObject[name].current_price).toFixed(2) +
+                    " $</div></ons-col>";
+                }
+                if (myObject[name].price_change_percentage_24h >= 0) {
+                  columns +=
+                    '<ons-col width="25%"><div class="col right positive">' +
+                    Math.abs(myObject[name].price_change_percentage_24h).toFixed(2) +
+                    " &#9650;</div></ons-col>";
+                } else {
+                  columns +=
+                    '<ons-col width="25%"><div class="col right negative">' +
+                    Math.abs(myObject[name].price_change_percentage_24h).toFixed(2) +
+                    " &#9660;</div></ons-col>";
+                }
+                var row = document.createElement("ons-row");
+                row.innerHTML = columns;
+                document.getElementsByClassName("page__content")[1].appendChild(row);
+              }
+            }
+            console.log(result);
+            //Output END
+
+            //Success
+            if (result) {
+              var seconds = 60;
+              function countdown() {
+                seconds--;
+                if (seconds > 9) {
+                  var str = "API status <b>OK</b> - Next request in <b>" + seconds + "</b> seconds";
+                } else {
+                  if (seconds == 1) {
+                    var str = "API status <b>OK</b> - Next request in <b>0" + seconds + "</b> second";
+                  } else {
+                    var str = "API status <b>OK</b> - Next request in <b>0" + seconds + "</b> seconds";
+                  }
+                }
+                if (seconds <= 0) clearInterval(countdownId);
+                if (countdownId > 0) document.getElementById("test").innerHTML = str;
+              }
+              var countdownId = window.setInterval(countdown, 1000);
+              console.log("countdownId: " + countdownId);
+            } else {
+              var str = "API status <b>ERROR</b>";
+              document.getElementById("test").innerHTML = str;
+            }
+          },
+          complete: function () {
+            setTimeout(function () {
+              for (var i = 0; i < coinsPerPage; i++) {
+                var select = document.getElementsByClassName("page__content")[1];
+                select.removeChild(select.lastChild);
+              }
+              sendAjax(ajaxUrl, ajaxEndpoint, ajaxMethod, ajaxDataType, ajaxParameters);
+            }, 60000);
+          },
+          error: function (xhr, resp, text) {
+            console.log(xhr, resp, text);
+          },
+        });
+      }
+
+      //Onsen UI
+      window.fn = {};
+
+      window.fn.open = function () {
+        var menu = document.getElementById("menu");
+        menu.open();
+      };
+
+      window.fn.load = function (page) {
+        var content = document.getElementById("content");
+        var menu = document.getElementById("menu");
+        content.load(page).then(menu.close.bind(menu));
+      };
+
+      var app = {};
+
+      app.filterSelectCurrency = function () {
+        ons
+          .openActionSheet({
+            title: "Select Price Currency",
+            cancelable: true,
+            buttons: [
+              "EUR",
+              "USD",
+              {
+                label: "Reset",
+                icon: "md-close",
+              },
+            ],
+          })
+          .then(function (index) {
+            var newCurrency = 0;
+            switch (index) {
+              case 0:
+                newCurrency = "EUR";
+                break;
+              case 1:
+                newCurrency = "USD";
+                break;
+              default:
+                newCurrency = "EUR";
+            }
+
+            var url = [location.protocol, "//", location.host, location.pathname].join("");
+            if (url.indexOf("?") > -1) {
+              url += "&coinsPerPage=" + coinsPerPage + "&coinsCurrency=" + newCurrency;
+            } else {
+              url += "?coinsPerPage=" + coinsPerPage + "&coinsCurrency=" + newCurrency;
+            }
+            if (newCurrency != coinsCurrency) window.location.href = url;
+          });
+      };
+
+      app.filterSelectPerPage = function () {
+        ons
+          .openActionSheet({
+            title: "Select Top Coins",
+            cancelable: true,
+            buttons: [
+              "25",
+              "50",
+              "100",
+              {
+                label: "Reset",
+                icon: "md-close",
+              },
+            ],
+          })
+          .then(function (index) {
+            var newPerPage = 0;
+            switch (index) {
+              case 0:
+                newPerPage = 25;
+                break;
+              case 1:
+                newPerPage = 50;
+                break;
+              case 2:
+                newPerPage = 100;
+                break;
+              default:
+                newPerPage = 25;
+            }
+
+            var url = [location.protocol, "//", location.host, location.pathname].join("");
+            if (url.indexOf("?") > -1) {
+              url += "&coinsPerPage=" + newPerPage + "&coinsCurrency=" + coinsCurrency;
+            } else {
+              url += "?coinsPerPage=" + newPerPage + "&coinsCurrency=" + coinsCurrency;
+            }
+            if (newPerPage != coinsPerPage) window.location.href = url;
+          });
+      };
+    </script>
+  </body>
+</html>
