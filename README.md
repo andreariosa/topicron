@@ -1,14 +1,14 @@
 # Introduction
 
-[TopiCron](https://topicron.com/) is my open source project that serves as a "playground" where I can experiment, keep up to date with new technologies and quickly access useful resources.
+[TopiCron](https://topicron.com) is my open source project that serves as a "playground" where I can experiment, keep up to date with new technologies and quickly access useful resources.
 
 ## What you find here
 
 ### Core
 
-Next.js project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) containing:
+Next.js project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app) containing:
 
-- An [app router](https://nextjs.org/learn) version of the [pages router](https://nextjs.org/learn-pages-router) tutorial for building a simple [blog](https://github.com/vercel/next-learn/tree/main/basics/demo).
+- An [app router](https://nextjs.org/learn) version of the [pages router](https://nextjs.org/learn/pages-router) tutorial for building a simple [blog](https://github.com/vercel/next-learn/tree/main/basics/demo).
 - An RSS parser.
 
 ### Extra
@@ -33,25 +33,35 @@ Then, visit [http://localhost:3000](http://localhost:3000) with a browser.
 
 # Dependencies
 
-| Package name | Link | Size | Import |
-| - | - | - | - |
-| `gray-matter` | [npm](https://www.npmjs.com/package/gray-matter) | [bundlephobia](https://bundlephobia.com/package/gray-matter) | **Blog** lib |
-| `remark` | [npm](https://www.npmjs.com/package/remark) | [bundlephobia](https://bundlephobia.com/package/remark) | **Blog** lib |
-| `remark-html` | [npm](https://www.npmjs.com/package/remark-html) | [bundlephobia](https://bundlephobia.com/package/remark-html) | **Blog** lib |
-| `rss-parser` | [npm](https://www.npmjs.com/package/rss-parser) | [bundlephobia](https://bundlephobia.com/package/rss-parser) | **RSS** lib |
-| `date-fns` | [npm](https://www.npmjs.com/package/date-fns) | [bundlephobia](https://bundlephobia.com/package/date-fns) | **Blog** + **RSS** components |
+| Package name  | Link                                             | Size                                                         | Import                        |
+| ------------- | ------------------------------------------------ | ------------------------------------------------------------ | ----------------------------- |
+| `gray-matter` | [npm](https://www.npmjs.com/package/gray-matter) | [bundlephobia](https://bundlephobia.com/package/gray-matter) | **Blog** lib                  |
+| `remark`      | [npm](https://www.npmjs.com/package/remark)      | [bundlephobia](https://bundlephobia.com/package/remark)      | **Blog** lib                  |
+| `remark-html` | [npm](https://www.npmjs.com/package/remark-html) | [bundlephobia](https://bundlephobia.com/package/remark-html) | **Blog** lib                  |
+| `rss-parser`  | [npm](https://www.npmjs.com/package/rss-parser)  | [bundlephobia](https://bundlephobia.com/package/rss-parser)  | **RSS** lib                   |
+| `date-fns`    | [npm](https://www.npmjs.com/package/date-fns)    | [bundlephobia](https://bundlephobia.com/package/date-fns)    | **Blog** + **RSS** components |
+
+For upgrades package.json dependencies to the latest versions:
+
+- If it is not already installed `npm install -g npm-check-updates`.
+- Then simply run `ncu`.
+- Once you're done, don't forget to `npm install`.
+- Finally check the result with `npm outdate`.
+
+> [!WARNING]
+> After such procedures it is always good not to forget to `npm audit` for a report of known vulnerabilities.
 
 # Best Practices
 
 ## Module dependencies ordering
 
-| Keyword  | Description                                            |
-| -------- | ------------------------------------------------------ |
-| Builtin  | Standard libraries.                                    |
-| External | Third party libraries.                                 |
-| Internal | Own code imports.                                      |
-| Specific | Imports specific to the module e.g. css, png, etc.     |
-| Test     | Code only used for tests.                              |
+| Keyword  | Description                                        |
+| -------- | -------------------------------------------------- |
+| Builtin  | Standard libraries.                                |
+| External | Third party libraries.                             |
+| Internal | Own code imports.                                  |
+| Specific | Imports specific to the module e.g. css, png, etc. |
+| Test     | Code only used for tests.                          |
 
 ## Subject line terminology for committing
 

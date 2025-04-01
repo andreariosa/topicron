@@ -3,7 +3,8 @@ import Link from "next/link";
 import { getFeedData, getFeedRssData } from "@/lib/rss/parser";
 import RssDate from "@/components/rss/date";
 
-export async function generateMetadata({ params }) {
+export async function generateMetadata(props) {
+  const params = await props.params;
   const feed = await getFeedData(params.slug);
 
   return {
@@ -11,7 +12,8 @@ export async function generateMetadata({ params }) {
   };
 }
 
-export default async function Feed({ params }) {
+export default async function Feed(props) {
+  const params = await props.params;
   const feed = await getFeedData(params.slug);
   const rss = await getFeedRssData(feed.url);
 

@@ -3,7 +3,8 @@ import Link from "next/link";
 import { getPostData } from "@/lib/blog/posts";
 import BlogDate from "@/components/blog/date";
 
-export async function generateMetadata({ params }) {
+export async function generateMetadata(props) {
+  const params = await props.params;
   const postData = await getPostData(params.id);
 
   return {
@@ -11,7 +12,8 @@ export async function generateMetadata({ params }) {
   };
 }
 
-export default async function Post({ params }) {
+export default async function Post(props) {
+  const params = await props.params;
   const postData = await getPostData(params.id);
 
   return (
