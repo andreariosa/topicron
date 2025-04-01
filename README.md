@@ -51,6 +51,11 @@ For upgrades package.json dependencies to the latest versions:
 > [!WARNING]
 > After such procedures it is always good not to forget to `npm audit` for a report of known vulnerabilities.
 
+## Update
+
+Upgrading the framework version introduces several breaking changes that require careful attention, here is the link to the official upgrade guide:
+https://nextjs.org/docs/app/building-your-application/upgrading
+
 # Best Practices
 
 ## Module dependencies ordering
