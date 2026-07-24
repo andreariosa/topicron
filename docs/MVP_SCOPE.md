@@ -1,6 +1,8 @@
 # MVP scope
 
-*This document applies the five operating principles in [`VISION.md`](VISION.md) to produce a concrete answer to "what are we actually building." It implements ADR-0001, Part 4 ("Updated scope"); decisions are cited inline as "ADR-0001, D-XX."*
+*This document applies the five operating principles in [`VISION.md`](VISION.md) to produce a concrete answer to "what are we actually building." It implements ADR-0001, Part 4 ("Updated scope"), constrained further by the free-tier-first execution rules in ADR-0002. Decisions are cited inline as "ADR-0001, D-XX" or "ADR-0002, D-XX."*
+
+**Free-tier-first note (ADR-0002, D-19).** Every "in scope" item below is additionally constrained, for as long as Topicron remains a pre-revenue hobby project, to run on a free service tier or locally — no component may introduce a new recurring cost beyond the founder's existing Cursor and Claude Pro subscriptions. This changes *how* some in-scope items are executed, not *whether* they're in scope; see the Extraction, Topic synthesis, and Thesis generation rows below, and ADR-0002 in full.
 
 Three categories, in order of commitment: **in scope** (building this, now), **deferred** (not building this yet, and here is exactly what would change that), and **explicitly out** (not a backlog item — a boundary this product doesn't cross while it's structured this way).
 
@@ -9,14 +11,14 @@ Three categories, in order of commitment: **in scope** (building this, now), **d
 | Area | What's included | Traces to |
 |---|---|---|
 | Ingestion | Curated RSS feeds (10–15), deduped into `content_items` | — |
-| Extraction | Rule-based ticker/company matching, with an LLM fallback for ambiguous cases | — |
+| Extraction | Rule-based ticker/company matching; LLM fallback for ambiguous cases deferred during free-tier-first, logged for manual review instead | ADR-0002, D-20 |
 | Price & performance tracking | Daily price snapshots; daily performance snapshots computed against two benchmarks | D-03, D-14 |
-| Topic synthesis | LLM-driven, with explicit continuity resolution across runs; momentum is a trailing mention-count comparison computed in a query — no sentiment-scoring subsystem | D-12, D-06 |
-| Thesis generation | Bull case, bear case, named risks, confidence level, equal-weight suggested basket, paraphrased citations, hypothesis caveat | D-15 |
+| Topic synthesis | LLM-driven, with explicit continuity resolution across runs; founder-run via Claude Pro/Code during free-tier-first rather than a scheduled job; momentum is a trailing mention-count comparison computed in a query — no sentiment-scoring subsystem | D-12, D-06, ADR-0002 D-20 |
+| Thesis generation | Bull case, bear case, named risks, confidence level, equal-weight suggested basket, paraphrased citations, hypothesis caveat; founder-run via Claude Pro/Code during free-tier-first | D-15, ADR-0002 D-20 |
 | Portfolios | One system-generated hypothetical portfolio per published thesis; fixed 90-day hold, no discretionary exits | D-13 |
 | Publication | Public, indexable, shareable topic/thesis pages; weekly email digest via voluntary signup, no login wall | D-07, D-18 |
 | Track record | Public, including losing theses, updated daily, never quietly stopped or de-emphasized | `docs/VISION.md` |
-| Ops & QA | Sentry, PostHog, a code-enforced daily cost cap, a golden-set regression check, weekly manual QA sampling | D-16 |
+| Ops & QA | Sentry, PostHog, a code-enforced daily cost cap (dormant until ADR-0002, D-24 fires), a golden-set regression check (founder-run during free-tier-first), weekly manual QA sampling | D-16, ADR-0002 |
 
 Full mechanics behind each row: `docs/ARCHITECTURE.md` (system shape), `docs/DATA_MODEL.md` (schema), `docs/AI_SYSTEM.md` (agent behavior).
 
@@ -26,6 +28,7 @@ Nothing below is cut — each carries a specific, written condition that brings 
 
 | Deferred | What it would add | Trigger to reinstate |
 |---|---|---|
+| Claude API (automated, unattended pipeline) | Scheduled Haiku/Sonnet/Opus calls replacing the founder-run Claude Pro/Code sessions for extraction fallback, topic synthesis, and thesis generation | Real revenue exists, founder-run sessions consistently exceed ~3–4 hours/week, content volume outgrows what one session can responsibly cover, or the founder decides the ~$13–25/month is worth paying regardless (ADR-0002, D-24) |
 | Reddit ingestion | An earlier-signal source than curated RSS | M0's human-read comparison shows meaningful earliness over RSS, *and* revenue exists to fund the commercial API tier — the free tier is non-commercial-use only |
 | A separately deployed backend service (FastAPI) | A dedicated API layer independent of the frontend | A consumer appears that isn't our own frontend, or logic emerges that can't live in a scheduled job or a Supabase RPC |
 | Celery + Redis | Task retries and controlled concurrency for background jobs | Retries or concurrency are genuinely required — not anticipated at MVP scale |
@@ -37,7 +40,7 @@ Nothing below is cut — each carries a specific, written condition that brings 
 | Additional data sources (beyond the curated RSS list) | Broader topic coverage | Validated retention from M5 justifies the ingestion and QA overhead of more sources |
 | Paid market data (Massive.com, formerly Polygon.io) | Real-time quotes instead of Finnhub's free-tier delay | Revenue exists to justify the upgrade over free-tier Finnhub |
 
-The reasoning behind each trigger — particularly Reddit (D-10), the dropped backend service (D-04), and topic continuity's `pgvector` fallback (D-12) — is in ADR-0001 in full; this table states the resulting condition, not the argument for it.
+The reasoning behind each trigger — particularly Reddit (D-10), the dropped backend service (D-04), topic continuity's `pgvector` fallback (D-12), and the free-tier-first AI pipeline (ADR-0002, D-20/D-24) — is in ADR-0001 and ADR-0002 in full; this table states the resulting condition, not the argument for it.
 
 ## Explicitly out of scope
 

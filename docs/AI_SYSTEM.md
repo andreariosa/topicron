@@ -1,16 +1,18 @@
 # AI system design
 
-*This document covers agent responsibilities, input/output contracts, and evaluation. It implements the AI-pipeline decisions in ADR-0001 — D-02, D-05 (versioning fields), D-06, D-12, D-13, D-14, D-15, D-16. System-level job cadence is in [`ARCHITECTURE.md`](ARCHITECTURE.md); schema is in [`DATA_MODEL.md`](DATA_MODEL.md). Decisions are cited inline as "ADR-0001, D-XX."*
+*This document covers agent responsibilities, input/output contracts, and evaluation. It implements the AI-pipeline decisions in ADR-0001 — D-02, D-05 (versioning fields), D-06, D-12, D-13, D-14, D-15, D-16 — and the execution-mode changes in ADR-0002, D-20. System-level job cadence is in [`ARCHITECTURE.md`](ARCHITECTURE.md); schema is in [`DATA_MODEL.md`](DATA_MODEL.md). Decisions are cited inline as "ADR-0001, D-XX" or "ADR-0002, D-XX."*
+
+**Free-tier-first note (ADR-0002).** Everything below describes the pipeline's full designed behavior — the state it runs in once reinstated per ADR-0002, D-24. Until that trigger fires, `extract/`'s LLM fallback is deferred and `synth/`/`thesis/` run as founder-triggered sessions through Claude Code or claude.ai rather than scheduled API calls. The input/output contracts, prompts, and schemas below are identical either way — see the "Free-tier-first execution mode" note under each affected agent.
 
 ## Pipeline shape
 
-Extraction → topic synthesis (with continuity resolution) → thesis generation, all running as background jobs against stored data — the `extract/`, `synth/`, and `thesis/` jobs in `docs/ARCHITECTURE.md`. A separate, non-AI evaluation mechanism (the `perf/` job) closes the loop. No agent framework (LangGraph, CrewAI, AutoGen) — a plain sequential pipeline of typed calls to the Claude API is enough for what is fundamentally a linear process, and is far easier to debug than a framework designed for autonomous multi-step planning.
+Extraction → topic synthesis (with continuity resolution) → thesis generation, all running as background jobs against stored data (or, during the free-tier-first MVP, founder-triggered sessions using the identical contracts — ADR-0002, D-20) — the `extract/`, `synth/`, and `thesis/` jobs in `docs/ARCHITECTURE.md`. A separate, non-AI evaluation mechanism (the `perf/` job) closes the loop. No agent framework (LangGraph, CrewAI, AutoGen) — a plain sequential pipeline of typed calls to Claude is enough for what is fundamentally a linear process, and is far easier to debug than a framework designed for autonomous multi-step planning.
 
 ## Agent 1: entity and ticker extractor
 
 **Responsibility:** identify which companies/tickers a piece of ingested content refers to.
 
-**Model:** Claude Haiku 4.5 — high volume, low complexity per call, the cheapest current tier that handles extraction reliably.
+**Model:** Claude Haiku 4.5, for the fallback path described below — dormant during free-tier-first (ADR-0002, D-20); see Free-tier-first execution mode, below.
 
 **Input:** raw `content_items` text, run hourly alongside `ingest/`, batched across many items per call rather than issued one at a time.
 
@@ -23,6 +25,8 @@ Extraction → topic synthesis (with continuity resolution) → thesis generatio
 ```
 
 **Notes:** rule-based matching (ticker regex + a company-alias dictionary) handles most cases cheaply; the model is used only as a fallback for ambiguous cases. Ticker collisions with common words are a real, recurring failure mode here — "ALL", "ARE", "IT", "ON", and "SO" are all real tickers (`docs/RISKS.md`, Entity resolution).
+
+**Free-tier-first execution mode (ADR-0002, D-20):** the Haiku fallback above is deferred for now — the free-tier-first MVP runs rule-based matching only. Ambiguous cases that would otherwise go to the model (the "ALL"/"ARE"/"IT"/"ON"/"SO" collision problem above) are logged instead of resolved automatically, and reviewed by the founder during the same session used for topic synthesis and thesis generation. This keeps the gap visible and auditable rather than silently degrading extraction quality. See ADR-0002 for the reinstatement trigger.
 
 ## Agent 2: topic synthesizer
 
@@ -46,6 +50,8 @@ Extraction → topic synthesis (with continuity resolution) → thesis generatio
 ```
 
 **Notes:** momentum is not part of this agent's output at all — see Momentum, below.
+
+**Free-tier-first execution mode (ADR-0002, D-20):** during the free-tier-first MVP, this agent doesn't run as a scheduled job calling the API directly. The founder runs the exact prompt above personally, via Claude Code (in Cursor or a terminal, authenticated through the existing Pro subscription — no separate API key) or directly in claude.ai — feeding in the same batch of recent `content_items` and the same active-topics context described under Input, above. Output follows the identical JSON contract and is loaded into `topics` and `topic_content_items` by hand (Supabase Studio's SQL editor, or a small local script using the service-role key) rather than by an automated write. Cadence moves from every 6 hours to whatever the founder sets — weekly is a reasonable starting point given no real reader base yet. Nothing about the continuity-resolution logic below changes; it's the same judgment call, made by a human running the same prompt instead of an unattended job.
 
 ### Topic continuity
 
@@ -104,9 +110,11 @@ Every citation requires a paraphrase, never a quoted excerpt of the source mater
 
 `starting_value` and `holding_period_days` are not part of the model's output — they're fixed system parameters the application attaches when a thesis is published (`docs/DATA_MODEL.md`), not something the model is asked to decide.
 
+**Free-tier-first execution mode (ADR-0002, D-20):** as with Agent 2, this runs as a founder-triggered session through Claude Code or claude.ai rather than a scheduled Opus 4.8 API call, during the free-tier-first MVP. Same input, same output contract, same citation-as-paraphrase rule. The founder reviewing every thesis before it's loaded into `theses` and published is a natural byproduct of running the prompt personally, not an extra step — it folds directly into the weekly manual QA sampling described below.
+
 ## Evaluation engine (not AI)
 
-The mechanism that actually judges whether a thesis was any good is not a model — it's arithmetic. The `perf/` job (`docs/ARCHITECTURE.md`; `docs/DATA_MODEL.md`) tracks each thesis's hypothetical position values against `price_snapshots` going forward, against both fixed benchmarks (`docs/DATA_MODEL.md`, Dual benchmarks) — never against a single benchmark alone, since a rising market by itself would make every thesis look prescient regardless of whether the underlying narrative call was any good. This is deterministic, auditable, and is the entire mechanism behind the product's accountability claim. Do not use an LLM to grade its own — or another thesis's — accuracy; use real subsequent market data as ground truth.
+The mechanism that actually judges whether a thesis was any good is not a model — it's arithmetic. The `perf/` job (`docs/ARCHITECTURE.md`; `docs/DATA_MODEL.md`) tracks each thesis's hypothetical position values against `price_snapshots` going forward, against both fixed benchmarks (`docs/DATA_MODEL.md`, Dual benchmarks) — never against a single benchmark alone, since a rising market by itself would make every thesis look prescient regardless of whether the underlying narrative call was any good. This is deterministic, auditable, and is the entire mechanism behind the product's accountability claim. Do not use an LLM to grade its own — or another thesis's — accuracy; use real subsequent market data as ground truth. This job has no LLM involvement at all, and is unaffected by free-tier-first: it already runs fully automated, on schedule, at zero marginal cost.
 
 The holding rule that governs every position (`docs/DATA_MODEL.md`, The 90-day holding rule) is fixed in advance of the first position ever opening, and is never adjusted retroactively. If the rule itself is ever revisited — a different holding period, a different benchmark pair — the change is written down and logged, and it applies only to theses published after the change. Positions already open finish out under the rule that opened them (ADR-0001, D-13).
 
@@ -119,9 +127,9 @@ This only works as a differentiator if losing theses are shown as prominently as
 - **Citations, not assertions.** Every claim in a thesis is expected to trace back to a `content_item` via the `citations` field — a paraphrase plus source metadata, never a verbatim excerpt (`docs/DATA_MODEL.md`; ADR-0001, D-15). A claim without a citation is a signal something went wrong upstream.
 - **Facts vs. inference.** Prompts separate what the source material actually says from what the model is inferring, so the UI can label each differently and readers can calibrate trust accordingly.
 - **Conservative language.** System prompts explicitly avoid confident phrasing ("will," "is going to") in favor of hedged phrasing ("could," "may"), and every thesis carries the "hypothesis, not advice" caveat as a first-class field, not just UI copy.
-- **Versioning.** Every generation logs `model_used` and `prompt_version` (`docs/DATA_MODEL.md`) — kept deliberately, against the instinct to trim them, because they're the only mechanism making a post-hoc quality regression diagnosable after a model or prompt change (ADR-0001, D-05).
-- **Golden-set regression testing.** A fixed set of inputs with known-good output characteristics — schema validity, no fabricated tickers outside the provided context, correct update-or-create resolution against a fixed set of active topics, and citations that read as paraphrases rather than near-verbatim excerpts — is run against the pipeline before any prompt change ships.
-- **Manual QA sampling.** During the beta, a sample of generated theses is read manually every week against a short rubric — grounded, non-generic, correctly cited — to catch regressions automated tests won't (`docs/MVP_SCOPE.md`).
+- **Versioning.** Every generation logs `model_used` and `prompt_version` (`docs/DATA_MODEL.md`) — kept deliberately, against the instinct to trim them, because they're the only mechanism making a post-hoc quality regression diagnosable after a model or prompt change (ADR-0001, D-05). During free-tier-first, recording these two fields is the founder's responsibility when loading a generation by hand — there's no automated harness doing it on their behalf, which is exactly why this stays a hard rule rather than a nice-to-have (`docs/ARCHITECTURE.md`, Load-bearing invariants).
+- **Golden-set regression testing.** A fixed set of inputs with known-good output characteristics — schema validity, no fabricated tickers outside the provided context, correct update-or-create resolution against a fixed set of active topics, and citations that read as paraphrases rather than near-verbatim excerpts — is run against the pipeline before any prompt change ships. During free-tier-first (ADR-0002), this check is run by the founder locally before a prompt change, rather than as an automated CI gate — same check, same bar, just not unattended yet.
+- **Manual QA sampling.** During the beta, a sample of generated theses is read manually every week against a short rubric — grounded, non-generic, correctly cited — to catch regressions automated tests won't (`docs/MVP_SCOPE.md`). During free-tier-first, this happens as a natural byproduct of the founder running every generation personally (D-20), rather than as a separate sampling step layered on top of an unattended pipeline.
 
 ## Evaluating AI-generated ideas
 
@@ -131,7 +139,9 @@ Historical runs — generating theses against past data to sanity-check the pipe
 
 ## Cost model
 
-A concrete estimate, not just a qualitative warning — an hour of arithmetic now is what tells us whether this pipeline is a hobby-scale expense or a problem-scale one, before a single user exists (ADR-0001, D-16).
+**Free-tier-first note (ADR-0002, D-20, D-24):** the estimate below describes the fully automated pipeline's cost once reinstated. During the free-tier-first MVP, `extract/`'s LLM fallback and the `synth/`/`thesis/` calls don't run against the metered API at all — actual spend is $0/month, because these stages run as founder-triggered Claude Code/claude.ai sessions under the existing Pro subscription instead. The figures below stay worth keeping accurate and current regardless, since they define exactly what "reinstated" costs, and that number is one of D-24's own reinstatement signals.
+
+A concrete estimate, not just a qualitative warning — an hour of arithmetic now is what tells us whether this pipeline is a hobby-scale expense or a problem-scale one, once it's running (ADR-0001, D-16).
 
 **Assumptions**, stated explicitly so they can be corrected once M1 produces real ingestion data:
 
@@ -150,10 +160,10 @@ A concrete estimate, not just a qualitative warning — an hour of arithmetic no
 | Thesis generation | ~$0.24 | ~$0.12 |
 | **Total** | **~$0.84/day** | **~$0.42/day** |
 
-Roughly **$25/month at standard rates, ~$13/month routed through the Batch API** — every job in this pipeline runs in the background with no latency requirement (`docs/ARCHITECTURE.md`), which is exactly the workload the Batch API's 50% discount exists for, so there's little reason not to use it.
+Roughly **$25/month at standard rates, ~$13/month routed through the Batch API** — every job in this pipeline runs in the background with no latency requirement (`docs/ARCHITECTURE.md`), which is exactly the workload the Batch API's 50% discount exists for, so there's little reason not to use it once this path is reinstated.
 
-This is a hobby-scale expense at the stated assumptions, not a problem-scale one. The assumptions are estimates, not commitments, and should be recalibrated the moment real ingestion volume exists.
+This is a hobby-scale expense at the stated assumptions, not a problem-scale one — though, per ADR-0002, "hobby-scale" and "acceptable" are no longer the same test during the free-tier-first MVP specifically. The assumptions are estimates, not commitments, and should be recalibrated the moment real ingestion volume exists.
 
-**The cap, not the estimate, is what actually protects the budget.** A daily spend cap — an initial $10/day, roughly 12–25x the modeled spend above, chosen for headroom rather than precision — is enforced in code, not just monitored by an alert. Every job checks logged spend against the cap before making a call; if the cap is breached, generation halts for the remainder of the day rather than degrading silently, and the halt itself raises a Sentry alert (ADR-0001, D-16). Raising the cap is a deliberate configuration change, never an emergency workaround typed in at 2 a.m.
+**The cap, not the estimate, is what actually protects the budget.** A daily spend cap — an initial $10/day, roughly 12–25x the modeled spend above, chosen for headroom rather than precision — is enforced in code, not just monitored by an alert. Every job checks logged spend against the cap before making a call; if the cap is breached, generation halts for the remainder of the day rather than degrading silently, and the halt itself raises a Sentry alert (ADR-0001, D-16). Raising the cap is a deliberate configuration change, never an emergency workaround typed in at 2 a.m. This cap should be written into the codebase now, even while dormant, so it's already in place the moment the automated path is reinstated (ADR-0002, D-24) rather than something to build under time pressure later.
 
-Every generation logs token counts and cost, tagged with the job, the model, and the prompt version, so a cost regression is as traceable as a quality one (`docs/ARCHITECTURE.md`, Load-bearing invariants).
+Every generation logs token counts and cost, tagged with the job, the model, and the prompt version, so a cost regression is as traceable as a quality one (`docs/ARCHITECTURE.md`, Load-bearing invariants) — once there's metered spend to log. During free-tier-first there's no token cost to track, since generation runs under the Pro subscription rather than the API; `model_used` and `prompt_version` are still recorded by hand for every generation regardless (see Versioning, above).

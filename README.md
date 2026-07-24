@@ -2,7 +2,7 @@
 
 **A research publication with a database behind it.** Topicron discovers investment narratives from public chatter and news, publishes structured, cited, hedged theses on a fixed weekly cadence, and tracks — publicly, on a pre-committed hold period, and including the losers — whether those theses actually played out against real market data. It is not a stock picker and not a robo-advisor: every output is a hypothesis to track, not a recommendation to act on.
 
-> **Governing decision record.** [`ADR-0001-mvp-scope-and-architecture.md`](./ADR-0001-mvp-scope-and-architecture.md) is the single source of truth for scope, architecture, and sequencing. It was approved following a skeptical-CTO review of the original planning set, and every document in this repository — including this one — has been rewritten to be consistent with it. Where a decision is cited below (for example, "ADR-0001, D-03"), the ID refers to a numbered decision inside the ADR; read the ADR itself for the full criticism, verdict, and rationale behind it.
+> **Governing decision records.** [`ADR-0001-mvp-scope-and-architecture.md`](./ADR-0001-mvp-scope-and-architecture.md) is the source of truth for scope, architecture, and sequencing — approved following a skeptical-CTO review of the original planning set. [`ADR-0002-free-tier-first-mvp.md`](./ADR-0002-free-tier-first-mvp.md) constrains *how* that plan is implemented while Topicron remains a pre-revenue hobby project: no new recurring cost beyond the founder's existing Cursor and Claude Pro subscriptions. Every document in this repository has been rewritten to be consistent with both. Where a decision is cited below (for example, "ADR-0001, D-03" or "ADR-0002, D-20"), the ID refers to a numbered decision inside the relevant ADR; read the ADRs themselves for full rationale.
 
 **Status:** Pre-build. This repository currently holds planning, architecture, and decision-record documentation only — no application code has been written yet. The active milestone is **M0 — Validate the writing** (see `docs/ROADMAP.md`); nothing beyond a hand-run concierge test and a landing page is expected to exist before that gate passes.
 
@@ -28,6 +28,7 @@ The track record is the year-two moat. It is not the launch pitch.
 - A research assistant, not a financial advisor — every output is a hypothesis to track, not a recommendation to act on.
 - Topic discovery first, stock picking second — the entry point is always a narrative gaining traction, not a ticker to buy.
 - Accountability as the product — every AI-generated thesis gets a hypothetical portfolio, held for a fixed 90-day period with no discretionary exits (ADR-0001, D-13), tracked daily against two benchmarks (ADR-0001, D-14), and published unedited, win or lose.
+- Built free-tier-first, for now. While Topicron is a pre-revenue hobby project, no part of the stack costs anything beyond the founder's existing Cursor and Claude Pro subscriptions — everything else runs on a free service tier or locally (ADR-0002).
 
 ## What this isn't
 
@@ -42,11 +43,11 @@ Full reasoning behind all of the above: `docs/VISION.md`.
 
 Complete in-scope, deferred (with reinstatement triggers), and out-of-scope lists: `docs/MVP_SCOPE.md`.
 
-**Building first:** curated RSS ingestion, ticker/company extraction, and daily price snapshots. The performance-tracking clock starts here, in M1 — not in M4 as originally planned — because cached daily price history is the one component in this entire plan whose value compounds with elapsed time regardless of how good the AI pipeline turns out to be (ADR-0001, D-03).
+**Building first:** curated RSS ingestion, ticker/company extraction (rule-based, with the LLM fallback for ambiguous cases deferred for now — `ADR-0002-free-tier-first-mvp.md`), and daily price snapshots. The performance-tracking clock starts here, in M1 — not in M4 as originally planned — because cached daily price history is the one component in this entire plan whose value compounds with elapsed time regardless of how good the AI pipeline turns out to be (ADR-0001, D-03).
 
-**Building next:** LLM-driven topic synthesis, with explicit topic-continuity resolution so a narrative doesn't fragment into duplicate topics across pipeline runs (ADR-0001, D-12); thesis generation with citations; and the first system-generated hypothetical portfolios, opened under the fixed 90-day holding rule and tracked against dual benchmarks (ADR-0001, D-13, D-14).
+**Building next:** LLM-driven topic synthesis, with explicit topic-continuity resolution so a narrative doesn't fragment into duplicate topics across pipeline runs (ADR-0001, D-12), and thesis generation with citations — both founder-run through Claude Code/claude.ai during the free-tier-first MVP rather than scheduled jobs (`ADR-0002-free-tier-first-mvp.md`, D-20); and the first system-generated hypothetical portfolios, opened under the fixed 90-day holding rule and tracked against dual benchmarks (ADR-0001, D-13, D-14).
 
-**Deliberately deferred, each with a written condition that brings it back:** Reddit ingestion — the free tier is non-commercial and the commercial tier starts in five figures a year, so this is a revenue-funded decision, not an MVP dependency — a separately deployed backend service, Celery/Redis, user auth and login, the interactive dashboard, watchlists, user-editable portfolios, additional data sources, and paid market data.
+**Deliberately deferred, each with a written condition that brings it back:** the fully automated, API-billed version of the AI pipeline — Reddit ingestion — a separately deployed backend service, Celery/Redis, user auth and login, the interactive dashboard, watchlists, user-editable portfolios, additional data sources, and paid market data.
 
 **Explicitly out of scope, not deferred at all:** personalized recommendations of any kind, real trades, published backtests, and a handful of other boundaries this product doesn't cross regardless of how retention looks — full list in `docs/MVP_SCOPE.md`, regulatory reasoning behind the personalization boundary specifically in `docs/RISKS.md`.
 
@@ -54,14 +55,14 @@ Complete in-scope, deferred (with reinstatement triggers), and out-of-scope list
 
 | Layer | Choice | Notes |
 |---|---|---|
-| Frontend | Next.js + TypeScript + Tailwind | Deployed on Vercel; public pages read Postgres via the Supabase client with row-level security |
+| Frontend | Next.js + TypeScript + Tailwind | Deployed on Vercel (Hobby); public pages read Postgres via the Supabase client with row-level security |
 | Backend service | None in the MVP | Dropped per ADR-0001, D-04 — no FastAPI, no Railway |
-| Background jobs | Python scripts on scheduled GitHub Actions | Ingestion, extraction, topic synthesis, thesis generation, price and performance snapshots |
-| Database | Postgres (Supabase) | Bundles auth — provisioned but unused until user-specific state exists (ADR-0001, D-07) |
-| AI | Claude API | Batch jobs only — never called synchronously inside a request |
+| Background jobs | Python scripts on scheduled GitHub Actions | Ingestion, extraction (rule-based), and price/performance snapshots are fully automated. Topic synthesis and thesis generation are founder-triggered during free-tier-first (ADR-0002, D-20) |
+| Database | Postgres (Supabase, free tier) | Bundles auth — provisioned but unused until user-specific state exists (ADR-0001, D-07) |
+| AI | Claude Pro + Claude Code (founder-run), for now | Zero incremental cost, via Cursor or claude.ai; the automated, metered Claude API pipeline is deferred (`ADR-0002-free-tier-first-mvp.md`, D-20/D-24) |
 | Market data | Finnhub (free tier) | |
-| Email | Resend | Weekly digest; pulled into the MVP stack per ADR-0001, D-18 |
-| Ops | Sentry, PostHog | Error tracking and product analytics |
+| Email | Resend (free tier) | Weekly digest; pulled into the MVP stack per ADR-0001, D-18. Requires one registered domain (ADR-0002, D-22) |
+| Ops | Sentry, PostHog (free tiers) | Error tracking and product analytics |
 
 Full rationale, trade-offs, and reinstatement triggers for every deferred choice: `docs/TECH_STACK.md`.
 
@@ -71,6 +72,7 @@ Full rationale, trade-offs, and reinstatement triggers for every deferred choice
 |---|---|
 | `README.md` | This file — positioning, condensed scope and stack, documentation index |
 | `ADR-0001-mvp-scope-and-architecture.md` | The governing decision record — source of truth for every scope, architecture, and sequencing decision referenced below |
+| `ADR-0002-free-tier-first-mvp.md` | Free-tier-first implementation constraint — which pipeline stages run founder-triggered vs. automated, and why, while Topicron is a pre-revenue hobby project |
 | `docs/VISION.md` | Full positioning: what this is and isn't, why it exists, the primary persona and anti-persona, why it's useful before the track record exists |
 | `docs/MVP_SCOPE.md` | Complete in-scope, deferred (with reinstatement triggers), and explicitly-out-of-scope lists |
 | `docs/ARCHITECTURE.md` | System design: module boundaries, data flow, deployment strategy |
