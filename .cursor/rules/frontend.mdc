@@ -1,0 +1,20 @@
+---
+description: TypeScript / Next.js conventions for the frontend
+globs: app/**/*.{ts,tsx}
+---
+
+# TypeScript / Next.js conventions — app/
+
+- Server components by default (App Router); reach for a client
+  component only when the interactivity genuinely requires it.
+- Tailwind + shadcn/ui, per docs/ARCHITECTURE.md — no second component
+  library "just for this one screen."
+- Data fetching reads Postgres through the Supabase client with
+  row-level security, per the frozen architecture (docs/ARCHITECTURE.md).
+  There is no backend service to call instead, and suggesting one is
+  out of scope without an ADR (AGENTS.md §9).
+- No `any`. A type that's genuinely hard to express is a signal to
+  simplify the function, not to escape-hatch around it.
+- No LLM call anywhere in this directory, client- or server-side, that
+  a page load would wait on. This is repository invariant 1
+  (AGENTS.md §5) and it applies here without exception.

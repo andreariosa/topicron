@@ -1,0 +1,26 @@
+---
+description: Python coding conventions for the jobs/ package
+globs: jobs/**/*.py
+---
+
+# Python conventions — jobs/
+
+- Type hints on every function signature — this is a small codebase
+  maintained by one person, and types are cheaper than the bugs they'd
+  otherwise cost.
+- One clear entrypoint per job (jobs/ingest, extract, prices, synth,
+  thesis, perf, digest) — a main() a scheduler can call, not a class
+  hierarchy.
+- Raise on failure; don't swallow an exception to keep a job "green."
+  A job that fails loudly once is cheaper than one that silently drops
+  data for a month.
+- A docstring explains *why* a function exists or names a non-obvious
+  edge case (market-calendar handling, a ticker-collision workaround) —
+  not what the code already says plainly.
+- Reach for the standard library and the dependencies already named in
+  docs/TECH_STACK.md before adding a new package for one function's
+  worth of convenience.
+- Lint/format: ruff covers both and is the standard modern choice at
+  this project's size — pick it and move on; it's not worth more
+  deliberation than this sentence (docs/TECH_STACK.md treats comparable
+  low-stakes picks, like Resend vs. Postmark, the same way).

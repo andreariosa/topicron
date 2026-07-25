@@ -1,6 +1,6 @@
 # ADR-0001 — MVP scope, architecture, and sequencing
 
-**Status:** Proposed
+**Status:** Accepted
 **Date:** 2026-07-23
 **Context:** Adjudication of the skeptical-CTO review of the pre-build planning set (`README`, `ARCHITECTURE`, `DATA_MODEL`, `AI_SYSTEM`, `ROADMAP`, `RISKS`).
 **Decision owners:** founder + technical co-founder
@@ -88,7 +88,7 @@ Each criticism from the review is classified ACCEPT / PARTIALLY ACCEPT / REJECT,
 |---|---|---|
 | `SentimentSnapshot` (table) | **ACCEPT — cut** | An entire table serving the one capability `RISKS.md` calls commoditized. See D-06. |
 | `Portfolio.user_id` | **ACCEPT — cut** | No user portfolios before M6. Every MVP portfolio is system-generated. |
-| `Topic.status` (4 states) | **ACCEPT — reduce** | Collapse to `active` / `archived`. `emerging` vs `trending` is a query over mention counts, not stored state. |
+| `Topic.status` (4 states) | **ACCEPT — reduce** | Collapse to `active` / `archived`. `emerging` vs. `trending` is a query over mention counts, not stored state. |
 | `Thesis.status` draft/published | **ACCEPT — cut** | One publisher. A `published_at` timestamp (nullable) covers it. |
 | `Position.exit_price` / `exit_date` | **REJECT — keep** | The review contradicted itself: D-13 mandates a fixed holding period, which *requires* exit fields. They are load-bearing from week one. |
 | `Thesis.version`, `model_used`, `prompt_version` | **REJECT — keep** | Three columns, near-zero cost, and they are the only mechanism making a post-hoc quality regression diagnosable. Cutting audit metadata to save three columns is false economy. |

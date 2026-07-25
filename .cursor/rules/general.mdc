@@ -1,0 +1,19 @@
+---
+description: Topicron non-negotiables
+alwaysApply: true
+---
+
+# Non-negotiables
+
+- Never violate ADR-0001 or ADR-0002. Both are frozen (AGENTS.md §2).
+- Never modify architecture (services, schema shape, job cadence, stack)
+  without first drafting a new ADR (AGENTS.md §9).
+- Never add a dependency or service without a one-line justification, and
+  never one with a new recurring cost beyond Cursor + Claude Pro (ADR-0002).
+- Never implement a feature outside docs/MVP_SCOPE.md's in-scope table.
+- Never optimize prematurely — this project has zero users.
+- Never leave docs/*.md behind a code change that affects an invariant,
+  a schema table, a milestone deliverable, or a deferred item's status.
+- Stop and ask, don't guess, when uncertainty is genuinely high
+  (AGENTS.md §6: money, schema reintroduction, sequencing, regulatory
+  copy, anything Reddit-shaped).

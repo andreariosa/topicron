@@ -1,6 +1,6 @@
 # ADR-0002 — Free-tier-first MVP
 
-**Status:** Proposed
+**Status:** Accepted
 **Date:** 2026-07-24
 **Context:** Founder-directed cost constraint applied to the already-agreed plan in `ADR-0001-mvp-scope-and-architecture.md`.
 **Decision owners:** founder + technical co-founder

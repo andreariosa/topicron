@@ -1,0 +1,25 @@
+---
+description: Testing expectations for arithmetic-critical business logic — the 90-day holding rule, momentum query, and portfolio return calculation
+---
+
+# Testable business logic
+
+Three things in this codebase are the arithmetic the entire
+accountability claim rests on, and deserve tests before almost
+anything else does:
+
+- The 90-day holding rule's exit-date math (docs/DATA_MODEL.md) —
+  including the weekend/holiday roll-forward. Write the market-calendar
+  edge cases as explicit test cases, not just the happy path.
+- The momentum query (trailing 48h mention count vs. a trailing
+  baseline, docs/AI_SYSTEM.md) — it's read-time computed and stored
+  nowhere, which makes a silent regression here invisible until someone
+  notices a topic never crosses the momentum threshold.
+- The portfolio return calculation (Σ(weight × price_now / price_entry)
+  − 1, docs/ARCHITECTURE.md) — simple arithmetic, and simple arithmetic
+  is exactly the kind of thing that's easy to get subtly wrong once and
+  never notice.
+
+Test runner: pytest for the Python jobs, Vitest or Jest for the
+frontend — pick one the first time a test is actually needed, and
+don't spend longer on the choice than it takes to read this sentence.
