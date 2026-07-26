@@ -1,16 +1,16 @@
 # PROJECT_STATE.md
 
-*The single, live answer to "where is this project right now" — for the founder and for any AI assistant starting a session cold. Update this whenever a milestone gate passes, an ADR's status changes, a deferred trigger fires, or a priority shifts (`AGENTS.md` §8's docs-sync discipline applies to this file at least as much as any other document). Last updated: 2026-07-25 — ADR-0001/ADR-0002 confirmed Accepted and `.cursor/rules/*.mdc` generated this session; see Known technical debt below for what's still open.*
+*The single, live answer to "where is this project right now" — for the founder and for any AI assistant starting a session cold. Update this whenever a milestone gate passes, an ADR's status changes, a deferred trigger fires, or a priority shifts (`AGENTS.md` §8's docs-sync discipline applies to this file at least as much as any other document). Last updated: 2026-07-26 — M0 concierge-test write-ups started (2 of 10–20 done, intervention log live in `m0/`); branch protection on `main` deliberately deferred for now, not forgotten.*
 
 ## Current phase
 
-Pre-build. Planning, architecture, and repository-governance documentation are complete; M0 hasn't started in substance. The repository holds `docs/*.md`, `docs/ADR/ADR-0001` and `ADR-0002`, and the six process files this phase of work produced (`AGENTS.md`, `CLAUDE.md`, `CURSOR_RULES.md`, `DECISIONS.md`, `CONTRIBUTING.md`, this file). No application code exists yet.
+Pre-build for application code; M0 concierge test in progress. Planning, architecture, and repository-governance documentation are complete. The repository holds `docs/*.md`, `docs/ADR/ADR-0001` and `ADR-0002`, the six process files this earlier phase of work produced (`AGENTS.md`, `CLAUDE.md`, `CURSOR_RULES.md`, `DECISIONS.md`, `CONTRIBUTING.md`, this file), and now `m0/` — the first hand-written topic-and-thesis write-ups plus a running intervention log. No application code exists yet.
 
-Worth saying plainly, since accuracy is this file's entire job: everything built so far is infrastructure for building the product, not the product itself. Topicron's actual core hypothesis — whether a target-persona reader finds a hand-written thesis genuinely useful — hasn't been tested. That test is M0, and M0 hasn't happened yet.
+Worth saying plainly, since accuracy is this file's entire job: everything built so far, including the two write-ups now in `m0/`, is still validating the core hypothesis, not building the product itself. Topicron's actual core hypothesis — whether a target-persona reader finds a hand-written thesis genuinely useful — is now testable in principle, but hasn't been tested yet: no target-persona reader has seen either write-up.
 
 ## Completed milestones
 
-None. M0 is the first milestone in `docs/ROADMAP.md` and hasn't been substantively started (see below).
+None. M0 is the first milestone in `docs/ROADMAP.md` and is in progress (see below).
 
 ## Active milestone
 
@@ -19,8 +19,8 @@ None. M0 is the first milestone in `docs/ROADMAP.md` and hasn't been substantive
 | # | Task | Status |
 |---|---|---|
 | 1 | File the Reddit API developer application | Not started |
-| 2 | Hand-write 10–20 topic-and-thesis write-ups, with an intervention log | Not started |
-| 3 | Write down the primary persona; share write-ups with 5–10 target-persona readers | **Persona done** (`docs/VISION.md`, `README.md`) — sharing depends on task 2 |
+| 2 | Hand-write 10–20 topic-and-thesis write-ups, with an intervention log | **In progress** — 2 of 10–20 done (`m0/topic-thesis-01-ai-power-utilities.md`, `m0/topic-thesis-02-glp1-duopoly.md`); intervention log live at `m0/intervention-log.md` |
+| 3 | Write down the primary persona; share write-ups with 5–10 target-persona readers | **Persona done** (`docs/VISION.md`, `README.md`) — sharing not yet started, depends on task 2 progressing further |
 | 4 | Read relevant subreddits by hand; log earliness vs. curated RSS | Not started |
 | 5 | Landing page, email list, distribution list; confirm Finnhub/Supabase/Claude access; finalize RSS feeds | Not started |
 | 6 | Scaffold the repo (Next.js/Vercel, `jobs/`, GitHub Actions, initial migration) | Not started |
@@ -29,7 +29,7 @@ None. M0 is the first milestone in `docs/ROADMAP.md` and hasn't been substantive
 | 9 | Topic synthesizer + thesis generator (structured output, golden-set check) | Not started |
 | 10 | Open first positions, start `performance_snapshots`, build public pages + email | Not started |
 
-**M0 gate:** not evaluable yet — there are no write-ups to show target-persona readers.
+**M0 gate:** not evaluable yet — write-ups exist but haven't been shown to target-persona readers.
 
 ## Pending milestones
 
@@ -55,13 +55,12 @@ Next ID if a new ADR is drafted: **ADR-0003** (decision registry continues at **
 
 ## Known technical debt
 
-No application code exists yet, so there's no code-level debt. All six governance files are written, and `CURSOR_RULES.md` is now also live as `.cursor/rules/*.mdc` (`general`, `python-jobs`, `frontend`, `testing`). What remains open:
+No application code exists yet, so there's no code-level debt. All six governance files are written, `CURSOR_RULES.md` is live as `.cursor/rules/*.mdc`, and the documentation set is confirmed live and current on the public repo. What remains open:
 
 | Item | Status |
 |---|---|
-| Live GitHub repo predates ADR-0002 — pushed `README.md` doesn't mention it, and its ADR link path doesn't match `docs/ADR/` | Open — the founder needs to push the current doc set; no tool in this session has git/network access to do it directly |
-| Branch protection on `main` not yet configured, per `CONTRIBUTING.md` §1 | Open — only one commit exists so far |
-| Whether this governance-layer work should retroactively become ADR-0003 | Undecided, not urgent |
+| Branch protection on `main` not yet configured, per `CONTRIBUTING.md` §1 | Open, deliberately deferred for now — `CONTRIBUTING.md`'s PR/CI discipline formally applies "from M1's first scaffolding commit onward," so this isn't overdue, but it's worth configuring before M1's first scaffolding commit |
+| Whether this governance-layer work should retroactively become ADR-0003 | Undecided, not urgent — per `DECISIONS.md` §2's own criteria (an ADR is needed for scope, architecture, gate, or decision changes), this is process documentation and likely doesn't need one |
 
 ## Deferred features
 
@@ -71,16 +70,17 @@ Reddit ingestion · the automated, metered Claude API pipeline · a deployed bac
 
 ## Current priorities
 
-1. **Push the current documentation set to the live repository** (the one remaining gap in Known technical debt) — everything else this session flagged is already resolved.
-2. **Start M0 for real.** Governance and architecture are no longer the bottleneck — zero topic-and-thesis write-ups exist, and the entire product bet is untested until target-persona readers see some. This is the priority, not a formality that comes after the "real" work: `docs/RISKS.md` and `docs/ROADMAP.md` both say a failed M0 gate should stop the project before a line of pipeline code gets written.
-3. Everything else in `docs/ROADMAP.md`'s First 10 tasks can run alongside (2) — filing the Reddit application and standing up the landing page don't depend on the write-ups existing first.
+1. **Continue M0's core write-up work.** 2 of 10–20 topic-and-thesis write-ups are done (`m0/`); keep going, in parallel with (2), not before it.
+2. **Start the parallel M0 tracks that carry their own calendar-time lag:** file the Reddit API developer application (free, 2–4 week approval lag); stand up the landing page, email list, and distribution list; begin reading relevant subreddits by hand for the earliness comparison. None of these depend on all 10–20 write-ups existing first.
+3. Once 5–10 target-persona readers exist and 10–20 write-ups are done: run the M0 gate (`docs/RISKS.md`'s "how would you feel if this no longer existed" question, plus the intervention-log review) before writing any pipeline code.
 
 ## Next actions
 
-1. Push the current documentation set to `main` so the live repo matches what this session's work was built against.
-2. Hand-write the first topic-and-thesis write-up, with the intervention log started alongside it (`docs/ROADMAP.md`, M0, task 2) — the single highest-value next unit of work.
-3. In parallel: file the Reddit API application; stand up the landing page and email list; draft the distribution list.
-4. Once 5–10 target-persona readers exist and 10–20 write-ups are done: run the M0 gate (`docs/RISKS.md`'s "how would you feel if this no longer existed" question, plus the intervention-log review) before writing any pipeline code.
+1. Keep writing topic-and-thesis write-ups toward the 10–20 target, updating `m0/intervention-log.md` alongside each one.
+2. File the Reddit API developer application — the one action whose delay compounds (2–4 week lag), worth doing today regardless of anything else in flight.
+3. Stand up the landing page and email list; draft the distribution list (named communities/channels where the "informed generalist" persona actually spends time).
+4. Read the relevant subreddits by hand in parallel, logging earliness vs. curated RSS.
+5. Once enough write-ups and a distribution list exist: recruit 5–10 target-persona readers and run the M0 gate.
 
 ## How to keep this file current
 
