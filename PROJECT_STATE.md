@@ -1,6 +1,6 @@
 # PROJECT_STATE.md
 
-*The single, live answer to "where is this project right now" — for the founder and for any AI assistant starting a session cold. Update this whenever a milestone gate passes, an ADR's status changes, a deferred trigger fires, or a priority shifts (`AGENTS.md` §8's docs-sync discipline applies to this file at least as much as any other document). Last updated: 2026-07-26 — M0 concierge-test write-ups started (2 of 10–20 done, intervention log live in `m0/`); branch protection on `main` deliberately deferred for now, not forgotten.*
+*The single, live answer to "where is this project right now" — for the founder and for any AI assistant starting a session cold. Update this whenever a milestone gate passes, an ADR's status changes, a deferred trigger fires, or a priority shifts (`AGENTS.md` §8's docs-sync discipline applies to this file at least as much as any other document). Last updated: 2026-07-26 — M0 landing page + email-capture endpoint live in `app/`; M0 concierge-test write-ups started (2 of 10–20 done, intervention log live in `m0/`); branch protection on `main` deliberately deferred for now, not forgotten.*
 
 ## Current phase
 
@@ -22,7 +22,7 @@ None. M0 is the first milestone in `docs/ROADMAP.md` and is in progress (see bel
 | 2 | Hand-write 10–20 topic-and-thesis write-ups, with an intervention log | **In progress** — 2 of 10–20 done (`m0/topic-thesis-01-ai-power-utilities.md`, `m0/topic-thesis-02-glp1-duopoly.md`); intervention log live at `m0/intervention-log.md` |
 | 3 | Write down the primary persona; share write-ups with 5–10 target-persona readers | **Persona done** (`docs/VISION.md`, `README.md`) — sharing not yet started, depends on task 2 progressing further |
 | 4 | Read relevant subreddits by hand; log earliness vs. curated RSS | Not started |
-| 5 | Landing page, email list, distribution list; confirm Finnhub/Supabase/Claude access; finalize RSS feeds | Not started |
+| 5 | Landing page, email list, distribution list; confirm Finnhub/Supabase/Claude access; finalize RSS feeds | **In progress** — landing page + email-capture endpoint live (`app/page.tsx`, `app/api/subscribe/route.ts`); distribution list and Finnhub/Supabase/Claude access confirmation still open |
 | 6 | Scaffold the repo (Next.js/Vercel, `jobs/`, GitHub Actions, initial migration) | Not started |
 | 7 | RSS ingestion connector + dedupe + ticker extraction | Not started |
 | 8 | Start `prices/` job | Not started |
