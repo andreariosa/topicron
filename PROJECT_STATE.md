@@ -1,6 +1,6 @@
 # PROJECT_STATE.md
 
-*The single, live answer to "where is this project right now" — for the founder and for any AI assistant starting a session cold. Update this whenever a milestone gate passes, an ADR's status changes, a deferred trigger fires, or a priority shifts (`AGENTS.md` §8's docs-sync discipline applies to this file at least as much as any other document). Last updated: 2026-07-28 — M0 write-ups at 6 of 10–20; distribution list and RSS feed list finalized (`m0/distribution-list.md`, `m0/rss-feeds.md`). Task 5 is functionally complete except for two account confirmations (Finnhub, Supabase) that require the founder's own action — steps are documented, outcome not yet reported back.*
+*The single, live answer to "where is this project right now" — for the founder and for any AI assistant starting a session cold. Update this whenever a milestone gate passes, an ADR's status changes, a deferred trigger fires, or a priority shifts (`AGENTS.md` §8's docs-sync discipline applies to this file at least as much as any other document). Last updated: 2026-07-28 — Task 5 of M0 is fully complete. Supabase access confirmed (publishable + secret keys, Postgres password, project URL all saved). Finnhub free-tier coverage of non-US exchanges tested directly and confirmed unavailable — a real finding, not an open question anymore (see Known Technical Debt).*
 
 ## Current phase
 
@@ -22,7 +22,7 @@ None. M0 is the first milestone in `docs/ROADMAP.md` and is in progress (see bel
 | 2 | Hand-write 10–20 topic-and-thesis write-ups, with an intervention log | **In progress** — 6 of 10–20 done: AI power demand/utilities, GLP-1 capacity buildout, European defense rearmament, US manufacturing reshoring, memory chip supercycle, regional banks (`m0/topic-thesis-01` through `06`). Intervention log live and current at `m0/intervention-log.md`. |
 | 3 | Write down the primary persona; share write-ups with 5–10 target-persona readers | **Persona done** (`docs/VISION.md`, `README.md`) — sharing not yet started, depends on task 2 progressing further |
 | 4 | Read relevant subreddits by hand; log earliness vs. curated RSS | Not started — the subreddit list in `m0/distribution-list.md` doubles as the starting point |
-| 5 | Landing page, email list, distribution list; confirm Finnhub/Supabase/Claude access; finalize RSS feeds | **Functionally complete, pending two confirmations.** Landing page + email capture: live and verified end-to-end. Distribution list: finalized (`m0/distribution-list.md`). RSS feeds: finalized (`m0/rss-feeds.md`), with a few exact URLs flagged for a quick manual grab from the publisher before M1 wires them in. Claude access: already satisfied (this entire project runs on it). **Open:** Finnhub and Supabase account/access confirmation — exact steps given to the founder, outcome not yet reported back. This also doubles as the resolution point for the open Finnhub non-US-exchange coverage question below. |
+| 5 | Landing page, email list, distribution list; confirm Finnhub/Supabase/Claude access; finalize RSS feeds | **Done.** Landing page + email capture: live and verified end-to-end. Distribution list: finalized (`m0/distribution-list.md`). RSS feeds: finalized (`m0/rss-feeds.md`). Claude access: already satisfied. Supabase: project created, publishable key, secret key, Postgres password, and project URL all saved (no schema needed yet — that's M1). Finnhub: API key confirmed working for US tickers; non-US exchange quotes confirmed unavailable on the free tier (see Known Technical Debt) — this is a resolved finding, not a blocker to closing this task. |
 | 6 | Scaffold the remaining repo pieces (`jobs/`, GitHub Actions, initial migration) | Not started |
 | 7 | RSS ingestion connector + dedupe + ticker extraction | Not started |
 | 8 | Start `prices/` job | Not started |
@@ -60,7 +60,7 @@ The only application code so far is the M0 landing page, live and verified. What
 | Item | Status |
 |---|---|
 | Branch protection on `main` not yet configured, per `CONTRIBUTING.md` §1 | Open, deliberately deferred — `CONTRIBUTING.md`'s PR/CI discipline formally applies "from M1's first scaffolding commit onward," so this isn't overdue, but worth configuring before M1's first scaffolding commit |
-| Finnhub free-tier coverage of non-US exchanges (XETRA, LSE, Euronext, Borsa Italiana) is unverified | Open, resolution steps given — the founder is testing directly via Finnhub's symbol-search and quote endpoints against the write-up 3 tickers as part of confirming Finnhub access for task 5. Update this line once the test result is known. |
+| Finnhub free tier does not cover quotes for non-US exchanges | **Confirmed, not just suspected** — tested directly on 2026-07-28: `AAPL` returns real data; `RHM.DE` (XETRA), `BA.L` (LSE), `HO.PA` (Euronext Paris), and `LDO.MI` (Borsa Italiana) all return an access-denied error on the same key. This is a real scope constraint going forward, not an open question: new write-ups should default to US-listed companies or US-listed ADRs unless a deliberate decision is made to pay for expanded Finnhub coverage (or another data source) — worth a one-line addition to `docs/TECH_STACK.md`'s Finnhub entry so this constraint is visible where the vendor choice itself is documented, not just here. |
 | Whether this governance-layer work should retroactively become ADR-0003 | Undecided, not urgent — per `DECISIONS.md` §2's own criteria (an ADR is needed for scope, architecture, gate, or decision changes), this is process documentation and likely doesn't need one |
 
 ## Deferred features
@@ -71,19 +71,17 @@ Reddit ingestion · the automated, metered Claude API pipeline · a deployed bac
 
 ## Current priorities
 
-1. **Confirm Finnhub and Supabase access** — the only two items keeping task 5 from being fully closed; steps documented, awaiting the founder's action and report-back.
-2. **File the Reddit API developer application**, referencing the live site.
-3. **Continue M0's core write-up work** — 6 of 10–20 done.
-4. Once 5–10 target-persona readers exist and 10–20 write-ups are done: run the M0 gate (`docs/RISKS.md`'s "how would you feel if this no longer existed" question, plus the intervention-log review) before writing any pipeline code.
+1. **File the Reddit API developer application**, referencing the live site — the only fully unblocked task with its own calendar-time lag left untouched.
+2. **Continue M0's core write-up work** — 6 of 10–20 done. Default to US-listed companies/ADRs given the confirmed Finnhub constraint above.
+3. Once 5–10 target-persona readers exist and 10–20 write-ups are done: run the M0 gate (`docs/RISKS.md`'s "how would you feel if this no longer existed" question, plus the intervention-log review) before writing any pipeline code.
 
 ## Next actions
 
-1. Run the Finnhub symbol-search + quote test (US ticker sanity check, then the four write-up-3 tickers) and report back the result.
-2. Create a Supabase project (free tier) — no schema needed yet, just the project and its API keys saved somewhere safe for M1.
-3. File the Reddit API developer application, referencing topicron.vercel.app directly in the use-case description.
-4. Keep writing topic-and-thesis write-ups toward the 10–20 target, updating `m0/intervention-log.md` alongside each one.
-5. Read the relevant subreddits in `m0/distribution-list.md` by hand, logging earliness vs. curated RSS.
-6. Once enough write-ups and reachable readers exist: recruit 5–10 target-persona readers (via `m0/distribution-list.md`) and run the M0 gate.
+1. File the Reddit API developer application, referencing topicron.vercel.app directly in the use-case description.
+2. Keep writing topic-and-thesis write-ups toward the 10–20 target (US-listed/ADR companies going forward), updating `m0/intervention-log.md` alongside each one.
+3. Read the relevant subreddits in `m0/distribution-list.md` by hand, logging earliness vs. curated RSS.
+4. Once enough write-ups and reachable readers exist: recruit 5–10 target-persona readers (via `m0/distribution-list.md`) and run the M0 gate.
+5. Optional, low-priority: add a one-line note to `docs/TECH_STACK.md`'s Finnhub entry documenting the confirmed non-US coverage gap.
 
 ## How to keep this file current
 
