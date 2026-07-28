@@ -53,3 +53,26 @@
 
 **Other observations:**
 - This topic sits closer to active government policy (tariffs, administration priorities) than the first three. Framed the bull/bear split around durability-of-policy vs. underlying-economics specifically so neither side reads as a political endorsement — the bull case is the structural/secular argument, the bear case is the legal-durability-plus-cost-economics argument, not a stance on tariff policy itself.
+
+## Write-up 5 — Memory Chip Supercycle: AI Demand Crowds Out Consumer Supply
+
+**Claims removed:**
+- Did not include Samsung or SK Hynix in the suggested basket despite both controlling the largest share of DRAM/HBM supply and appearing throughout the sourcing — both trade on the Korea Exchange (non-US), and given the already-open Finnhub non-US-coverage question from write-up 3, chose not to compound the same unresolved data question in a second basket. Kept to Micron and SanDisk, both cleanly US-listed.
+
+**Sentences rewritten:**
+- Bull case's framing of "unusual pricing power" was softened from an earlier draft that implied durability with more certainty than the sourcing supports.
+
+**Other observations:**
+- Deliberately different sector (semiconductors/memory) from all four prior write-ups. This is the first write-up where the single most useful data point (Bloomberg's ~700% YoY DRAM spot price figure) came from a source that was itself citing Bloomberg rather than Bloomberg directly — flagged here for transparency; the secondary source's citation of Bloomberg reads as credible given it's corroborated in direction (if not exact magnitude) by three other independent sources' contract-price figures.
+
+## Write-up 6 — Regional Banks Re-Rate on Yield Curve Normalization and a Seven-Year M&A Wave
+
+**Topics rejected before selection:**
+- Initially considered using KRE (the regional-bank ETF) as the linked ticker instead of individual companies, since the strongest, most current sourcing was sector-level rather than company-specific. Chose to search further instead, since DATA_MODEL.md's schema is built around individual companies and introducing an ETF would raise a new, avoidable schema question. Found clean multi-source support for two individual names (HBAN, WAL) instead.
+
+**Claims removed:**
+- An initial candidate source (transcriptai.substack.com) had specific loan-growth and NIM figures for Western Alliance and Wintrust, but on inspection those figures were from Q2 2025, not 2026 — over a year stale relative to the rest of this write-up's sourcing. Discarded entirely rather than mixed in with current data.
+- Did not add Webster Financial as a third basket name despite appearing on the same "strongest projected gains" list as HBAN and WAL — only single-source support, versus multi-source corroboration for the other two.
+
+**Other observations:**
+- Fourth different sector in a row (financials/banking), continuing the deliberate diversification from write-up 1's note.
