@@ -1,6 +1,6 @@
 # PROJECT_STATE.md
 
-*The single, live answer to "where is this project right now" — for the founder and for any AI assistant starting a session cold. Update this whenever a milestone gate passes, an ADR's status changes, a deferred trigger fires, or a priority shifts (`AGENTS.md` §8's docs-sync discipline applies to this file at least as much as any other document). Last updated: 2026-07-30 — 10 of 10-20 write-ups done (task 2's low end reached), spanning 8 distinct sectors. The Reddit API application (task 1) is deprioritized, not eliminated, given the task 4 finding raises the bar for Reddit ingestion ever being worth building. The natural next step is task 3: sharing the write-ups with 5-10 target-persona readers.*
+*The single, live answer to "where is this project right now" — for the founder and for any AI assistant starting a session cold. Update this whenever a milestone gate passes, an ADR's status changes, a deferred trigger fires, or a priority shifts (`AGENTS.md` §8's docs-sync discipline applies to this file at least as much as any other document). Last updated: 2026-07-30 — ADR-0003 accepted: a ten-section thesis structure (falsifiable hypothesis, valuation, catalysts, invalidation criteria, conviction-weighted baskets) replaces the original five-section format, prompted by four converging reader-feedback reviews. Write-ups 8 and 9 rewritten under it; write-up 8's rewrite corrected a major factual staleness (its "~29% drawdown" premise had inverted into a 60-109% YTD rally by the time of the rewrite). Write-ups 1-7 remain on the old format; backfilling them is optional. Task 3 (real reader recruitment) is still the main open item — this session's four documents were AI-model feedback, not target-persona readers, and don't substitute for it.*
 
 ## Current phase
 
@@ -19,7 +19,7 @@ None. M0 is the first milestone in `docs/ROADMAP.md` and is in progress (see bel
 | # | Task | Status |
 |---|---|---|
 | 1 | File the Reddit API developer application | **Deprioritized, not eliminated.** The task 4 finding (`m0/earliness-log.md`) raises the technical bar for Reddit ingestion ever being worth building — real entity-resolution logic would be needed, not naive keyword matching, since Reddit's own search conflates same-named but unrelated companies. The API's raw data plus custom filtering logic isn't proven equally unreliable, so this isn't ruled out — but the application process itself now has real friction too (privacy policy, rejection risk), so this is a low-cost hedge to revisit later, not an urgent task. |
-| 2 | Hand-write 10–20 topic-and-thesis write-ups, with an intervention log | **Low end of target reached** — 10 of 10–20 done: AI power demand/utilities, GLP-1 capacity buildout, European defense rearmament, US manufacturing reshoring, memory chip supercycle, regional banks, homebuilders, cybersecurity, airlines, solar energy (`m0/topic-thesis-01` through `10`), spanning 8 distinct sectors. Intervention log live and current at `m0/intervention-log.md`. Continuing toward 20 is optional now, not required to move to task 3. |
+| 2 | Hand-write 10–20 topic-and-thesis write-ups, with an intervention log | **Low end of target reached** — 10 of 10–20 done, spanning 8 distinct sectors (`m0/topic-thesis-01` through `10`). Write-ups 8 and 9 rewritten under the new ADR-0003 ten-section template (write-up 8's rewrite also corrected a major factual staleness — its premise had fully inverted since drafting). Write-ups 1–7 remain on the original format; backfilling them to the new template is optional, not required. Intervention log live and current at `m0/intervention-log.md`. Continuing toward 20 is optional, not required to move to task 3. |
 | 3 | Write down the primary persona; share write-ups with 5–10 target-persona readers | **Persona done** (`docs/VISION.md`, `README.md`) — with 10 write-ups now done, there's a presentable set to share; sharing itself has not started yet |
 | 4 | Read relevant subreddits by hand; log earliness vs. curated RSS | **Done, with a finding rather than a clean number.** Two separate attempts (manual sorted search, then a broader scrape across four phrases) found Reddit's native search unreliable for narrow financial narratives — including one search term ("Huntington Bancshares") that returned only an unrelated same-named company (Huntington Ingalls Industries), zero real matches. Documented in `m0/earliness-log.md`, with a recommendation to cross-reference it from `docs/RISKS.md` or `docs/MVP_SCOPE.md`'s Reddit-ingestion entry. |
 | 5 | Landing page, email list, distribution list; confirm Finnhub/Supabase/Claude access; finalize RSS feeds | **Done.** Landing page + email capture: live and verified end-to-end. Distribution list: finalized (`m0/distribution-list.md`). RSS feeds: finalized (`m0/rss-feeds.md`). Claude access: already satisfied. Supabase: project created, publishable key, secret key, Postgres password, and project URL all saved (no schema needed yet — that's M1). Finnhub: API key confirmed working for US tickers; non-US exchange quotes confirmed unavailable on the free tier (see Known Technical Debt) — this is a resolved finding, not a blocker to closing this task. |
@@ -50,8 +50,9 @@ Full deliverables and gates: `docs/ROADMAP.md`.
 |---|---|---|
 | ADR-0001 | `Accepted` (2026-07-25) | Fully reflected across the repository — every scope, architecture, and sequencing decision it made is already how the project is described and run |
 | ADR-0002 | `Accepted` (2026-07-25) | Fully reflected — the free-tier-first execution mode is already how `docs/AI_SYSTEM.md`, `docs/ARCHITECTURE.md`, `docs/TECH_STACK.md`, and `docs/MVP_SCOPE.md` describe the project |
+| ADR-0003 | `Accepted` (2026-07-30) | Partially reflected — write-ups 8 and 9 (`m0/`) follow the new ten-section thesis structure; write-ups 1-7 remain on the old format (backfill optional); `docs/AI_SYSTEM.md`'s Agent 3 output contract still needs updating to match before any pipeline work begins (M2), flagged in the ADR itself, not yet done |
 
-Next ID if a new ADR is drafted: **ADR-0003** (decision registry continues at **D-25** — `DECISIONS.md` §3).
+Next ID if a new ADR is drafted: **ADR-0004** (decision registry continues at **D-34** — `DECISIONS.md` §3).
 
 ## Known technical debt
 
@@ -71,7 +72,7 @@ Reddit ingestion · the automated, metered Claude API pipeline · a deployed bac
 
 ## Current priorities
 
-1. **Recruit 5–10 target-persona readers and share the write-ups** (task 3) — 10 write-ups across 8 sectors is now a presentable set; this is the main open item standing between here and the M0 gate.
+1. **Recruit 5–10 target-persona readers and share the write-ups** (task 3) — 10 write-ups across 8 sectors is now a presentable set; this remains the main open item standing between here and the M0 gate. (AI-model feedback on write-ups 8/9, used to inform ADR-0003, is not a substitute for this — no target-persona reader has seen any write-up yet.)
 2. Continuing write-ups toward 20 remains available but is now optional, not required.
 3. Low priority, no rush: the Reddit API developer application, if/when a specific reason to reinstate Reddit ingestion emerges.
 

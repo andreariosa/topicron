@@ -101,3 +101,21 @@
 - NextEra Energy (NEE) appears repeatedly in solar-sector sourcing and was a real candidate for this basket — excluded specifically because NEE is already a position in write-up 1's basket (AI power demand/utilities). Letting the same company anchor two different write-ups' baskets would create an unintentional overlapping position across otherwise-distinct theses. Used First Solar and Enphase instead, both well-corroborated independently of NextEra.
 
 **Milestone note:** this write-up brings the total to 10 of the 10-20 target for task 2 — the low end of the range is now met.
+
+## ADR-0003 — Thesis structure standard (2026-07-30)
+
+Four independently-obtained reviews of write-ups 8 and 9 converged on the same structural gaps without cross-referencing each other: no falsifiable hypothesis stated up front, no benchmark/threshold, no valuation context, no 90-day catalyst, no invalidation criteria distinct from Risks, Risks sections restating the Bear case, basket weights defaulting to equal-weight even when the thesis text argued differentiated conviction, and secondary-source-heavy citations where primaries existed. Formalized as ADR-0003 (D-25 through D-33) rather than treated as one-off polish, since the same gaps would likely recur in every future write-up without a structural requirement, and because this touches the eventual pipeline's output contract (`AI_SYSTEM.md`), not just these two documents.
+
+## Write-up 8 — major factual correction, not just a template pass
+
+While gathering valuation data to satisfy the new template (D-28), discovered the original write-up's entire premise had gone stale: it was built on a February 2026 source describing a ~29% AI-disruption-fear drawdown in CrowdStrike and Palo Alto Networks. A direct check found the opposite situation as of July 30: CrowdStrike +60% YTD, Palo Alto +79% YTD, Fortinet +109% YTD, all trading at rich-to-extreme multiples. This is exactly the staleness risk one of the four reviews (002.txt) named explicitly and specifically about this piece — confirmed, not just theoretically true.
+
+**Action taken:** did not patch the old narrative. Rebuilt the topic and thesis from the current situation — a valuation-dispersion thesis (Fortinet's discount to CrowdStrike/Palo Alto despite comparable-or-better fundamentals) replaces the original disruption-fear thesis. Basket changed from equal-weight three-name to a differentiated 50/25/25 overweighting Fortinet, per D-32. Old version fully superseded, not kept as an alternate draft.
+
+## Write-up 9 — updated, not rebuilt, but the "who's winning" framing changed
+
+Q2 2026 earnings were reported for all three carriers since the original draft. The update didn't invalidate the divergence thesis, but it changed which carrier the thesis should favor: United's Q2 print (raised full-year guidance despite absorbing the largest fuel-cost increase of the three) reads stronger than the original write-up's framing of United as the higher-risk, secondary contrarian idea behind Delta. Rewrote the hypothesis around United specifically, with Delta reframed as "quality already priced in" (16x forward vs. an 11x sector average) rather than the clear leader, and added the oil-price whipsaw (WTI ~$101 to ~$85 in two weeks) as a live, ongoing catalyst rather than a static backdrop. Basket changed from equal-weight to 45/35/20 (UAL/DAL/AAL), per D-32.
+
+**Claim deliberately excluded:** a Wall Street Journal report of past United-Delta and United-American merger approaches. Included only as a named risk/wildcard, not as a catalyst the thesis depends on, since the talks were reported as not having progressed or having been rejected — treating rumored, discontinued M&A talks as a forward-looking catalyst would overstate their relevance.
+
+**Milestone note:** these are the first two write-ups under the ADR-0003 template. Write-ups 1-7 remain under the original five-section format; revisiting them is optional per ADR-0003's stated consequences, not required before continuing.
