@@ -76,3 +76,28 @@
 
 **Other observations:**
 - Fourth different sector in a row (financials/banking), continuing the deliberate diversification from write-up 1's note.
+
+## Write-up 7 — Homebuilders Whipsaw as Mortgage Rates Reverse Mid-2026
+
+**Claims removed:**
+- Did not include NVR, Century Communities, Green Brick Partners, or Rocket Companies in the basket despite all being named in sourcing — kept to the four names (Lennar, D.R. Horton, PulteGroup, Toll Brothers) with the most consistent cross-source coverage of the specific rate-reversal dynamic, rather than every builder mentioned anywhere.
+
+**Other observations:**
+- Genuinely fresh, not consensus: the bull case (rate-cut rally) and bear case (rate reversal) both happened *within 2026 itself*, one after the other — a real contrast with write-up 1's own self-flagged staleness.
+
+## Write-up 8 — Cybersecurity Caught Between AI-Driven Demand and AI-Disruption Fear
+
+**Source excluded, not just a claim:**
+- Found a 24/7 Wall St piece on SentinelOne that tied rising federal AI-security budgets to something it called "Mythos revelations." Excluded this source entirely rather than attempt to characterize what that event actually was — I don't have confident, verified knowledge of it, and citing a claim I can't accurately explain would be worse than leaving it out. Built the write-up entirely from the other three sources instead, which stand on their own.
+
+## Write-up 9 — Airlines Diverge as Fuel Costs Spike and IATA Slashes Its 2026 Profit Outlook
+
+**Claims removed:**
+- The IATA source also covered European carriers (IAG, Air France-KLM, Lufthansa, Wizz Air, Ryanair, easyJet) hit by the same fuel shock — excluded all of them from the basket, sticking to US-listed carriers only, consistent with the standing guideline from the confirmed Finnhub non-US-exchange gap.
+
+## Write-up 10 — Solar Splits Between Protected Utility-Scale Backlogs and a Residential Policy Reset
+
+**Claims removed:**
+- NextEra Energy (NEE) appears repeatedly in solar-sector sourcing and was a real candidate for this basket — excluded specifically because NEE is already a position in write-up 1's basket (AI power demand/utilities). Letting the same company anchor two different write-ups' baskets would create an unintentional overlapping position across otherwise-distinct theses. Used First Solar and Enphase instead, both well-corroborated independently of NextEra.
+
+**Milestone note:** this write-up brings the total to 10 of the 10-20 target for task 2 — the low end of the range is now met.
