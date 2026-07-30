@@ -10,7 +10,7 @@ What Cursor does *not* load automatically is a plain file named `CURSOR_RULES.md
 
 ## 2. Non-negotiables → `general.mdc` (`alwaysApply: true`)
 
-- **Never violate ADR-0001 or ADR-0002.** Both are frozen (`AGENTS.md` §2). If a task seems to require it, that's a signal the task needs a new ADR, not a workaround.
+- **Never violate ADR-0001, ADR-0002, or ADR-0003.** All three are frozen (`AGENTS.md` §2). If a task seems to require it, that's a signal the task needs a new ADR, not a workaround.
 - **Never modify the architecture — deployed services, schema shape, job cadence, the frozen tech stack — without first drafting a new ADR.** Implement inside the current shape, or stop and draft `docs/ADR/ADR-000N-*.md` (`AGENTS.md` §9). Don't do both at once and call it a compromise.
 - **Never add a dependency, service, or tool without a one-line justification in the PR description**, and never one that introduces a new recurring cost beyond Cursor + Claude Pro (`docs/TECH_STACK.md`; ADR-0002, D-19).
 - **Never implement a feature that isn't in `docs/MVP_SCOPE.md`'s "In scope" table.** A deferred item needs its written trigger to have fired; an explicitly-out item needs a new ADR. Neither needs "it's small" or "while I'm in here."
@@ -52,7 +52,7 @@ topicron/
 ├── AGENTS.md, CLAUDE.md, CURSOR_RULES.md, CONTRIBUTING.md,
 │   PROJECT_STATE.md, DECISIONS.md, README.md
 ├── docs/
-│   ├── ADR/ADR-0001-...md, ADR-0002-...md, ADR-000N-...md
+│   ├── ADR/ADR-0001-...md, ADR-0002-...md, ADR-0003-...md, ADR-000N-...md
 │   └── VISION.md, MVP_SCOPE.md, ARCHITECTURE.md, TECH_STACK.md,
 │       DATA_MODEL.md, AI_SYSTEM.md, ROADMAP.md, RISKS.md
 ├── jobs/
@@ -91,7 +91,7 @@ alwaysApply: true
 
 # Non-negotiables
 
-- Never violate ADR-0001 or ADR-0002. Both are frozen (AGENTS.md §2).
+- Never violate ADR-0001, ADR-0002, or ADR-0003. All three are frozen (AGENTS.md §2).
 - Never modify architecture (services, schema shape, job cadence, stack)
   without first drafting a new ADR (AGENTS.md §9).
 - Never add a dependency or service without a one-line justification, and

@@ -8,14 +8,15 @@
 |---|---|---|---|---|
 | **ADR-0001** | MVP scope, architecture, and sequencing | `Accepted` | Adjudicates a skeptical-CTO review of the original plan; sets the frozen scope, architecture shape, schema shape, and milestone sequencing that everything else in this repository implements | `README.md`, `docs/VISION.md`\*, `docs/ARCHITECTURE.md`, `docs/TECH_STACK.md`\*, `docs/DATA_MODEL.md`, `docs/AI_SYSTEM.md`, `docs/ROADMAP.md`, `docs/MVP_SCOPE.md`\*, `docs/RISKS.md` |
 | **ADR-0002** | Free-tier-first MVP | `Accepted` | Constrains *how* ADR-0001's plan gets implemented while Topicron is pre-revenue — no component may add a recurring cost beyond the founder's existing Cursor + Claude Pro subscriptions | `docs/AI_SYSTEM.md`, `docs/ARCHITECTURE.md`, `docs/TECH_STACK.md`, `docs/MVP_SCOPE.md`, `README.md`, `docs/RISKS.md` |
+| **ADR-0003** | Thesis structure standard | `Accepted` | Replaces the original five-section topic-and-thesis format with a ten-section structure (falsifiable hypothesis, valuation, catalysts, invalidation criteria, conviction-weighted baskets, source hierarchy), prompted by converging reader-feedback findings during M0 | `docs/AI_SYSTEM.md` (Agent 3 output contract — accepted but not yet reflected; tracked in `PROJECT_STATE.md`) |
 
 \* `docs/VISION.md`, `docs/TECH_STACK.md`, and `docs/MVP_SCOPE.md` postdate ADR-0001's own Part 5 table, which names six documents, not nine — these three were split out from `README.md` / `ARCHITECTURE.md` during implementation, and each states in its own header which ADR-0001 part it implements. A reasonable editorial split, not a deviation from the decision itself; it's just why this column lists the actual current document set rather than transcribing ADR-0001's table verbatim.
 
-**Next ID:** ADR-0003 (continuing the shared decision registry at **D-25** — see §3).
+**Next ID:** ADR-0004 (continuing the shared decision registry at **D-34** — see §3).
 
-Individual decisions inside an ADR (`D-01` through `D-24`, and onward) are indexed at the end of their own ADR — ADR-0001's "Summary of verdicts" table and ADR-0002's "Summary of decisions" table are the canonical per-decision index. This file indexes ADRs, not the decisions inside them, so there's exactly one place each list lives.
+Individual decisions inside an ADR (`D-01` through `D-33`, and onward) are indexed at the end of their own ADR — ADR-0001's "Summary of verdicts" table, ADR-0002's "Summary of decisions" table, and ADR-0003's "Decision" section are the canonical per-decision index. This file indexes ADRs, not the decisions inside them, so there's exactly one place each list lives.
 
-Both ADRs were confirmed `Accepted` by the founder on 2026-07-25, closing a brief gap where their headers read `Proposed` despite every other document already implementing them as settled.
+ADR-0001 and ADR-0002 were confirmed `Accepted` by the founder on 2026-07-25; ADR-0003 followed on 2026-07-30.
 
 ## 2. When a new ADR is required
 

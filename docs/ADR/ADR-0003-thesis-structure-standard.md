@@ -2,7 +2,8 @@
 
 **Status:** Accepted
 **Date:** 2026-07-30
-**Deciders:** Andrea (founder), Claude (technical co-founder / senior architect)
+**Decision owners:** founder + technical co-founder
+**Relationship to prior ADRs:** Additive, not reopening. ADR-0001 and ADR-0002 govern scope, architecture, and execution mode; this ADR governs the internal structure of thesis *content* — a layer neither prior ADR specifies. D-32 refines (does not reverse) ADR-0001's naive equal-weight default by adding the condition under which it no longer applies.
 **Decision registry:** D-25 through D-33 (continues `DECISIONS.md` §3; ADR-0001 = D-01–D-18, ADR-0002 = D-19–D-24)
 
 ## Context

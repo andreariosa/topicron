@@ -5,7 +5,7 @@ alwaysApply: true
 
 # Non-negotiables
 
-- Never violate ADR-0001 or ADR-0002. Both are frozen (AGENTS.md §2).
+- Never violate ADR-0001, ADR-0002 and ADR-0003. They are frozen (AGENTS.md §2).
 - Never modify architecture (services, schema shape, job cadence, stack)
   without first drafting a new ADR (AGENTS.md §9).
 - Never add a dependency or service without a one-line justification, and

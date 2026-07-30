@@ -30,10 +30,10 @@ Readers of these are a strong persona match because they already read long-form 
 
 ## Owned / seed channel
 
-The six write-ups now in `m0/` are themselves the first outreach asset: sharing them directly in the Reddit communities above, framed honestly as "early-stage, feedback wanted," is both a distribution test and the most direct path to recruiting the 5-10 target-persona readers M0 task 3 needs — no separate reader-recruitment effort required.
+The ten write-ups now in `m0/` are themselves the first outreach asset: sharing 1-2 of them directly in the Reddit communities above, framed honestly as "early-stage, feedback wanted," is both a distribution test and the most direct path to recruiting the 5-10 target-persona readers M0 task 3 needs — no separate reader-recruitment effort required.
 
 ## How this list gets used, concretely
 
-1. Once enough write-ups exist and the M0 gate readers are being recruited: share 1-2 write-ups (not all six) in r/SecurityAnalysis and r/ValueInvesting, explicitly asking for honest reactions, not upvotes.
+1. Once enough write-ups exist and the M0 gate readers are being recruited: share 1-2 write-ups (not all ten) in r/SecurityAnalysis and r/ValueInvesting, explicitly asking for honest reactions, not upvotes.
 2. Deliberately include people with no social connection to the founder in the 5-10 reader panel — friends/family are prone to polite positive bias, which would invalidate the M0 gate's "would you miss this" question (flagged earlier in this project's own risk review).
 3. Revisit this list after the M0 gate, not before — expanding distribution before knowing whether the writing itself clears the bar is effort spent in the wrong order.

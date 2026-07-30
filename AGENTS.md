@@ -1,6 +1,6 @@
 # AGENTS.md
 
-*How AI coding assistants — Claude Code, Cursor, or any other agentic tool — collaborate inside this repository. A process document, not a product document: what Topicron* is *lives in `docs/VISION.md`; what its AI pipeline* does *lives in `docs/AI_SYSTEM.md`; how Topicron gets built lives here. Sits below ADR-0001 and ADR-0002 in the decision hierarchy (§2) — this file operationalizes those two frozen decision records, it doesn't add to them.*
+*How AI coding assistants — Claude Code, Cursor, or any other agentic tool — collaborate inside this repository. A process document, not a product document: what Topicron* is *lives in `docs/VISION.md`; what its AI pipeline* does *lives in `docs/AI_SYSTEM.md`; how Topicron gets built lives here. Sits below ADR-0001, ADR-0002, and ADR-0003 in the decision hierarchy (§2) — this file operationalizes those frozen decision records, it doesn't add to them.*
 
 As of this writing the repository is pre-code (`README.md`, Status: Pre-build). Every rule below takes effect from M1's first scaffolding commit onward, and applies equally to a human-authored PR and an AI-authored one.
 
@@ -23,7 +23,7 @@ The reverse matters too: if an assistant is asked to actually *perform* a `synth
 
 When instructions conflict, higher wins, and the conflict gets surfaced, not silently resolved in either direction.
 
-1. **ADR-0001 and ADR-0002** — frozen. ADR-0002 governs execution mode; it does not reopen ADR-0001's Parts I–V.
+1. **ADR-0001, ADR-0002, and ADR-0003** — frozen. ADR-0002 governs execution mode; ADR-0003 governs thesis content structure; neither reopens ADR-0001's Parts I–V, and ADR-0003 doesn't reopen either prior ADR's scope or architecture decisions.
 2. **`docs/*.md`** — implementation detail. If a doc and an ADR disagree, the ADR is right and the doc has a bug.
 3. **`AGENTS.md`, `CLAUDE.md`, `CURSOR_RULES.md`** — process, consistent with 1 and 2.
 4. **A single chat instruction or PR description** — the most local, most overridable layer. Fine for scoping one task; not a license to contradict 1–3 without first proposing the ADR change that would justify it (§9).
@@ -87,10 +87,10 @@ A PR changing a load-bearing invariant, a schema table, a milestone deliverable,
 
 ## 9. Introducing architectural change
 
-Nothing in ADR-0001 or ADR-0002 changes by editing prose in `docs/`. It changes by a new, numbered ADR:
+Nothing in ADR-0001, ADR-0002, or ADR-0003 changes by editing prose in `docs/`. It changes by a new, numbered ADR:
 
-1. Draft `docs/ADR/ADR-000N-kebab-title.md`, continuing the sequence (next is ADR-0003), with the header block ADR-0001/0002 already establish: `Status`, `Date`, `Context`, `Decision owners`, `Relationship to prior ADRs`.
-2. State the criticism or trigger being responded to, the verdict, the reasoning, the MVP impact, and the exact docs that need to change — the format both existing ADRs already use.
+1. Draft `docs/ADR/ADR-000N-kebab-title.md`, continuing the sequence (next is ADR-0004), with the header block ADR-0001/0002/0003 already establish: `Status`, `Date`, `Context`, `Decision owners`, `Relationship to prior ADRs`.
+2. State the criticism or trigger being responded to, the verdict, the reasoning, the MVP impact, and the exact docs that need to change — the format existing ADRs already use.
 3. Status starts `Proposed`. An assistant may draft it; only the founder moves it to `Accepted`.
 4. Once accepted, apply the listed documentation changes in the same batch of work, not as a follow-up — an accepted ADR whose docs haven't caught up is a tracked, temporary state (`PROJECT_STATE.md`), not a resting one.
 
