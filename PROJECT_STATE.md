@@ -1,6 +1,6 @@
 # PROJECT_STATE.md
 
-*The single, live answer to "where is this project right now" — for the founder and for any AI assistant starting a session cold. Update this whenever a milestone gate passes, an ADR's status changes, a deferred trigger fires, or a priority shifts (`AGENTS.md` §8's docs-sync discipline applies to this file at least as much as any other document). Last updated: 2026-07-28 — Task 5 of M0 is fully complete. Supabase access confirmed (publishable + secret keys, Postgres password, project URL all saved). Finnhub free-tier coverage of non-US exchanges tested directly and confirmed unavailable — a real finding, not an open question anymore (see Known Technical Debt).*
+*The single, live answer to "where is this project right now" — for the founder and for any AI assistant starting a session cold. Update this whenever a milestone gate passes, an ADR's status changes, a deferred trigger fires, or a priority shifts (`AGENTS.md` §8's docs-sync discipline applies to this file at least as much as any other document). Last updated: 2026-07-30 — Task 4 of M0 is done: two independent attempts at a Reddit-vs-mainstream earliness comparison instead surfaced a finding about Reddit's search reliability for narrow financial narratives (`m0/earliness-log.md`). Task 5 remains fully complete (see below). Only task 1 (Reddit API application) and continuing task 2 (write-ups, 6 of 10-20) are still open before the M0 gate becomes evaluable.*
 
 ## Current phase
 
@@ -21,7 +21,7 @@ None. M0 is the first milestone in `docs/ROADMAP.md` and is in progress (see bel
 | 1 | File the Reddit API developer application | Ready to file (landing page is live); not yet filed |
 | 2 | Hand-write 10–20 topic-and-thesis write-ups, with an intervention log | **In progress** — 6 of 10–20 done: AI power demand/utilities, GLP-1 capacity buildout, European defense rearmament, US manufacturing reshoring, memory chip supercycle, regional banks (`m0/topic-thesis-01` through `06`). Intervention log live and current at `m0/intervention-log.md`. |
 | 3 | Write down the primary persona; share write-ups with 5–10 target-persona readers | **Persona done** (`docs/VISION.md`, `README.md`) — sharing not yet started, depends on task 2 progressing further |
-| 4 | Read relevant subreddits by hand; log earliness vs. curated RSS | Not started — the subreddit list in `m0/distribution-list.md` doubles as the starting point |
+| 4 | Read relevant subreddits by hand; log earliness vs. curated RSS | **Done, with a finding rather than a clean number.** Two separate attempts (manual sorted search, then a broader scrape across four phrases) found Reddit's native search unreliable for narrow financial narratives — including one search term ("Huntington Bancshares") that returned only an unrelated same-named company (Huntington Ingalls Industries), zero real matches. Documented in `m0/earliness-log.md`, with a recommendation to cross-reference it from `docs/RISKS.md` or `docs/MVP_SCOPE.md`'s Reddit-ingestion entry. |
 | 5 | Landing page, email list, distribution list; confirm Finnhub/Supabase/Claude access; finalize RSS feeds | **Done.** Landing page + email capture: live and verified end-to-end. Distribution list: finalized (`m0/distribution-list.md`). RSS feeds: finalized (`m0/rss-feeds.md`). Claude access: already satisfied. Supabase: project created, publishable key, secret key, Postgres password, and project URL all saved (no schema needed yet — that's M1). Finnhub: API key confirmed working for US tickers; non-US exchange quotes confirmed unavailable on the free tier (see Known Technical Debt) — this is a resolved finding, not a blocker to closing this task. |
 | 6 | Scaffold the remaining repo pieces (`jobs/`, GitHub Actions, initial migration) | Not started |
 | 7 | RSS ingestion connector + dedupe + ticker extraction | Not started |
@@ -71,7 +71,7 @@ Reddit ingestion · the automated, metered Claude API pipeline · a deployed bac
 
 ## Current priorities
 
-1. **File the Reddit API developer application**, referencing the live site — the only fully unblocked task with its own calendar-time lag left untouched.
+1. **File the Reddit API developer application**, referencing the live site — the only fully unblocked task with its own calendar-time lag left untouched, and now the single most overdue item on the board.
 2. **Continue M0's core write-up work** — 6 of 10–20 done. Default to US-listed companies/ADRs given the confirmed Finnhub constraint above.
 3. Once 5–10 target-persona readers exist and 10–20 write-ups are done: run the M0 gate (`docs/RISKS.md`'s "how would you feel if this no longer existed" question, plus the intervention-log review) before writing any pipeline code.
 
@@ -79,9 +79,8 @@ Reddit ingestion · the automated, metered Claude API pipeline · a deployed bac
 
 1. File the Reddit API developer application, referencing topicron.vercel.app directly in the use-case description.
 2. Keep writing topic-and-thesis write-ups toward the 10–20 target (US-listed/ADR companies going forward), updating `m0/intervention-log.md` alongside each one.
-3. Read the relevant subreddits in `m0/distribution-list.md` by hand, logging earliness vs. curated RSS.
-4. Once enough write-ups and reachable readers exist: recruit 5–10 target-persona readers (via `m0/distribution-list.md`) and run the M0 gate.
-5. Optional, low-priority: add a one-line note to `docs/TECH_STACK.md`'s Finnhub entry documenting the confirmed non-US coverage gap.
+3. Once enough write-ups and reachable readers exist: recruit 5–10 target-persona readers (via `m0/distribution-list.md`) and run the M0 gate.
+4. Optional, low-priority: add a one-line cross-reference from `docs/RISKS.md` or `docs/MVP_SCOPE.md`'s Reddit-ingestion entry to `m0/earliness-log.md`'s searchability finding.
 
 ## How to keep this file current
 
