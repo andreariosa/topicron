@@ -119,3 +119,24 @@ Q2 2026 earnings were reported for all three carriers since the original draft. 
 **Claim deliberately excluded:** a Wall Street Journal report of past United-Delta and United-American merger approaches. Included only as a named risk/wildcard, not as a catalyst the thesis depends on, since the talks were reported as not having progressed or having been rejected — treating rumored, discontinued M&A talks as a forward-looking catalyst would overstate their relevance.
 
 **Milestone note:** these are the first two write-ups under the ADR-0003 template. Write-ups 1-7 remain under the original five-section format; revisiting them is optional per ADR-0003's stated consequences, not required before continuing.
+
+## Write-up 11 — Gold Miners: Operating Leverage Still Hasn't Fully Re-Rated Into Equity Prices
+
+First write-up drafted natively under the ADR-0003 template (not a rewrite of an older piece).
+
+**Claims removed:**
+- Did not name Newmont, Barrick, Agnico Eagle, or Franco-Nevada in the basket despite all being covered in sourcing — these are large-cap majors with less operating leverage than the mid-tier names the thesis is specifically about; including them would have diluted the actual claim (leveraged mid-tiers vs. gold) into a generic "gold miners" bet.
+- Considered using a gold-miners ETF (GDXJ) as the benchmark instead of GLD, since the sourcing itself centers on the GDXJ/GDX gap — rejected because GDXJ vs. GDX tests miner selection, not this thesis's actual claim (miners vs. the metal itself). GLD is the correct, more precise benchmark for what's actually being argued.
+
+**Basket construction note:** used equal weight here (D-32), unlike write-ups 8/9/12 — the thesis argues mid-tier miners as a *group* are under-re-rated relative to gold, not that any one of the three is specifically mispriced relative to the others, so equal weight is the correct application of D-32's own logic, not an oversight.
+
+## Write-up 12 — EV Makers Post-Subsidy: Rivian's Proof of Profit vs. Tesla's AI Bet
+
+First write-up drafted natively under the ADR-0003 template. The single freshest write-up to date — key facts (the Uber-Rivian deal, Rivian's Q2 earnings date) are 1-2 days old relative to the write-up date, not weeks or months.
+
+**Timing note kept deliberately visible, not smoothed over:** Rivian's Q2 2026 earnings landed the day before this write-up was drafted. Rather than wait and risk missing the news cycle, or pretend the "why now" section reflects a post-earnings picture it doesn't, the write-up says so explicitly in its own opening note and tells the reader to check the actual print before trusting the bull case. This is a direct, practical instance of D-33 (staleness disclosure) applied at the most extreme end — hours-old, not months-old.
+
+**Claims removed:**
+- Did not include Lucid Motors or legacy automakers (Ford, GM) in the basket despite appearing in adjacent sourcing — the specific thesis is about Tesla's subsidy-era profitability crutch disappearing versus Rivian's subsidy-independent profit proof; adding names without that specific contrast would have diluted the actual claim into a generic "EV stocks" basket.
+
+**Milestone note:** 12 of the 10-20 target for task 2, both drafted natively under ADR-0003 rather than backfilled from the old format.
