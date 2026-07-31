@@ -3,6 +3,7 @@
 // expected to be superseded by the real public topic/thesis pages in M3
 // (docs/ROADMAP.md, M3: "Publication v1").
 
+import Link from "next/link";
 import { SubscribeForm } from "./subscribe-form";
 
 export default function Home() {
@@ -74,6 +75,13 @@ export default function Home() {
         investment adviser. Nothing here is personalized investment advice or
         a recommendation to buy or sell any security.
       </p>
+
+      <Link
+        href="/privacy"
+        className="text-xs text-slate-500 underline underline-offset-2 hover:text-slate-700"
+      >
+        Privacy Policy
+      </Link>
     </main>
   );
 }
