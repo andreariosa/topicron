@@ -1,6 +1,6 @@
 # CONTRIBUTING.md
 
-*The development workflow for this repository — optimized for exactly what this project actually is: one developer, heavily assisted by Claude Code and Cursor, building toward the milestones in `docs/ROADMAP.md`. Not a multi-contributor open-source process; "external contributor" isn't a real concept here yet, even on a public repo — if that ever changes, this document is the first thing to revisit, not the last. Applies from M1's first scaffolding commit onward, same as `AGENTS.md` and `CLAUDE.md`.*
+*The development workflow for this repository — optimized for exactly what this project actually is: one developer, heavily assisted by Claude Code and Cursor, building toward the milestones in `docs/ROADMAP.md`. Not a multi-contributor open-source process; "external contributor" isn't a real concept here yet, even on a public repo — if that ever changes, this document is the first thing to revisit, not the last. Applies from M1's first scaffolding commit onward, same as `AGENTS.md` and `CLAUDE.md` — except §11 (Claude Project sync), which applies now.*
 
 ## 1. Branching strategy
 
@@ -122,3 +122,80 @@ The specific thing to guard against: an assistant's own narration of what it did
 
 **For a milestone task:**
 - All of the above, plus `PROJECT_STATE.md` reflects it (§8).
+
+**For any change that lands on `main`:**
+- The Claude Project has been re-synced from GitHub (§11) — a commit the Claude Project hasn't seen is only half-landed.
+
+## 11. Claude Project sync
+
+*Unlike the rest of this file, this section applies now, during M0 — documentation commits are already landing on `main`; it doesn't wait for M1's first scaffolding commit.*
+
+Architecture and review work happens in a Claude Project on claude.ai, attached to this repository through its GitHub sync source: `andreariosa/topicron`, branch `main`, whole repository (`/`) included. The rule this section exists to state:
+
+**GitHub `main` is the single source of truth for every project file. The Claude Project holds a copy of it, refreshed by hand.**
+
+### After every commit pushed to `main`
+
+1. Push the commit.
+2. In the Claude Project, run the sync on the GitHub source (project knowledge panel). It is not automatic — a commit stays invisible to Claude until this step happens.
+3. Before the next Claude session that depends on the change, check that it landed: `PROJECT_STATE.md`'s "Last updated" line, as Claude sees it, should match the commit you just made.
+
+Skipping this fails quietly: Claude reasons from the previous version — an old `PROJECT_STATE.md`, an ADR before its amendment — and sounds exactly as confident as it would on the current one.
+
+### What lives where
+
+| Place | Holds | How it changes |
+|---|---|---|
+| GitHub `main` | Every project file: `docs/`, ADRs, process files, `m0/`, code | Commit and push |
+| Claude Project → synced GitHub source | A copy of the above — never edited directly | Manual sync after each commit |
+| Claude Project → Instructions | A short, stable standing prompt (text below). Not synced from GitHub | Change the text in this file first, commit, then paste it into the Project's settings |
+| Claude Project → uploaded docs | Nothing. Never upload copies of repo files — they go stale silently and compete with the synced version | — |
+
+Anything worth keeping — a decision, a finding, a revised file — gets committed. If it exists only in a Claude chat or an uploaded document, it isn't project state (same principle as `CLAUDE.md`'s auto-memory note).
+
+### Detecting a stale copy
+
+- `PROJECT_STATE.md`'s "Last updated" line is the freshness marker: if the copy Claude has loaded lags the commit you just made, the sync hasn't run or hasn't finished.
+- Claude is instructed (Instructions below; `AGENTS.md` §15) to say so and ask for a re-sync, not to guess. Limit of this check: a commit that doesn't touch `PROJECT_STATE.md` doesn't move the marker. When in doubt, re-sync — it's cheap.
+- Claude Code and Cursor read the checkout directly and don't need the sync. Their commits still make the Claude Project stale, and neither can run the sync (it's a UI action), so Claude Code ends its commit reports with a reminder (`CLAUDE.md`).
+
+### Project Instructions (canonical text)
+
+Kept here so it has history and a single editing point. Paste it into the Claude Project's Instructions field; re-paste only when this block changes.
+
+```
+Act as my technical co-founder and senior software architect.
+Help me design and build Topicron, an AI-powered investment research laboratory.
+Project repo: https://github.com/andreariosa/topicron
+
+Source of truth
+- GitHub, branch main, is the single source of truth for every project file. The
+  Project's GitHub source is a copy that I re-sync by hand after each commit
+  (CONTRIBUTING.md section 11), so it can be stale.
+- Do not treat uploaded Project docs as canonical.
+- Start from PROJECT_STATE.md (where the project is now), then AGENTS.md section 2
+  (decision hierarchy). ADR-0001, ADR-0002 and ADR-0003 are frozen: they change
+  only through a new numbered ADR, never by editing prose. PROJECT_STATE.md is a
+  fast summary, not a source of truth.
+- If a loaded file contradicts what I say I just committed, or PROJECT_STATE.md's
+  "Last updated" lags my latest commit, tell me and ask for a re-sync before relying
+  on it. Do not guess which version is right.
+
+Prioritize:
+- pragmatic MVP decisions
+- scalable architecture
+- avoiding overengineering
+- strong product thinking
+- measurable user value
+
+Challenge my assumptions when needed, and flag judgment calls explicitly.
+
+Working rules
+- Reply in my language (Italian by default); write documents and code in English.
+- Verify against the actual files or a real test instead of answering from memory.
+- Free-tier-first (ADR-0002): propose no new recurring cost without my explicit yes.
+- When you change documents, give me the complete updated files plus a commit
+  message that cites the milestone and decision (CONTRIBUTING.md section 2). I commit
+  and push myself, then re-sync.
+- Never ask me to paste secrets or API keys into the chat.
+```

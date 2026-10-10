@@ -86,7 +86,7 @@ Full rationale, trade-offs, and reinstatement triggers for every deferred choice
 | `CLAUDE.md` | Persistent session context for Claude Code specifically — imports `AGENTS.md`, adds project philosophy and how to reason before changing code |
 | `CURSOR_RULES.md` | Cursor-specific engineering rules and coding conventions — mirrored live in `.cursor/rules/*.mdc` |
 | `DECISIONS.md` | The ADR index, lifecycle, and naming convention |
-| `CONTRIBUTING.md` | Branching, commits, PRs, testing, and release workflow, optimized for a solo AI-assisted developer |
+| `CONTRIBUTING.md` | Branching, commits, PRs, testing, release workflow, and Claude Project sync (GitHub `main` is the source of truth), optimized for a solo AI-assisted developer |
 | `PROJECT_STATE.md` | The live, continuously updated status reference — current phase, milestones, implemented ADRs, open items |
 
 ## Getting started

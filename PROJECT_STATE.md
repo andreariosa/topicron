@@ -1,6 +1,6 @@
 # PROJECT_STATE.md
 
-*The single, live answer to "where is this project right now" — for the founder and for any AI assistant starting a session cold. Update this whenever a milestone gate passes, an ADR's status changes, a deferred trigger fires, or a priority shifts (`AGENTS.md` §8's docs-sync discipline applies to this file at least as much as any other document). Last updated: 2026-08-05 — Task 1 (Reddit API application) rejected: a generic non-compliance rejection with no specific reason given. Closed, not being reappealed without a concrete new basis. Task 3 status is unchanged from the prior entry below — round 2 (self-selected channels) is in progress; founder is pushing further on subreddit approval before any reassessment.*
+*The single, live answer to "where is this project right now" — for the founder and for any AI assistant starting a session cold. Update this whenever a milestone gate passes, an ADR's status changes, a deferred trigger fires, or a priority shifts (`AGENTS.md` §8's docs-sync discipline applies to this file at least as much as any other document). Last updated: 2026-10-10 — Process-only change: GitHub `main` is now documented as the single source of truth for project files, with a manual re-sync of the Claude Project required after every commit (`CONTRIBUTING.md` §11, `AGENTS.md` §15). No task or milestone status was re-checked in this edit; the statuses below are as of 2026-08-05 (Task 1 rejected and closed; Task 3 round 2 in progress, founder pushing on subreddit approval).*
 
 ## Current phase
 
@@ -87,7 +87,7 @@ Reddit ingestion · the automated, metered Claude API pipeline · a deployed bac
 - Update **Completed / Active / Pending milestones** at every gate, in the same sitting the gate is evaluated (`CONTRIBUTING.md` §8) — not as a later cleanup pass.
 - Update **Implemented ADRs** whenever one is drafted, accepted, or superseded (`DECISIONS.md`).
 - Update **Known technical debt** whenever something is fixed or newly discovered — delete a resolved line rather than leaving it marked done; a long resolved list isn't more informative than a short honest one.
-- Update the **Last updated** line every time this file changes, even for a small edit.
+- Update the **Last updated** line every time this file changes, even for a small edit. It is also the freshness marker for the Claude Project's copy of the repo: after committing, re-sync the Claude Project (`CONTRIBUTING.md` §11) — GitHub `main` is the source of truth, the Project only holds a cache — and a stale "Last updated" on the Claude side means the sync hasn't run.
 - Keep entries short and dated, and point back to the document with the actual reasoning — if an entry needs more than two sentences to justify itself, that explanation belongs in the document it's citing, not here.
 
 ---

@@ -2,7 +2,7 @@
 
 *How AI coding assistants — Claude Code, Cursor, or any other agentic tool — collaborate inside this repository. A process document, not a product document: what Topicron* is *lives in `docs/VISION.md`; what its AI pipeline* does *lives in `docs/AI_SYSTEM.md`; how Topicron gets built lives here. Sits below ADR-0001, ADR-0002, and ADR-0003 in the decision hierarchy (§2) — this file operationalizes those frozen decision records, it doesn't add to them.*
 
-As of this writing the repository is pre-code (`README.md`, Status: Pre-build). Every rule below takes effect from M1's first scaffolding commit onward, and applies equally to a human-authored PR and an AI-authored one.
+As of this writing the repository is pre-code (`README.md`, Status: Pre-build). Every rule below takes effect from M1's first scaffolding commit onward — except §15, which applies now — and applies equally to a human-authored PR and an AI-authored one.
 
 ## 1. Two different "AI"s — do not conflate them
 
@@ -147,7 +147,21 @@ Refuse: citations are a paraphrase plus a source id, never source body text (ADR
 **"Today's synth/ run produced two topics that are obviously the same narrative."**
 Not a bug to quietly patch — it's the named highest-uncertainty risk in the pipeline (ADR-0001, D-12). Apply the merge rule as written (older topic canonical, newer archived with a note) and flag the occurrence rather than treating it as one-off cleanup; repeated fragmentation is the signal that the `pgvector` escalation is due.
 
-## 15. Related process documentation
+## 15. Source of truth and the Claude Project copy
+
+*Unlike the rest of this file, this section applies now, during M0 — documentation commits are already landing on `main`.*
+
+GitHub `main` (`andreariosa/topicron`) is the only authoritative version of every file in this repository. The Claude Project used for architecture and review work holds a *synced copy*, refreshed by hand after each commit (`CONTRIBUTING.md` §11) — a cache, never a competing source.
+
+For an assistant reading files through that Project rather than from a checkout:
+
+- **A loaded file may be older than `main`.** If it contradicts what the founder says was just committed, or `PROJECT_STATE.md`'s "Last updated" lags the founder's latest commit, say so and ask for a re-sync. Don't reason from the stale content, and don't silently pick a side.
+- **Uploaded Project docs are not a second source.** There shouldn't be any copies of repo files in the Project; if one turns up, flag it rather than trusting it over the synced version.
+- **Instructions are a pointer, not a record.** The Project's Instructions field is not synced from GitHub; its canonical text lives in `CONTRIBUTING.md` §11. Decisions never live only there.
+
+An assistant with a checkout (Claude Code, Cursor) reads the repository directly, so none of this applies to its reads. It does apply to its commits: once one lands on `main`, the founder's Claude Project is stale until re-synced, and no assistant can run that step (`CLAUDE.md`).
+
+## 16. Related process documentation
 
 This file is the policy layer; the rest defer to it rather than re-stating it:
 
@@ -156,5 +170,5 @@ This file is the policy layer; the rest defer to it rather than re-stating it:
 | `CLAUDE.md` | Persistent context for Claude Code specifically — project philosophy, and how it should reason before changing code |
 | `CURSOR_RULES.md` | Strict, enforceable coding rules for Cursor — conventions, project layout, explicit dos/don'ts |
 | `DECISIONS.md` | The ADR index, lifecycle, and naming convention referenced in §9 |
-| `CONTRIBUTING.md` | The actual development workflow — branching, commits, PRs, releases |
-| `PROJECT_STATE.md` | Current phase, active milestone, implemented ADRs, known debt — the live status reference this file assumes is kept current (§8) |
+| `CONTRIBUTING.md` | The actual development workflow — branching, commits, PRs, releases, and the Claude Project sync (§11) |
+| `PROJECT_STATE.md` | Current phase, active milestone, implemented ADRs, known debt — the live status reference this file assumes is kept current (§8), and the freshness marker for the Claude Project copy (§15) |

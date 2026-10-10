@@ -80,6 +80,8 @@ A change to a schema table, an invariant, a milestone deliverable, or a deferred
 
 Full workflow: `CONTRIBUTING.md`. Day to day: small, milestone-scoped commits; docs updated alongside code, not after; nothing merges without the founder's review, including changes you're confident about.
 
+GitHub `main` is the source of truth for every project file; the founder's Claude Project holds a copy that goes stale with each commit until it's re-synced by hand (`CONTRIBUTING.md` §11, `AGENTS.md` §15). You can't run that sync, so after any commit or push you make, end your report with a one-line reminder to re-sync the Claude Project.
+
 ### How to reason before changing code
 
 Run this before writing or editing anything — not only when a change feels risky:
