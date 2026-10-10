@@ -24,7 +24,7 @@ Readers of these are a strong persona match because they already read long-form 
 
 ## Platforms / broader reach
 
-- Hacker News — genuinely strong fit for tech-adjacent narratives specifically (the AI-power-demand or memory-chip write-ups are a much more natural HN fit than, say, the regional-banks one — worth keeping in mind when deciding *which* write-up to share where)
+- Hacker News — *(corrected 2026-10-10: Show HN excludes reading material such as write-ups and newsletters, so only a regular story submission is possible; see `m0/round-2-channels.md`)* possible fit for tech-adjacent narratives specifically (the AI-power-demand or memory-chip write-ups are a much more natural HN fit than, say, the regional-banks one — worth keeping in mind when deciding *which* write-up to share where)
 - Fintwit (finance-focused X/Twitter)
 - Substack's "recommended by" network, once Topicron itself is a Substack-adjacent or similarly cross-linkable publication
 
@@ -37,3 +37,5 @@ The twelve write-ups now in `m0/` are themselves the first outreach asset: shari
 1. Once enough write-ups exist and the M0 gate readers are being recruited: share 1-2 write-ups (not all twelve) in r/SecurityAnalysis and r/ValueInvesting, explicitly asking for honest reactions, not upvotes.
 2. Deliberately include people with no social connection to the founder in the 5-10 reader panel — friends/family are prone to polite positive bias, which would invalidate the M0 gate's "would you miss this" question (flagged earlier in this project's own risk review).
 3. Revisit this list after the M0 gate, not before — expanding distribution before knowing whether the writing itself clears the bar is effort spent in the wrong order.
+
+Round 2 execution (verified channel rules, costs, message drafts, order of work): `m0/round-2-channels.md`.
