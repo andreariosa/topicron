@@ -1,12 +1,12 @@
 # PROJECT_STATE.md
 
-*The single, live answer to "where is this project right now" — for the founder and for any AI assistant starting a session cold. Update this whenever a milestone gate passes, an ADR's status changes, a deferred trigger fires, or a priority shifts (`AGENTS.md` §8's docs-sync discipline applies to this file at least as much as any other document). Last updated: 2026-10-10 — Process-only change: GitHub `main` is now documented as the single source of truth for project files, with a manual re-sync of the Claude Project required after every commit (`CONTRIBUTING.md` §11, `AGENTS.md` §15). No task or milestone status was re-checked in this edit; the statuses below are as of 2026-08-05 (Task 1 rejected and closed; Task 3 round 2 in progress, founder pushing on subreddit approval).*
+*The single, live answer to "where is this project right now" — for the founder and for any AI assistant starting a session cold. Update this whenever a milestone gate passes, an ADR's status changes, a deferred trigger fires, or a priority shifts (`AGENTS.md` §8's docs-sync discipline applies to this file at least as much as any other document). Last updated: 2026-10-10 — Consistency cleanup: write-up counts, ADR-0003 adoption status, the reader-feedback wording, and next actions aligned with what the task table already says; one resolved debt row removed. Statuses below are as of 2026-08-05 and were not re-checked (Task 1 rejected and closed; Task 3 round 2 in progress). Same day, earlier: GitHub `main` documented as the single source of truth, with a manual Claude Project re-sync after every commit (`CONTRIBUTING.md` §11, `AGENTS.md` §15).*
 
 ## Current phase
 
-Pre-build for the real application (jobs/, Supabase schema, ingestion) — M0 concierge test in progress. Planning, architecture, and repository-governance documentation are complete. The repository holds `docs/*.md`, `docs/ADR/ADR-0001`, `ADR-0002`, and `ADR-0003`, the six process files this earlier phase of work produced (`AGENTS.md`, `CLAUDE.md`, `CURSOR_RULES.md`, `DECISIONS.md`, `CONTRIBUTING.md`, this file), `m0/` — ten hand-written topic-and-thesis write-ups, a running intervention log, a finalized distribution list, and a finalized RSS feed list — and `app/`, a live Next.js landing page with a Resend-backed `/api/subscribe` route at topicron.vercel.app.
+Pre-build for the real application (jobs/, Supabase schema, ingestion) — M0 concierge test in progress. Planning, architecture, and repository-governance documentation are complete. The repository holds `docs/*.md`, `docs/ADR/ADR-0001`, `ADR-0002`, and `ADR-0003`, the six process files this earlier phase of work produced (`AGENTS.md`, `CLAUDE.md`, `CURSOR_RULES.md`, `DECISIONS.md`, `CONTRIBUTING.md`, this file), `m0/` — twelve hand-written topic-and-thesis write-ups (two also in Italian), the intervention log, the distribution and RSS feed lists, the earliness log, the reader questionnaire and feedback log, and the privacy-policy source text — and `app/`, a live Next.js landing page with a Resend-backed `/api/subscribe` route at topicron.vercel.app.
 
-Worth saying plainly, since accuracy is this file's entire job: everything built so far, including the ten write-ups now in `m0/`, is still validating the core hypothesis, not building the product itself. Topicron's actual core hypothesis — whether a target-persona reader finds a hand-written thesis genuinely useful — is now testable in principle, but hasn't been tested yet: no target-persona reader has seen any write-up.
+Worth saying plainly, since accuracy is this file's entire job: everything built so far, including the twelve write-ups now in `m0/`, is still validating the core hypothesis, not building the product itself. Topicron's actual core hypothesis — whether a target-persona reader finds a hand-written thesis genuinely useful — is testable in principle but hasn't been tested yet: the only readers so far (round 1, personal network) all skimmed, which answers nothing either way.
 
 ## Completed milestones
 
@@ -29,7 +29,7 @@ None. M0 is the first milestone in `docs/ROADMAP.md` and is in progress (see bel
 | 9 | Topic synthesizer + thesis generator (structured output, golden-set check) | Not started |
 | 10 | Open first positions, start `performance_snapshots`, build public pages + email | Not started |
 
-**M0 gate:** not evaluable yet — write-ups exist and the landing page is live, but no target-persona reader has seen any write-up yet.
+**M0 gate:** not evaluable yet — write-ups exist and the landing page is live, but the only reader feedback so far (round 1) came from three skimmers, which resolves nothing either way.
 
 ## Pending milestones
 
@@ -50,7 +50,7 @@ Full deliverables and gates: `docs/ROADMAP.md`.
 |---|---|---|
 | ADR-0001 | `Accepted` (2026-07-25) | Fully reflected across the repository — every scope, architecture, and sequencing decision it made is already how the project is described and run |
 | ADR-0002 | `Accepted` (2026-07-25) | Fully reflected — the free-tier-first execution mode is already how `docs/AI_SYSTEM.md`, `docs/ARCHITECTURE.md`, `docs/TECH_STACK.md`, and `docs/MVP_SCOPE.md` describe the project |
-| ADR-0003 | `Accepted` (2026-07-30) | Partially reflected — write-ups 8 and 9 (`m0/`) follow the new ten-section thesis structure; write-ups 1-7 remain on the old format (backfill optional); `docs/AI_SYSTEM.md`'s Agent 3 output contract still needs updating to match before any pipeline work begins (M2), flagged in the ADR itself, not yet done |
+| ADR-0003 | `Accepted` (2026-07-30) | Partially reflected — write-ups 8, 9, 11, and 12 (`m0/`) follow the new ten-section thesis structure; write-ups 1-7 remain on the old format (backfill optional); `docs/AI_SYSTEM.md`'s Agent 3 output contract still needs updating to match before any pipeline work begins (M2), flagged in the ADR itself, not yet done |
 
 Next ID if a new ADR is drafted: **ADR-0004** (decision registry continues at **D-34** — `DECISIONS.md` §3).
 
@@ -62,7 +62,6 @@ The only application code so far is the M0 landing page, live and verified. What
 |---|---|
 | Branch protection on `main` not yet configured, per `CONTRIBUTING.md` §1 | Open, deliberately deferred — `CONTRIBUTING.md`'s PR/CI discipline formally applies "from M1's first scaffolding commit onward," so this isn't overdue, but worth configuring before M1's first scaffolding commit |
 | Finnhub free tier does not cover quotes for non-US exchanges | **Confirmed and documented** — tested directly on 2026-07-28: `AAPL` returns real data; `RHM.DE`, `BA.L`, `HO.PA`, and `LDO.MI` all return an access-denied error on the same key. `docs/TECH_STACK.md`'s Finnhub entry now states this explicitly; new write-ups default to US-listed companies/ADRs unless a deliberate paid-tier decision is made. |
-| `.cursor/rules/general.mdc` likely still says "Never violate ADR-0001 or ADR-0002. Both are frozen" | Open — this file isn't in Claude's accessible project files (only the `docs/`-mirrored `.md` files are), so it couldn't be checked or fixed as part of the 2026-07-30 ADR-consistency audit that fixed the equivalent text in `CURSOR_RULES.md`, `AGENTS.md`, `README.md`, and `DECISIONS.md`. Needs a manual one-line fix: add "or ADR-0003" / "All three." |
 
 ## Deferred features
 
@@ -72,13 +71,13 @@ Reddit ingestion · the automated, metered Claude API pipeline · a deployed bac
 
 ## Current priorities
 
-1. **Recruit 5–10 target-persona readers and share the write-ups** (task 3) — 10 write-ups across 8 sectors is now a presentable set; this remains the main open item standing between here and the M0 gate. (AI-model feedback on write-ups 8/9, used to inform ADR-0003, is not a substitute for this — no target-persona reader has seen any write-up yet.)
+1. **Get careful reads from target-persona readers** (task 3) — 12 write-ups across 10 sectors is a presentable set; round 1 produced only skimmers, so this remains the main open item standing between here and the M0 gate. (AI-model feedback on write-ups 8/9, used to inform ADR-0003, is not a substitute for this.)
 2. Continuing write-ups toward 20 remains available but is now optional, not required.
 3. Reddit API application: closed (rejected 2026-08-05). No action needed — see task 1 above.
 
 ## Next actions
 
-1. Recruit 5–10 target-persona readers via `m0/distribution-list.md` and share 1–2 write-ups (not all ten at once), asking for honest reactions rather than upvotes.
+1. Round 2: reach target-persona readers outside the personal network via `m0/distribution-list.md`, sharing 1–2 write-ups (not all twelve at once) and asking for honest reactions rather than upvotes.
 2. Once reader feedback comes in: run the M0 gate (`docs/RISKS.md`'s "how would you feel if this no longer existed" question, plus the intervention-log review) before writing any pipeline code.
 3. Optional: continue writing toward the 20-write-up ceiling, or add a one-line cross-reference from `docs/RISKS.md`/`docs/MVP_SCOPE.md` to `m0/earliness-log.md`'s searchability finding.
 

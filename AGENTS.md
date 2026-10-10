@@ -2,7 +2,7 @@
 
 *How AI coding assistants — Claude Code, Cursor, or any other agentic tool — collaborate inside this repository. A process document, not a product document: what Topicron* is *lives in `docs/VISION.md`; what its AI pipeline* does *lives in `docs/AI_SYSTEM.md`; how Topicron gets built lives here. Sits below ADR-0001, ADR-0002, and ADR-0003 in the decision hierarchy (§2) — this file operationalizes those frozen decision records, it doesn't add to them.*
 
-As of this writing the repository is pre-code (`README.md`, Status: Pre-build). Every rule below takes effect from M1's first scaffolding commit onward — except §15, which applies now — and applies equally to a human-authored PR and an AI-authored one.
+As of this writing the pipeline is pre-code — the only application code is the M0 landing page in `app/` (`README.md`, Status: Pre-build). Every rule below takes effect from M1's first scaffolding commit onward — except §15, which applies now — and applies equally to a human-authored PR and an AI-authored one.
 
 ## 1. Two different "AI"s — do not conflate them
 

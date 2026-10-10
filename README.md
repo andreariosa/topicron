@@ -4,7 +4,7 @@
 
 > **Governing decision records.** [`ADR-0001-mvp-scope-and-architecture.md`](./docs/ADR/ADR-0001-mvp-scope-and-architecture.md) is the source of truth for scope, architecture, and sequencing — approved following a skeptical-CTO review of the original planning set. [`ADR-0002-free-tier-first-mvp.md`](./docs/ADR/ADR-0002-free-tier-first-mvp.md) constrains *how* that plan is implemented while Topicron remains a pre-revenue hobby project: no new recurring cost beyond the founder's existing Cursor and Claude Pro subscriptions. [`ADR-0003-thesis-structure-standard.md`](./docs/ADR/ADR-0003-thesis-structure-standard.md) sets the internal structure every topic-and-thesis write-up follows — a falsifiable hypothesis, valuation context, a 90-day catalyst, and explicit invalidation criteria, not just a bull case and a bear case. Every document in this repository has been rewritten to be consistent with all three. Where a decision is cited below (for example, "ADR-0001, D-03" or "ADR-0002, D-20"), the ID refers to a numbered decision inside the relevant ADR; read the ADRs themselves for full rationale.
 
-**Status:** Pre-build. This repository currently holds planning, architecture, decision-record, and engineering-governance documentation only — no application code has been written yet. The active milestone is **M0 — Validate the writing** (see `docs/ROADMAP.md`); nothing beyond a hand-run concierge test and a landing page is expected to exist before that gate passes. For the live, up-to-date snapshot of exactly where things stand, see `PROJECT_STATE.md` rather than this file.
+**Status:** Pre-build. This repository holds planning, architecture, decision-record, and engineering-governance documentation, the hand-written M0 write-ups in `m0/`, and one piece of application code: the M0 landing page and email-capture route in `app/`. The AI pipeline itself (`jobs/`, database schema) has not been started. The active milestone is **M0 — Validate the writing** (see `docs/ROADMAP.md`); nothing beyond a hand-run concierge test and that landing page is expected to exist before the gate passes. For the live, up-to-date snapshot of exactly where things stand, see `PROJECT_STATE.md` rather than this file.
 
 ## Who this is for
 
@@ -91,7 +91,7 @@ Full rationale, trade-offs, and reinstatement triggers for every deferred choice
 
 ## Getting started
 
-Nothing is implemented yet. Setup instructions land with the first scaffolding commit — see `docs/ROADMAP.md`, M1.
+The AI pipeline isn't implemented yet; its setup instructions land with the first scaffolding commit — see `docs/ROADMAP.md`, M1. The M0 landing page runs locally with `npm install` and `npm run dev`, after copying `.env.local.example` to `.env.local` and filling in `RESEND_API_KEY` and `RESEND_SEGMENT_ID` (the example file explains both).
 
 ## Legal
 
