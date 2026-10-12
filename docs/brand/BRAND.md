@@ -61,7 +61,7 @@ All texts are under 280 characters. Counts are characters including line breaks.
 | 2 | Disclosure, as a reply under #1 (155) | Disclosure: the drafts are written with AI (Claude). I check the figures against filings and company releases. If you spot an error, reply and I'll fix it. | none |
 | 3 | Format (273) | Every Topicron thesis has the same ten parts: hypothesis, why now, what the market may be missing, bull case, best bear case, valuation, catalysts, invalidation conditions, basket and benchmark, results at 30/60/90 days.<br><br>The one that matters most: invalidation conditions. | `x/post-ten-parts-card-1600x900.png` |
 | 4 | Why (211) | Most investment writing can't be proven wrong, because it never says what would prove it wrong.<br><br>Every thesis I publish here names that condition before anything happens, so the result at day 90 means something. | none |
-| 5 | First thesis thread | Written when the first new thesis is verified against primary sources. Not scheduled. | to be decided |
+| 5 | First thesis thread (write-up 13, five posts) | Text in `m0/topic-thesis-13-distribution-copy.md` §2. Written 2026-10-11 from a thesis checked against primary sources. Goes out only after the thesis commit is on `main`. | `x/post-thesis-13-card-1600x900.png` on the first post |
 
 **Alt text for the image in #3:** "List of the ten parts of every Topicron thesis: the hypothesis, why now, what the market may be missing, bull case, best bear case, valuation and expectations, catalysts, invalidation conditions (highlighted: what would prove us wrong, stated up front), basket and benchmark, and results at 30, 60 and 90 days."
 
@@ -72,7 +72,7 @@ All texts are under 280 characters. Counts are characters including line breaks.
 | #1, #2 | Sat 2026-10-10, back to back | to post |
 | #3 | Tue 2026-10-13, 16:00 | planned |
 | #4 | Thu 2026-10-15, 16:00 | planned |
-| #5 | Tue–Thu, when verified | not scheduled |
+| #5 | Wed 2026-10-14, 16:00 (after the thesis commit) | to schedule; move to the next Tue–Thu if the commit slips |
 
 The slots are weekday US-morning times: 16:00 in Rome is 10:00 in New York until 2026-10-25 (Europe's clocks change that day, the US's on 2026-11-01) and 11:00 until 2026-11-01. They are a starting guess for an audience that reads on weekdays, not a measured optimum. After two or three weeks, compare the impressions shown on each post and adjust. Whether X's composer offers scheduling for this account was not verified; if it does not, post by hand at the nearest convenient time.
 
@@ -89,6 +89,7 @@ A credibility surface, not a feedback channel: it is what a moderator, a Reddit 
 | `x/topicron-x-avatar-400x400.png` | Profile photo |
 | `x/topicron-x-banner-1500x500.png` | Header |
 | `x/post-ten-parts-card-1600x900.png` | Image for post #3 |
-| `src/avatar.html`, `src/banner.html`, `src/ten-parts-card.html` | Sources for the three images. Open each at its exact pixel size and take a screenshot at device scale 1 (headless Chromium was used). They expect Inter installed locally. |
+| `x/post-thesis-13-card-1600x900.png` | Image for the first post of the thesis thread (#5). No price or performance figure |
+| `src/avatar.html`, `src/banner.html`, `src/ten-parts-card.html`, `src/thesis-13-card.html` | Sources for the four images. Open each at its exact pixel size and take a screenshot at device scale 1 (headless Chromium was used). They expect Inter installed locally. |
 
 Source: https://help.x.com/en/managing-your-account/how-to-customize-your-profile

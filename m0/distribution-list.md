@@ -8,9 +8,12 @@
 |---|---|---|
 | r/SecurityAnalysis | Strong | Long-form, thesis-oriented — closest match to the persona |
 | r/ValueInvesting | Strong | Same profile, slightly broader |
-| r/investing | Moderate | Larger, more mixed audience — use selectively, don't lead with it |
+| r/investing | **Excluded (2026-10-10)** | Its rules treat large amounts of AI-generated text as low effort and ban (self-)promotion with a permanent ban |
+| r/stockpitches | Strong format fit | Sidebar invites own pitches; no rules found on 2026-10-10, so karma or AutoModerator limits are unknown |
 
 **Deliberately excluded:** r/wallstreetbets, r/stocks — skew toward the anti-persona (signal-seeker, "what do I buy today"), which `docs/VISION.md` explicitly distinguishes Topicron's reader from.
+
+As of 2026-10-11: r/SecurityAnalysis is in restricted mode and takes posting requests through its Request to Post form; r/ValueInvesting blocks new accounts by age (u/topicron was 1 day old), so retry it later. Rules as pasted, and the exclusions of r/StockMarket and r/ItaliaPersonalFinance: `m0/round-2-channels.md` §3.
 
 Same list doubles as the starting point for M0 task 4 (manual subreddit reading, earliness vs. curated RSS) — no need to maintain two separate lists.
 
@@ -30,11 +33,11 @@ Readers of these are a strong persona match because they already read long-form 
 
 ## Owned / seed channel
 
-The twelve write-ups now in `m0/` are themselves the first outreach asset: sharing 1-2 of them directly in the Reddit communities above, framed honestly as "early-stage, feedback wanted," is both a distribution test and the most direct path to recruiting the 5-10 target-persona readers M0 task 3 needs — no separate reader-recruitment effort required.
+The thirteen write-ups now in `m0/` are themselves the first outreach asset: sharing 1-2 of them directly in the Reddit communities above, framed honestly as "early-stage, feedback wanted," is both a distribution test and the most direct path to recruiting the 5-10 target-persona readers M0 task 3 needs — no separate reader-recruitment effort required.
 
 ## How this list gets used, concretely
 
-1. Once enough write-ups exist and the M0 gate readers are being recruited: share 1-2 write-ups (not all twelve) in r/SecurityAnalysis and r/ValueInvesting, explicitly asking for honest reactions, not upvotes.
+1. Once enough write-ups exist and the M0 gate readers are being recruited: share 1-2 write-ups (not all thirteen) in r/SecurityAnalysis and r/ValueInvesting, explicitly asking for honest reactions, not upvotes.
 2. Deliberately include people with no social connection to the founder in the 5-10 reader panel — friends/family are prone to polite positive bias, which would invalidate the M0 gate's "would you miss this" question (flagged earlier in this project's own risk review).
 3. Revisit this list after the M0 gate, not before — expanding distribution before knowing whether the writing itself clears the bar is effort spent in the wrong order.
 

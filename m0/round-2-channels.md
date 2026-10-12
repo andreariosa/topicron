@@ -6,7 +6,7 @@
 
 | Source | Status on 2026-10-10 |
 |---|---|
-| Reddit rules pages, sidebars, wikis (reddit.com) | **Not readable** from the research environment (`SITE_BLOCKED`). Mirrors and caches were deliberately not used. Every subreddit rule below is therefore **unverified** until the founder pastes the rules text (§3). |
+| Reddit rules pages, sidebars, wikis (reddit.com) | **Not readable** from the research environment (`SITE_BLOCKED`). Mirrors and caches were deliberately not used. The founder pasted the rules text of ten subreddits on 2026-10-10; §3.0 works from that text. Anything it does not contain (karma thresholds, AutoModerator, wikis) is still **unknown**. |
 | Reddit's own site rules and help center (redditinc.com) | Also blocked. Statements about multiple accounts, ban evasion and modmail are **unverified**; check https://www.redditinc.com/policies/reddit-rules directly. |
 | Hacker News Show HN rules | **Verified**, https://news.ycombinator.com/showhn.html |
 | Prolific pricing, minimum pay, filters, unsuitable studies | **Verified**, Prolific researcher help pages (cited in §2) |
@@ -44,7 +44,35 @@ What a paid panel can and cannot show:
 
 ## 3. Reddit protocol
 
+### 3.0 Subreddit rules as pasted by the founder (2026-10-10), and what they decide
+
+The rules below are the founder's copy of each subreddit's rules page and sidebar; Reddit itself remained unreadable from the research environment. Anything not in the pasted text (karma thresholds, AutoModerator, wikis) is unknown.
+
+| Subreddit | Decision | Rules that decide it |
+|---|---|---|
+| r/SecurityAnalysis | **First choice.** Restricted mode; the sidebar invites posting requests ("this isn't a blocker") and the sub has a Request to Post form, which replaces modmail | Rule 3: no overt self-promotion of blogs, apps, websites, YouTube channels or surveys. Rule 2: factual, unedited titles, written with linked articles in mind. No rule on AI text in the pasted text. |
+| r/ValueInvesting | **Blocked for now.** Create Post is refused by an account-age check (u/topicron was 1 day old on 2026-10-11; threshold not shown). Retry in a week or two; no message to the moderators | Rule 4: authored on-topic articles allowed, ask by modmail if unsure. Rule 5: limited self-promotion for regular participants only. Rule 10: moderators may remove AI-generated content. Rule 2: no content posted to many subs at once. Rule 9: no soliciting contact details. |
+| r/stockpitches | **Second choice; no message needed.** Post directly, one sub at a time | Sidebar: "post your own ideas". No rules in the pasted text; karma and AutoModerator unknown. |
+| r/investing | **Excluded** | Rule 1: large amounts of Gen AI text are low effort. Rule 4: (self-)promotion, surveys and blogs: permanent ban. |
+| r/StockMarket | **Excluded** | Rule 7: the same AI-text rule. Rule 2: self-promotion and surveys: permanent ban. Rule 3: the same post across several subs is spam. |
+| r/ItaliaPersonalFinance | **Excluded** | Rule 7: no fully AI-generated content. Rule 4: no surveys or market research. Also a personal-finance sub, not a thesis sub. |
+| r/startups, r/SideProject | **Not for theses** | Feedback on the project, not on reading a thesis. r/startups confines feedback requests and surveys to its stickied thread. Revisit for the landing page. |
+| r/wallstreetbets, r/stocks | **Stay excluded** | Anti-persona (`m0/distribution-list.md`); WSB rule 13 bars mentioning anything the poster has a conflict of interest in. |
+| r/Fundamentalanalysis | **Not assessed** | Nothing was found to paste. |
+
+**Request to Post text for the r/SecurityAnalysis form** (shorter than message A, and it no longer mentions r/ValueInvesting):
+
+> **Request to post: one original text analysis (equity thesis), AI-assisted, with disclosure**
+>
+> I'd like to post one original text analysis, about one page, on a small group of listed companies: hypothesis, why now (with an as-of date), what the market may be missing, the strongest bear case, valuation and what is priced in, dated catalysts, and the observable conditions that would prove it wrong. Figures come from primary filings, which are the only links in the post.
+>
+> Rules check: no links to any site, blog, app or survey of mine (rule 3), and a descriptive, non-promotional title, since rule 2 reads as written for linked articles. The username is the name of a small research project I'm building; I won't link it.
+>
+> Disclosure, stated in the post: I'm the author, the draft was written with AI assistance (Claude), I check every figure against the filings before posting, and I'll state any positions I hold. I'm after critique of the reasoning, not upvotes. The same analysis may also appear in r/stockpitches. Happy to send the draft here first. If it isn't a fit, I won't post it.
+
 ### 3.1 What to paste back (about 5 minutes per subreddit)
+
+*Done on 2026-10-10 for the subreddits in §3.0; use this checklist for any further one.*
 
 For each of r/SecurityAnalysis, r/ValueInvesting, r/investing (all from `distribution-list.md`), plus any other sub considered, copy into one message:
 
@@ -110,10 +138,11 @@ No link to topicron.vercel.app in the first post; add it only if a moderator or 
 
 | When | Step | Owner |
 |---|---|---|
-| 2026-10-10/11 | Paste subreddit rules (§3.1); decide on Channel A budget | Founder |
-| 2026-10-11/13 | Choose the new topic, verify its facts against primary sources, write the one-page version (ADR-0003 template, D-33 source hierarchy) | Claude, founder review |
-| 2026-10-13/14 | Launch Channel A study (if approved) with the one-page version and a six-question anonymous form; send message A or B where needed | Founder |
-| by 2026-10-24 | One Reddit post in the best-fitting subreddit; one week of replies | Founder |
+| 2026-10-10 | Subreddit rules pasted (§3.0); X account set up | Founder |
+| 2026-10-11 | New topic chosen, facts checked against primary sources, thesis and one-page version written (`m0/topic-thesis-13-us-wireless-spacex.md`, `m0/topic-thesis-13-distribution-copy.md`) | Claude |
+| 2026-10-11/12 | Commit write-up 13, re-sync the Claude Project; send the r/SecurityAnalysis Request to Post; decide on the Channel A budget | Founder |
+| 2026-10-12/14 | Post in r/stockpitches once the thesis is committed; X thread on Wed 2026-10-14; launch the Channel A study if approved, with a six-question anonymous form | Founder |
+| by 2026-10-24 | One Reddit post live (r/SecurityAnalysis if approved, else r/stockpitches); one week of replies. r/ValueInvesting: retry Create Post in a week or two | Founder |
 | in parallel | Channel D list; Channel C only if a single-name pitch comes out of the new thesis | Claude drafts, founder sends |
 | 2026-11-07 | M0 gate verdict written into `PROJECT_STATE.md` from the evidence collected, including "not validated" if that is what it shows | Founder |
 

@@ -140,3 +140,30 @@ First write-up drafted natively under the ADR-0003 template. The single freshest
 - Did not include Lucid Motors or legacy automakers (Ford, GM) in the basket despite appearing in adjacent sourcing — the specific thesis is about Tesla's subsidy-era profitability crutch disappearing versus Rivian's subsidy-independent profit proof; adding names without that specific contrast would have diluted the actual claim into a generic "EV stocks" basket.
 
 **Milestone note:** 12 of the 10-20 target for task 2, both drafted natively under ADR-0003 rather than backfilled from the old format.
+
+## Write-up 13 — US Wireless Carriers: The SpaceX Selloff Prices a 2027 Threat Into 2026 Stocks
+
+Drafted natively under the ADR-0003 template, 2026-10-11, as the first write-up checked against primary sources (company releases, FCC orders, Treasury data) rather than built from one secondary market summary. The topic came from a single such summary (9 October), and the template's own steps changed the thesis in these ways:
+
+- **Facts corrected against better sources.** The summary implied a Friday announcement with a known price. The deal was announced after Thursday's close, SpaceX did not disclose a price, and the $8 billion is a Wall Street Journal figure relayed by Forbes. The thesis says so in its opening note and treats it as unconfirmed.
+- **A percentage that would have been wrong.** Aggregator and article figures for Verizon (-8.75%) and AT&T (-9.81%) on 9 October are measured against a dividend-adjusted prior close, because both went ex-dividend that day. Raw close to close, which is what `price_snapshots` will record, is -10.1% and -10.8%. The thesis uses the raw figures and states the dividend effect.
+- **D-29 forced a dated catalyst search.** It surfaced three Q3 report dates and, in the FCC order for the Grain licences, two dated process steps (5 November, 4 December) that no market summary mentioned.
+- **D-28 forced a valuation frame.** Free-cash-flow yields of 11.6-12.8% on guidance, translated into what they imply about the market's expectations; that is the claim the thesis rests on (priced versus unpriced).
+- **D-27 forced a benchmark check.** The usual sector ETF (IYZ) was rejected after reading its holdings: roughly a third is Cisco and Arista, and it holds SpaceX itself (3.9%). The thesis uses SPY and an equal-weight carrier basket. This exposes a design gap, flagged and not fixed: `docs/DATA_MODEL.md` expects `sector_benchmark_ticker` to be an ETF.
+
+**Claims removed or not used:**
+- A reported rise in Crown Castle on 9 October: single secondary source, and it is not clear which way it should be read.
+- The oil and optical-networking candidates from the same summary: the first is too binary and geopolitical for a falsifiable 90-day claim, the second needs its own verification pass.
+- SpaceX itself is not in the basket: the hypothesis is about whether the incumbents overshot, not about SpaceX.
+
+**Basket construction note:** differentiated 40/40/20 (D-32), not equal weight. The thesis argues Verizon and AT&T are better supported than T-Mobile (multiple, dividend, a Q3 it has guided soft), so the basket reflects that. T-Mobile stays in at 20% because it fell most; the weighting call is graded separately at day 90.
+
+**Re-check on 12 October (before the commit).** Facts only; price moves after the 9 October close were deliberately not used to change the thesis.
+- **A consideration that was incomplete.** The first draft said T-Mobile sold its 800 MHz licences to Grain "for $2.9 billion in cash". The FCC order (DA 26-653) says $2.9 billion in cash **and** Grain's 600 MHz licences (10 MHz in 212 counties), which T-Mobile's own August release confirms. The cash-only wording understated what T-Mobile received and made the comparison with SpaceX's reported $8 billion look like for like. Corrected in the thesis (source 1, T-Mobile weighting note) and in the distribution copy.
+- **A fact added.** SpaceX's statement to the FCC asks for expedited approval and describes a terrestrial overlay on towers and rooftops, not only satellite service (Light Reading, now source 20). The bear case says so, and the hypothesis now says "a SpaceX mobile service" instead of "a satellite-based competitor"; the measurable claim (basket, SPY, 5 points, 90 days) is unchanged.
+- **Closes cross-checked.** The 9 October closes agree to the cent on companiesmarketcap.com (VZ, T, TMUS) and stockinvest.us (VZ, SPY). All are aggregators; exchange data was not reachable, so the founder can compare them with a broker quote before posting.
+- **Checked and unchanged.** Q3 dates (company releases for AT&T 21 Oct, Verizon 26 Oct, T-Mobile 28 Oct); the $8 billion remains a Wall Street Journal report that neither company has confirmed (one trade-press summary also credited Bloomberg, and the next one did not, so it is not used); no carrier statement or FCC action since 9 October was found.
+
+**Open items carried forward:** exchange-source check of the closes (founder, optional); SpaceX's blog post and FCC filing were not opened directly (described by Light Reading); `AGENTS.md` §6/§7 and `CLAUDE.md` still conflict with D-32 on weighted baskets (`PROJECT_STATE.md`, Known technical debt).
+
+**Milestone note:** 13 of the 10-20 target for task 2.
