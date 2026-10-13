@@ -9,7 +9,7 @@
 | r/SecurityAnalysis | Strong | Long-form, thesis-oriented — closest match to the persona |
 | r/ValueInvesting | Strong | Same profile, slightly broader |
 | r/investing | **Excluded (2026-10-10)** | Its rules treat large amounts of AI-generated text as low effort and ban (self-)promotion with a permanent ban |
-| r/stockpitches | Strong format fit | Sidebar invites own pitches; no rules found on 2026-10-10, so karma or AutoModerator limits are unknown |
+| r/stockpitches | **Dropped (2026-10-12)** | Format fit, but dormant: last post and last comment 8 years old, 1 weekly visitor (founder's check) |
 
 **Deliberately excluded:** r/wallstreetbets, r/stocks — skew toward the anti-persona (signal-seeker, "what do I buy today"), which `docs/VISION.md` explicitly distinguishes Topicron's reader from.
 

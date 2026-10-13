@@ -161,9 +161,13 @@ Drafted natively under the ADR-0003 template, 2026-10-11, as the first write-up 
 **Re-check on 12 October (before the commit).** Facts only; price moves after the 9 October close were deliberately not used to change the thesis.
 - **A consideration that was incomplete.** The first draft said T-Mobile sold its 800 MHz licences to Grain "for $2.9 billion in cash". The FCC order (DA 26-653) says $2.9 billion in cash **and** Grain's 600 MHz licences (10 MHz in 212 counties), which T-Mobile's own August release confirms. The cash-only wording understated what T-Mobile received and made the comparison with SpaceX's reported $8 billion look like for like. Corrected in the thesis (source 1, T-Mobile weighting note) and in the distribution copy.
 - **A fact added.** SpaceX's statement to the FCC asks for expedited approval and describes a terrestrial overlay on towers and rooftops, not only satellite service (Light Reading, now source 20). The bear case says so, and the hypothesis now says "a SpaceX mobile service" instead of "a satellite-based competitor"; the measurable claim (basket, SPY, 5 points, 90 days) is unchanged.
-- **Closes cross-checked.** The 9 October closes agree to the cent on companiesmarketcap.com (VZ, T, TMUS) and stockinvest.us (VZ, SPY). All are aggregators; exchange data was not reachable, so the founder can compare them with a broker quote before posting.
+- **Closes cross-checked.** The 9 October closes agree to the cent on companiesmarketcap.com (VZ, T, TMUS) and stockinvest.us (VZ, SPY). All are aggregators and exchange data was not reachable; the founder then confirmed all four closes (VZ, T, TMUS, SPY) against investing.com the same day.
 - **Checked and unchanged.** Q3 dates (company releases for AT&T 21 Oct, Verizon 26 Oct, T-Mobile 28 Oct); the $8 billion remains a Wall Street Journal report that neither company has confirmed (one trade-press summary also credited Bloomberg, and the next one did not, so it is not used); no carrier statement or FCC action since 9 October was found.
 
-**Open items carried forward:** exchange-source check of the closes (founder, optional); SpaceX's blog post and FCC filing were not opened directly (described by Light Reading); `AGENTS.md` §6/§7 and `CLAUDE.md` still conflict with D-32 on weighted baskets (`PROJECT_STATE.md`, Known technical debt).
+**Open items carried forward:** SpaceX's blog post and FCC filing were not opened directly (described by Light Reading); `AGENTS.md` §6/§7 and `CLAUDE.md` still conflict with D-32 on weighted baskets (`PROJECT_STATE.md`, Known technical debt).
 
 **Milestone note:** 13 of the 10-20 target for task 2.
+
+## Validation spend
+
+- **2026-10-12: Prolific reader panel approved by the founder, cap EUR 100** (`AGENTS.md` §6, "Money"; one-off validation spend, not a stack component, so ADR-0002 D-19 is untouched). Design and worst-case cost: `m0/prolific-study-spec.md`. Spent so far: nothing. Replace this line with the actual total when the studies close.

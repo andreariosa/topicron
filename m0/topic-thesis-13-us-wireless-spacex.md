@@ -1,6 +1,6 @@
 # US Wireless Carriers: The SpaceX Selloff Prices a 2027 Threat Into 2026 Stocks
 
-*As of the 9 October 2026 close; written 11 October 2026 and re-checked on the morning of 12 October, before the US open. Prices, multiples and ETF holdings come from stockanalysis.com [19], an aggregator. I cross-checked the 9 October closes of all three carriers on companiesmarketcap.com and those of Verizon and SPY on stockinvest.us, and they agree to the cent, but exchange data was not reachable from the research environment. SpaceX's own blog post and FCC filing could not be opened, so the deal terms come from Reuters [11], Light Reading [20] and other reports [12][13]. The $8 billion price is a Wall Street Journal report that neither SpaceX nor Grain has confirmed.*
+*As of the 9 October 2026 close; written 11 October 2026 and re-checked on the morning of 12 October, before the US open. Prices, multiples and ETF holdings come from stockanalysis.com [19], an aggregator. I cross-checked the 9 October closes of all three carriers on companiesmarketcap.com and those of Verizon and SPY on stockinvest.us, and they agree to the cent; I also confirmed the closes of Verizon, AT&T, T-Mobile and SPY on investing.com on 12 October. Exchange data itself was not reachable from the research environment. SpaceX's own blog post and FCC filing could not be opened, so the deal terms come from Reuters [11], Light Reading [20] and other reports [12][13]. The $8 billion price is a Wall Street Journal report that neither SpaceX nor Grain has confirmed.*
 
 ## The hypothesis
 
@@ -68,7 +68,7 @@ Wrong if any of these is observed within the window:
 - **Rates and the Fed.** A hawkish surprise on 28 October would hit high-yield, high-debt names whatever the quarter shows.
 - **Price return versus dividends.** The product tracks closing prices (`docs/DATA_MODEL.md`). T-Mobile goes ex-dividend on about 25 November [19]; the January ex-dates of Verizon and AT&T (9 October this time) fall close to day 90, and whether they land inside the window depends on dates not yet announced. If all three go ex inside the window, at today's yields this costs the basket roughly 1 point of price return against SPY (my estimate). The 5-point threshold is not adjusted for it.
 - **Relative-return trap.** In a strong market SPY can outrun a defensive basket even if the thesis is right on fundamentals.
-- **Data quality.** Closes come from aggregators (three agree, none is the exchange); SpaceX's blog post and FCC filing were not read directly; the $8 billion price is one report.
+- **Data quality.** Closes come from market-data websites (four agree, none is the exchange itself); SpaceX's blog post and FCC filing were not read directly; the $8 billion price is one report.
 - **Unscheduled news.** Cable or handset partnerships with SpaceX, which analysts have speculated about [17], or a definitive carrier joint venture [10], could move all three on rumor alone.
 
 ## Basket and benchmark
@@ -115,7 +115,7 @@ Primary sources first (D-33); [19] is an aggregator and [11]-[18] and [20] are s
 16. Fierce Network (2026-07-28). AT&T closed its roughly $23 billion purchase of EchoStar's 3.45 GHz and 600 MHz spectrum on 28 July 2026. https://www.fierce-network.com/wireless/att-closes-23b-spectrum-deal-echostar
 17. MarketWatch / Dow Jones (via Tiger Brokers) (2026-07-03). In the week to 3 July AT&T was down more than 11%, heading for its worst week since March 2020 and a new 52-week closing low, and Verizon about 11%; T-Mobile said satellite coverage was 0.0002% of its network usage in May; analysts at TD Cowen and BNP Paribas said SpaceX entry could be highly bearish and the overhang may persist into next year. https://www.itiger.com/news/2648386496
 18. MarketBeat (2026-07-23). Summary of the call: the free-cash-flow raise came mainly from lower cash income taxes; Q3 outlook of about 250,000 postpaid account additions with elevated churn tied to a rate-plan change. https://www.marketbeat.com/instant-alerts/t-mobile-us-q2-earnings-call-highlights-2026-07-23/
-19. stockanalysis.com (aggregator) (2026-10-10). Closing prices for 8 and 9 October 2026, volumes, share counts, forward multiples, dividend yields, ex-dividend dates, 52-week changes; IYZ top holdings as of 2 October 2026 (Cisco 22.84%, Arista 11.79%, Verizon 10.44%, AT&T 4.30%, SpaceX 3.86%, T-Mobile 3.26%). Secondary: on 12 October 2026 the closes were cross-checked against companiesmarketcap.com (VZ, T, TMUS) and stockinvest.us (VZ, SPY) and agree to the cent; all three are aggregators, not the exchange. https://stockanalysis.com/stocks/vz/history/
+19. stockanalysis.com (aggregator) (2026-10-10). Closing prices for 8 and 9 October 2026, volumes, share counts, forward multiples, dividend yields, ex-dividend dates, 52-week changes; IYZ top holdings as of 2 October 2026 (Cisco 22.84%, Arista 11.79%, Verizon 10.44%, AT&T 4.30%, SpaceX 3.86%, T-Mobile 3.26%). Secondary: on 12 October 2026 the closes were cross-checked against companiesmarketcap.com (VZ, T, TMUS), stockinvest.us (VZ, SPY) and investing.com (VZ, T, TMUS, SPY, checked by the author) and agree to the cent; all are market-data websites, not the exchange. https://stockanalysis.com/stocks/vz/history/
 20. Light Reading (2026-10-09). Describes SpaceX's public-interest statement to the FCC on the Grain deal: it seeks expedited approval and says SpaceX will operate standards-based wireless equipment on towers, rooftops and other structures, engineered to meet the construction benchmarks of the FCC's Grain approval order; financial terms were not disclosed and the Wall Street Journal reports $8 billion in cash. https://www.lightreading.com/satellite/spacex-grain-s-lowband-spectrum-is-our-ticket-to-becoming-major-mobile-carrier-
 
 **Caveat:** This is a hypothesis for tracking purposes, not a recommendation.
@@ -160,7 +160,7 @@ Primary sources first (D-33); [19] is an aggregator and [11]-[18] and [20] are s
       "Rates: an FOMC surprise on 28 October hits high-yield, high-debt names whatever the quarter shows.",
       "Price-return tracking: ex-dividend dates inside the window cost the basket roughly 1 point of price return against SPY; the threshold is not adjusted.",
       "Relative-return trap: in a strong market SPY can outrun a defensive basket.",
-      "Data quality: closes from aggregators (three agree, none is the exchange), SpaceX's blog post and FCC filing not read directly, the $8 billion price from one report.",
+      "Data quality: closes from market-data websites (four agree, none is the exchange itself), SpaceX's blog post and FCC filing not read directly, the $8 billion price from one report.",
       "Unscheduled news: cable or handset partnerships with SpaceX, or a definitive carrier joint venture."
     ],
     "confidence": "low",
@@ -316,7 +316,7 @@ Primary sources first (D-33); [19] is an aggregator and [11]-[18] and [20] are s
         "publisher": "stockanalysis.com (aggregator)",
         "headline": "Price history, statistics and IYZ holdings pages for VZ, T, TMUS, SPY, IYZ",
         "published_at": "2026-10-10",
-        "paraphrase": "Closing prices for 8 and 9 October 2026, volumes, share counts, forward multiples, dividend yields, ex-dividend dates, 52-week changes; IYZ top holdings as of 2 October 2026 (Cisco 22.84%, Arista 11.79%, Verizon 10.44%, AT&T 4.30%, SpaceX 3.86%, T-Mobile 3.26%). Secondary: on 12 October 2026 the closes were cross-checked against companiesmarketcap.com (VZ, T, TMUS) and stockinvest.us (VZ, SPY) and agree to the cent; all three are aggregators, not the exchange."
+        "paraphrase": "Closing prices for 8 and 9 October 2026, volumes, share counts, forward multiples, dividend yields, ex-dividend dates, 52-week changes; IYZ top holdings as of 2 October 2026 (Cisco 22.84%, Arista 11.79%, Verizon 10.44%, AT&T 4.30%, SpaceX 3.86%, T-Mobile 3.26%). Secondary: on 12 October 2026 the closes were cross-checked against companiesmarketcap.com (VZ, T, TMUS), stockinvest.us (VZ, SPY) and investing.com (VZ, T, TMUS, SPY, checked by the author) and agree to the cent; all are market-data websites, not the exchange."
       },
       {
         "source_url": "https://www.lightreading.com/satellite/spacex-grain-s-lowband-spectrum-is-our-ticket-to-becoming-major-mobile-carrier-",

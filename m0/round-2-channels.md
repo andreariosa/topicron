@@ -10,6 +10,7 @@
 | Reddit's own site rules and help center (redditinc.com) | Also blocked. Statements about multiple accounts, ban evasion and modmail are **unverified**; check https://www.redditinc.com/policies/reddit-rules directly. |
 | Hacker News Show HN rules | **Verified**, https://news.ycombinator.com/showhn.html |
 | Prolific pricing, minimum pay, filters, unsuitable studies | **Verified**, Prolific researcher help pages (cited in §2) |
+| Prolific attention and rejection policy, Google Forms guide, custom screening, filters and sub-conditions, VAT | **Verified** 2026-10-12, researcher-help.prolific.com (articles 445153, 445183, 445165, 586737, 445218, bf1a70, 445239) |
 | Value Investors Club FAQ and about page | **Verified**, https://valueinvestorsclub.com/help/faq and `/help/aboutus` |
 | X/Fintwit, Substack Notes, LinkedIn, Discord servers, Italian-language communities | **Not researched** to a usable standard (search returned SEO noise, no primary sources). Not recommended for speed in any case: no existing audience means no feedback loop. |
 
@@ -19,7 +20,7 @@ One aggregate data point, **secondary and from a commercial vendor** (redditapis
 
 | # | Channel | Speed | Persona fit | Cost | What was verified |
 |---|---|---|---|---|---|
-| A | **Paid reader panel (Prolific)** | Unverified; the vendor markets "hours, not weeks". Its help pages give only a 40–50% response rate from the eligible pool, no turnaround guarantee | Medium: no investing filter in the documented list, so screening must be a custom question | One-off: see below | Fee 42.857% on top of rewards (corporate rate); minimum pay £6 / $8 per hour, recommended £9 / $12; no surcharge for pre-screeners. Studies collecting names or **emails** are "unlikely to be supported". The documented filters include employment industry but no investing or stock-ownership filter; custom screening questions exist. |
+| A | **Paid reader panel (Prolific)** | Unverified; the vendor markets "hours, not weeks". Its help pages give only a 40–50% response rate from the eligible pool, no turnaround guarantee | Medium: no investing filter in the documented list, so screening must be a custom question | One-off: see below | Fee 42.857% on top of rewards (corporate rate), VAT on the fee only; minimum pay £6 / $8 per hour, recommended £9 / $12; workspaces in GBP or USD. Studies collecting names or **emails** are "unlikely to be supported". No investing filter in the pages read; custom screening is the documented fallback and screened-out participants receive the reward set at creation. Google Forms works with a manual completion code (no automatic redirect). Rejection only for two failed valid attention checks (studies over 5 minutes), skipped required questions, clear low effort or 3-SD-fast outliers; content questions are not grounds. Read 2026-10-12. |
 | B | **Reddit, target subreddits** | Days; unpredictable | High if a post survives | Free | Nothing verified (§3). |
 | C | **Value Investors Club** | Weeks | Very high | Free | Membership by individual application that must include "a favorite current investment recommendation", judged by an investment manager; "only a select few are chosen". Ideas up to about 25,000 characters; ratings become visible once at least 6 members have rated; authors are expected to answer questions that identify flaws. Scope: value and special-situation equity ideas, so a multi-name basket write-up is a poor fit; a single-name pitch would be needed. |
 | D | **Direct outreach to independent analysts and small newsletter authors** | Days | High | Free | Not researched; list to be built. Expected low response rate, high quality per response. |
@@ -36,11 +37,13 @@ Reward for a 20-minute read-and-answer task, plus the platform fee (rewards × 1
 
 Figures are estimates from the pricing page's stated fee and rates; screened-out participants also receive a small payment and the page does not say who pays it. This is one-off spend, not a stack component, so it does not read as a breach of ADR-0002 D-19, but `AGENTS.md` §6 ("Money") makes it the founder's explicit call. If approved, record it as validation spend in `m0/intervention-log.md`.
 
+**Approved 2026-10-12 (founder, chat): cap EUR 100.** Design, worst-case cost (about $92.59, EUR 83 at 1.1206 USD per EUR) and steps: `m0/prolific-study-spec.md`; form text: `m0/prolific-form-text.md`; one-page reading version: `m0/topic-thesis-13-one-page.md`.
+
 What a paid panel can and cannot show:
 
 - **Can:** whether a careful reader (they are paid to read) finds the thesis understandable, grounded, falsifiable and non-generic; where they get lost; whether the one-page version beats the long one.
 - **Cannot:** demand. "Would you miss this?" asked of paid respondents is inflated and must not feed the M0 gate's "how would you feel if this no longer existed" question. Use it for the quality half of the gate only.
-- **Constraints:** no email collection (keep the questionnaire anonymous, no landing-page signup step); say that the text is AI-assisted; whether Prolific accepts feedback on written content is **not covered** by the help pages read, so confirm with Prolific support before launching.
+- **Constraints:** no email collection (keep the questionnaire anonymous, no landing-page signup step); say that the text is AI-assisted; none of the help pages read prohibits feedback on written content, but that is not the same as it being accepted, so the 3-place pilot is also the test.
 
 ## 3. Reddit protocol
 
@@ -52,7 +55,7 @@ The rules below are the founder's copy of each subreddit's rules page and sideba
 |---|---|---|
 | r/SecurityAnalysis | **First choice.** Restricted mode; the sidebar invites posting requests ("this isn't a blocker") and the sub has a Request to Post form, which replaces modmail | Rule 3: no overt self-promotion of blogs, apps, websites, YouTube channels or surveys. Rule 2: factual, unedited titles, written with linked articles in mind. No rule on AI text in the pasted text. |
 | r/ValueInvesting | **Blocked for now.** Create Post is refused by an account-age check (u/topicron was 1 day old on 2026-10-11; threshold not shown). Retry in a week or two; no message to the moderators | Rule 4: authored on-topic articles allowed, ask by modmail if unsure. Rule 5: limited self-promotion for regular participants only. Rule 10: moderators may remove AI-generated content. Rule 2: no content posted to many subs at once. Rule 9: no soliciting contact details. |
-| r/stockpitches | **Second choice; no message needed.** Post directly, one sub at a time | Sidebar: "post your own ideas". No rules in the pasted text; karma and AutoModerator unknown. |
+| r/stockpitches | **Dropped (2026-10-12).** Dormant: last post and last comment 8 years old, 1 weekly visitor (founder's check) | Sidebar: "post your own ideas". No rules in the pasted text. Format fit, no readers. |
 | r/investing | **Excluded** | Rule 1: large amounts of Gen AI text are low effort. Rule 4: (self-)promotion, surveys and blogs: permanent ban. |
 | r/StockMarket | **Excluded** | Rule 7: the same AI-text rule. Rule 2: self-promotion and surveys: permanent ban. Rule 3: the same post across several subs is spam. |
 | r/ItaliaPersonalFinance | **Excluded** | Rule 7: no fully AI-generated content. Rule 4: no surveys or market research. Also a personal-finance sub, not a thesis sub. |
@@ -69,6 +72,8 @@ The rules below are the founder's copy of each subreddit's rules page and sideba
 > Rules check: no links to any site, blog, app or survey of mine (rule 3), and a descriptive, non-promotional title, since rule 2 reads as written for linked articles. The username is the name of a small research project I'm building; I won't link it.
 >
 > Disclosure, stated in the post: I'm the author, the draft was written with AI assistance (Claude), I check every figure against the filings before posting, and I'll state any positions I hold. I'm after critique of the reasoning, not upvotes. The same analysis may also appear in r/stockpitches. Happy to send the draft here first. If it isn't a fit, I won't post it.
+
+Sent 2026-10-12 as written. It still says the analysis may also appear in r/stockpitches, which turned out to be dormant; the text is kept as sent.
 
 ### 3.1 What to paste back (about 5 minutes per subreddit)
 
@@ -140,10 +145,10 @@ No link to topicron.vercel.app in the first post; add it only if a moderator or 
 |---|---|---|
 | 2026-10-10 | Subreddit rules pasted (§3.0); X account set up | Founder |
 | 2026-10-11 | New topic chosen, facts checked against primary sources, thesis and one-page version written (`m0/topic-thesis-13-us-wireless-spacex.md`, `m0/topic-thesis-13-distribution-copy.md`) | Claude |
-| 2026-10-11/12 | Commit write-up 13, re-sync the Claude Project; send the r/SecurityAnalysis Request to Post; decide on the Channel A budget | Founder |
-| 2026-10-12/14 | Post in r/stockpitches once the thesis is committed; X thread on Wed 2026-10-14; launch the Channel A study if approved, with a six-question anonymous form | Founder |
-| by 2026-10-24 | One Reddit post live (r/SecurityAnalysis if approved, else r/stockpitches); one week of replies. r/ValueInvesting: retry Create Post in a week or two | Founder |
-| in parallel | Channel D list; Channel C only if a single-name pitch comes out of the new thesis | Claude drafts, founder sends |
+| 2026-10-12 | Done: write-up 13 committed (12:19) and the Claude Project re-synced; closes confirmed against investing.com; Request to Post sent to r/SecurityAnalysis; Prolific approved up to EUR 100 | Founder |
+| 2026-10-12/14 | Build the form and run the Prolific pilot (3 places) and second wave (`m0/prolific-study-spec.md`); send the outreach messages from the private kit (not in the repository); X thread on Wed 2026-10-14 at 16:00 Rome time | Founder, with Claude |
+| by 2026-10-24 | r/SecurityAnalysis: no answer by about 2026-10-14 counts as no (§3.2). Prolific results analysed; outreach reviewed (fewer than 2 specific replies out of 10 means the channel is not working). r/ValueInvesting: retry Create Post in a week or two | Founder |
+| in parallel | Channel D: private kit, with the list found by the founder using a 60-second filter (a verified list was not possible with the tools available); Channel C only if a single-name pitch comes out of the new thesis | Claude drafts, founder sends |
 | 2026-11-07 | M0 gate verdict written into `PROJECT_STATE.md` from the evidence collected, including "not validated" if that is what it shows | Founder |
 
 ## 5. Sources

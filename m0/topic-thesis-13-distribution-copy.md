@@ -5,11 +5,11 @@
 ## 0. Before anything is posted
 
 1. **Commit the thesis first.** The commit time is the thesis's `published_at`; the tracking entry is the first close after it (`docs/DATA_MODEL.md`, 90-day holding rule). Nothing below goes out before that.
-2. **Compare the 9 Oct closes with your own broker or exchange quote** (ten seconds): T 22.18, VZ 41.65, TMUS 148.58, SPY 778.57. They were cross-checked on 12 Oct against two further aggregators and agree, but none of the three is the exchange. Fix any difference in the thesis file first, then here.
+2. **Closes: done.** The 9 Oct closes were confirmed against investing.com on 2026-10-12 (founder): T 22.18, VZ 41.65, TMUS 148.58, SPY 778.57.
 3. **Fill the placeholders** marked in square brackets: your positions, and whether you will report back at day 30/60/90.
 4. **Rewrite the Reddit body in your own voice.** It is a draft written with AI assistance and it reads like one in places. Shorten it, keep the numbers, keep the disclosure. Rewriting is not a way to hide the AI assistance and the disclosure line stays.
 5. **No link to topicron.vercel.app or the repository in the Reddit post**, no form, no survey (r/SecurityAnalysis rule 3). Links to primary sources only.
-6. **One Reddit post at a time.** r/SecurityAnalysis needs approval first (the Request to Post form); r/stockpitches shows no rules and can be posted to directly. Post to one, wait for the replies, then decide on the other with a different thesis or after at least a week.
+6. **One Reddit post.** r/stockpitches turned out to be dormant (checked 2026-10-12: last post and last comment 8 years old, 1 weekly visitor), so only r/SecurityAnalysis remains, and only if the moderators approve the Request to Post (no answer by about 2026-10-14 counts as no). Do not repost the same text elsewhere while that runs.
 
 ## 1. Reddit text post
 
@@ -19,7 +19,7 @@
 US wireless carriers after the SpaceX spectrum deal: thesis, bear case and invalidation conditions (AI-assisted analysis, as of 9 Oct 2026)
 ```
 
-**Title for r/stockpitches** (pitch style):
+**Title for r/stockpitches** (pitch style; not used, the sub is dormant; kept in case a similar sub turns up):
 
 ```text
 VZ / T / TMUS: the SpaceX selloff prices a 2027 threat into 2026 stocks (AI-assisted pitch, as of 9 Oct 2026)
