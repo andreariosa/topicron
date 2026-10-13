@@ -121,3 +121,28 @@ Choose the best answer. Your answers here do not affect your payment.
 ## Section 8. End of form
 
 Thank you. Please click **Submit** first (answers are lost if you do not), then enter this code on Prolific to be paid: **[COMPLETION CODE from Prolific]**
+
+## Build notes (Google Forms)
+
+*Added 2026-10-13 from Prolific's Google Forms integration guide (researcher-help.prolific.com, article 445183) and Google Forms behaviour; the Google Forms points marked "not from Prolific" are not verified against Google's own help.*
+
+**Google Forms sections (use the "Add section" button), in this order:**
+
+1. About this study and consent (the consent question routes by answer).
+2. Prolific ID.
+3. S1 on its own section (routes by answer).
+4. S2 on its own section (routes by answer). One routing question per section avoids ambiguity about which answer wins.
+5. The reading and every remaining question: reading link, C1-C4, R1, the grid, L1, U1, O1-O3. At the bottom set "After section: go to" the end-of-form section.
+6. "Does not consent" page: the thank-you line, then "After section: Submit form".
+7. Screen-out page with the screen-out code, then "After section: Submit form".
+8. End of form with the completion code (last section of the form).
+
+Sections 6 and 7 sit between the main section and the end section on purpose: sections otherwise run in order, so the main section must jump over them to section 8.
+
+**Settings.** Responses: email collection "Do not collect", also under Form defaults. No file-upload question. Do not turn on "Limit to 1 response" (not from Prolific: Google then requires sign-in; Prolific already prevents the same person doing a study twice). Make the form open to anyone with the link and test it in a private window.
+
+**Question types.** Consent, S1, S2, C1-C4, R1, L1: multiple choice, required. Prolific ID: short answer, required. Grid: multiple-choice grid with "Require a response in each row" on and "Limit to one response per column" off. U1: checkboxes with response validation "Select at most 3". O1: paragraph, required; O2 and O3: paragraph, optional.
+
+**Order of work, because the codes come from Prolific.** Build the form with the code placeholders and copy its link; create the Prolific draft with that link; copy the completion code and the "Screened out" code from the study setup; paste them into sections 7 and 8; test the form paths (consent No, S1 No, S2 "Never", and a full pass) with the preview; then publish the study. Study B is a separate Prolific study with its own codes.
+
+**After publishing.** Responses tab: link to Sheets or download CSV. Match each Prolific submission to a form response by the Prolific ID; a typo in the ID is the usual cause of a missing match (compare start time and duration).
