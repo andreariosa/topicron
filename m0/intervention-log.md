@@ -170,4 +170,5 @@ Drafted natively under the ADR-0003 template, 2026-10-11, as the first write-up 
 
 ## Validation spend
 
-- **2026-10-12: Prolific reader panel approved by the founder, cap EUR 100** (`AGENTS.md` §6, "Money"; one-off validation spend, not a stack component, so ADR-0002 D-19 is untouched). Design and worst-case cost: `m0/prolific-study-spec.md`. Spent so far: nothing. Replace this line with the actual total when the studies close.
+- **2026-10-12: Prolific reader panel approved by the founder, cap EUR 100** (`AGENTS.md` §6, "Money"; one-off validation spend, not a stack component, so ADR-0002 D-19 is untouched). Design and cost: `m0/prolific-study-spec.md`.
+- **2026-10-13: both studies run.** Totals shown by Prolific at the confirmation step (GBP, VAT included): Study A £54.91 (a pilot of £19.67, then £35.26 for 7 more places), Study B £17.90; together **£72.81, about EUR 86** at 1 EUR = 0.84478 GBP (ECB, 2026-10-12), under the cap. These are the amounts reserved at publication. Screen-out slots are charged upfront (Study A 10, used 0; Study B 6, used 2) and whether unused slots are refunded is unverified. Replace this line with the amount actually spent once the Prolific Finance page has been read, including any extra payment Prolific asks for Study B (measured median 10.2 minutes against a 10-minute estimate).

@@ -1,6 +1,6 @@
 # Prolific study spec (M0, task 3, channel A)
 
-*A paid panel of readers who say they invest in individual stocks, to get careful reads of write-up 13 and test the one-page version against the full text. Approved by the founder on 2026-10-12 (chat) with a hard cap of EUR 100; `AGENTS.md` §6 ("Money") makes this his call and it is recorded here and in `m0/intervention-log.md`. One-off validation spend, not a stack component, so ADR-0002 D-19 is not touched. Facts about Prolific were read from its researcher help pages on 2026-10-12 and 2026-10-13; anything not read is marked **unverified**.*
+*A paid panel of readers who say they invest in individual stocks, to get careful reads of write-up 13 and test the one-page version against the full text. Approved by the founder on 2026-10-12 (chat) with a hard cap of EUR 100; `AGENTS.md` §6 ("Money") makes this his call and it is recorded here and in `m0/intervention-log.md`. One-off validation spend, not a stack component, so ADR-0002 D-19 is not touched. Facts about Prolific were read from its researcher help pages on 2026-10-12 and 2026-10-13, or observed in the study setup pages on 2026-10-13; anything not read or observed is marked **unverified**. Both studies ran on 2026-10-13: what happened is in §7 and the results are in `m0/reader-feedback-log.md` (Round 2).*
 
 ## 1. What this can and cannot show
 
@@ -13,58 +13,76 @@
 | | Study A (full text) | Study B (one page) |
 |---|---|---|
 | Reads | `m0/topic-thesis-13-us-wireless-spacex.md` on GitHub (about 2,100 words to read) | `m0/topic-thesis-13-one-page.md` on GitHub (about 700 words) |
-| Estimated time | 20 minutes | 12 minutes |
-| Reward | $4.00 ($12.00 per hour, Prolific's recommended rate) | $2.40 ($12.00 per hour) |
+| Estimated time | 20 minutes | 10 minutes (the first draft said 12; lowered after Study A's measured median, 12.3 minutes, came in far under its 20-minute estimate) |
+| Reward | £3.33 (£9.99 per hour) | £1.67 (£10.02 per hour) |
 | Places | 10, published in two steps: 3 as a pilot, then 7 | 6 |
+| Screen-out slots (£0.30 each) | 10 | 6 |
 | Questionnaire | Identical in both (`m0/prolific-form-text.md`) | Identical in both |
 
 With 10 and 6 readers this is qualitative evidence, not a statistical test. Report counts, not percentages.
 
-**Who.** People in the United States, fluent in English, who personally buy individual stocks and read company analysis at least monthly. Prolific's help pages list no investing filter (they list country, age, job role, education and languages as examples, and call custom screening the fallback for niche groups). So: open the filter list in the study setup and search for "invest", "stock" and "share"; if a matching filter exists, use it. If not, use the two screener questions at the start of the form and send non-matching people to the "screened out" path (Prolific then pays them the screen-out reward you set at creation).
+The workspace currency is GBP (the first draft assumed USD). The setup page flagged "high study competition" and a competitive band of £15.90 to £27.00 per hour for this audience; the approved cap rules that out, and at about £10 per hour both studies filled the same day (§7).
+
+**Who.** People resident in the United States, fluent in English, who say they invest in the stock market and who, in the form's two screening questions, say they personally buy individual stocks and read company analysis at least monthly. The filters in Prolific's setup page (observed 2026-10-13): Current Country of Residence = United States; Investment = Yes; Types of investment = Stock Market; English speaking = all three options; combined with AND (the default across categories; an AND/OR toggle exists). The eligible pool was about 12,100 people. The filters are profile data that participants entered themselves, hence the two screeners at the start of the form: a participant who fails one is sent to the "Screened out" completion path and paid the screen-out reward (Prolific's custom screening). Study B also excludes the participants of Study A ("Exclude participants from other studies", category "Participation on Prolific").
 
 **Quality rules from Prolific's policy (read 2026-10-12), applied here:**
 - Reject only for: two failed valid attention checks (the study is longer than 5 minutes, so one failure is not enough), skipped required questions, clear low effort across the whole study, or a completion time more than 3 standard deviations faster than the mean.
 - Content questions about the text (`C1`-`C4`) are **analysis measures only**. Failing them is not a ground for rejection and the person is still paid; Prolific's comprehension-check rules do not allow rejecting on them.
 - The form includes one instructional check and one nonsensical item, both on the same page, so that the two-check rule can be applied if someone clicks through.
+- Prolific's own "reject exceptionally fast submissions" option (beta) is left off, because it would reject on a ground this list does not include.
 - Approve everyone else. Submissions left unreviewed for 21 days are auto-approved.
-- Prolific IDs are pseudonymous personal data. Raw responses stay on your computer; only anonymous aggregates enter the repository.
+- Prolific IDs are pseudonymous personal data. Raw responses stay on the founder's computer; only anonymous aggregates enter the repository. The form's consent text promises that answers are reported in aggregate and raw answers are not published, so the repository holds no per-reader rows or quotes.
 
-## 3. Cost (one calculation, USD per EUR 1.1206 on 2026-10-09, Banca d'Italia)
+## 3. Cost
 
-| Item | USD | EUR |
-|---|---|---|
-| Rewards: 10 x $4.00 + 6 x $2.40 | 54.40 | 48.55 |
-| Platform fee, 42.857% (corporate rate; the account is not academic or non-profit) | 23.31 | 20.80 |
-| **Subtotal** | **77.71** | **69.35** |
-| VAT on the fee, worst case 22% (VAT applies to the fee only; the rate for you is **unverified**) | 5.13 | 4.58 |
-| Screen-outs, worst case: 16 people x $0.40 plus fee and VAT (assumes about half of entrants fail the screener; the screen-out amount is set by you at creation) | 9.75 | 8.70 |
-| **Worst case** | **92.59** | **82.63** |
+Amounts are Prolific's own totals at the confirmation step, in GBP, VAT included.
 
-The cap of EUR 100 is $112.06. **Top up $100 (about EUR 89), not more.** The workspace balance is a hard ceiling on spending. Before publishing each study, read the total the Prolific setup page shows and stop if it disagrees with this table. Card or currency-conversion fees on the top-up are not included (Prolific lists no card fee; the card issuer may charge for a foreign-currency payment). Workspaces are in GBP or USD; this spec uses USD. When a study is published Prolific sets aside the cost of all its places from the balance; stopping the study returns the money for unfilled places. Screened-out submissions do not count towards the places and are paid the fixed screen-out reward (read 2026-10-13).
+| Step | Total |
+|---|---|
+| Study A pilot: 3 places plus the 10 screen-out slots | £19.67 |
+| Study A, 7 more places | £35.26 (rewards £23.31, platform fee £9.96, VAT £1.99) |
+| **Study A** (Prolific's own total; the two steps above add to £54.93, a 2p rounding difference) | **£54.91** |
+| **Study B**: 6 places plus 6 screen-out slots | **£17.90** |
+| **Both studies** | **£72.81** |
 
-## 4. Steps (you; Prolific needs your account and card)
+How it adds up (observed): the platform fee is between 42.7% and 42.9% of the rewards plus the screen-out budget (Prolific's published corporate rate is 42.857%), and VAT is 20% of the fee, not of the rewards. Screen-out slots are budgeted and charged upfront at publication.
 
-1. Commit this batch to `main` so that `topic-thesis-13-one-page.md` has a live link. Re-sync the Claude Project.
-2. Create the Google Form from `m0/prolific-form-text.md` (build notes are at the end of that file). Turn email collection off for both responses and form defaults, and use no file-upload question (Google then requires sign-in and collects the Google account email). Make a second copy for Study B and change only the reading link and the time statement.
-3. Create the Prolific researcher account and workspace in USD. A workspace name and an office address are required before a top-up. Finance, Add money, card: $100 (the minimum is $0.51; funds are available at once).
-4. Create Study A as an external study (the form link). Under recording of Prolific IDs choose the option "a question in my study" (Google Forms cannot record the ID itself). Prolific cannot be redirected to from Google Forms, so use the **completion code** method: under Completion paths copy the code and show it on the form's last page; add a path called "Screened out" (this switches on custom screening), copy its code and put it in the form's screen-out page. Under Recruit participants, Add filters: country, language and any investing filter. Desktop only, estimated time 20 minutes, reward $4.00, **3 places**. Save as draft and run "Test as a participant" once (the wallet is charged and refunded within 24 hours after you approve the test submission). Then publish: the confirmation pop-up shows title, URL, places, prescreening and total cost; stop if the cost disagrees with §3.
-5. Pilot: when the 3 submissions arrive, check the median completion time against 20 minutes, read the open answers, and fix wording problems in the form. After publishing, reward, estimated time, title, description, URL and the prescreening filters **cannot be changed** (only the internal name and the number of places can). If one of them is wrong, stop the study and duplicate it, choosing whether to block the original participants; keep the hourly rate at $12.00 (Prolific's recommended rate; its minimum is $8.00).
-6. Wave 2: in Study A's Action menu choose "Increase places" and add 7 (the extra cost is shown before you confirm). Study B: once Study A is complete, either duplicate it (settings, prescreeners and completion path are kept; choose to block the original participants) or create it new and add the filter "Exclude participants from other studies" (Recruit participants, Add filters, category "Participation on Prolific"). Both only exclude people who had finished Study A **before** Study B is published, so publish B after A is complete. Then set the B form link, 12 minutes, $2.40, 6 places, and paste B's own completion codes into the B form.
-7. Approve submissions as described in §2. Export the responses to a local CSV, remove the Prolific ID column, and send me the file. I will return the analysis and the draft log entry.
+The cap of EUR 100 is £84.48 at 1 EUR = 0.84478 GBP (ECB reference rate, 2026-10-12). The £72.81 above is about EUR 86. When a study is published Prolific sets aside the cost of all its places from the balance; stopping the study returns the money for unfilled places. Screened-out submissions do not count towards the places and are paid the fixed screen-out reward (read 2026-10-13). The workspace balance limits what can be reserved; the cap is enforced by comparing each confirmation total with the estimate before publishing. The amount actually spent, after any refund of unused screen-out slots, is recorded in `m0/intervention-log.md` once the Finance page has been read.
 
-Timeline: pilot Tuesday 13 October, second wave by Wednesday 14 October, analysis by about Monday 19 October. The M0 gate date (proposed 2026-11-07) does not move.
+## 4. Steps as run
 
-## 5. Analysis rules, fixed before any data
+1. Commit the batch so that `topic-thesis-13-one-page.md` has a live link, and re-sync the Claude Project (done 2026-10-13).
+2. Create the Google Form from `m0/prolific-form-text.md` (build notes are at the end of that file). Email collection off, no file-upload question. Study B's form is a copy of Study A's with the reading link and the time statement changed; the copy keeps the routing and the completion codes.
+3. Create the Prolific researcher account and workspace (GBP), add funds.
+4. Create Study A as an external study (the form link). Record Prolific IDs with "a question in my study". Google Forms cannot redirect to Prolific, so use the completion code: copy the code from Completion paths and show it on the form's last page; add a custom-screening path called "Screened out" with its own code, slots and fixed reward. Add the filters in §2, desktop only, estimated time 20 minutes, 3 places, and publish (scheduled publish 16:00).
+5. Pilot: check the median completion time, read the open answers, fix wording problems in the form (after publishing, reward, estimated time, title, description, URL and the prescreening filters cannot be changed; only the internal name and the number of places can).
+6. Wave 2: in Study A's Action menu, "Increase places" by 7 (the extra cost is shown before confirming).
+7. Study B: once Study A had all 10 places complete, duplicate it with the original participants blocked. The duplicate keeps the filters (including the exclusion of Study A), the screening path and the completion codes. Change the internal name, public title, description, form URL, estimated time, reward, places and screen-out slots, then check the confirmation step line by line: it caught two inherited errors (10 places instead of 6, and a description that still said 20 minutes). Publish.
+8. Approve submissions under the rules in §2. Export the responses to a local CSV, keep it out of the repository, analyse, and record only aggregates.
 
-Report, for each study: number of completed and screened-out readers, median completion time, the share who answered at least 3 of the 4 content questions correctly (a reading-depth measure to set beside the self-report), the median of each 1-5 item, the sections picked as most useful, and the open answers grouped by theme.
+## 5. Analysis rules
 
-**Proposed thresholds for the quality half of the gate (your decision to accept or change before the data arrives):** among readers with at least 3 of 4 correct content answers, a median of at least 4 on "clear" and on "supported by evidence", a median of 2 or lower on "could have been written about almost any stock", and at least half naming a specific weakest assumption instead of "none". An assumption named by two or more readers is added to the next write-ups' bear-case checklist.
+Report, for each study: the number of completed and screened-out readers, the median completion time, the share who answered at least 3 of the 4 content questions correctly (a reading-depth measure to set beside the self-report), the median of each 1-4 item (1 = strongly disagree, 4 = strongly agree), the sections picked as most useful, and the open answers grouped by theme.
 
-Study B is judged against Study A on clarity, content accuracy and the weakest assumptions named. If B scores within one point of A, the one-page version becomes the default reading format for the public post and the email.
+**Thresholds for the quality half of the gate**, accepted by the founder on 2026-10-13: among readers with at least 3 of 4 correct content answers, a median of at least 3 ("somewhat agree" or better) on "clear" and on "supported by evidence", a median of 2 or lower on "could have been written about almost any stock", and at least half naming a specific weakest assumption instead of "none". An assumption named by two or more readers is carried forward to the next write-ups' bear-case checklist (`m0/reader-feedback-log.md`).
+
+*Limit of the pre-registration:* the first draft of this section assumed a five-point scale (medians of at least 4 and at most 2). The form has four answer options, so the thresholds were mapped to the four-point scale on 2026-10-13 **after the three pilot responses had been read** and before the other thirteen. The mapping was made to fit the scale, not tuned to the pilot, but this is not a pure pre-registration. Whether an assumption is "specific" or vague is the analyst's judgment (Claude's), reported with the borderline cases so the founder can reclassify.
+
+Study B is judged against Study A on clarity, content accuracy and the weakest assumptions named, using the medians and counts above. If B scores within one point of A, the one-page version becomes the default reading format for the public post and the email.
 
 ## 6. Open items
 
-- **Verified 2026-10-13** on researcher-help.prolific.com (articles 445183 Google Forms, 445170 completion codes, 445165 screening inside a study, 445164 excluding participants, 445201 increasing places, 445203 what can change after publishing, 445132 publishing, 445134 testing as a participant, 445241 and 445242 adding money, 445230 payment model): the steps in §4 and the exclusion option for Study B.
-- **Unverified:** whether Prolific reviews or objects to a study asking for feedback on written investment content (no page read prohibits it; the pilot is also the test); the VAT rate charged to you; the screen-out reward minimum and the exact field where it is set; whether an investing filter exists in the current UI; the exact field labels in the study setup form.
-- **Risk:** respondents using AI to write the open answers. Read them for specifics (named numbers, named sections); reject only on Prolific's valid grounds.
+- **Verified 2026-10-13** on researcher-help.prolific.com (articles 445183 Google Forms, 445170 completion codes, 445165 screening inside a study, 445164 excluding participants, 445201 increasing places, 445203 what can change after publishing, 445132 publishing, 445134 testing as a participant, 445241 and 445242 adding money, 445230 payment model).
+- **Observed in practice, 2026-10-13:** the investing filters exist in the setup page; a duplicated study keeps its filters, screening path and completion codes; the "Median time" tile on a study page shows the estimate, not the measured median; the screen-out reward of £0.30 and VAT of 20% on the fee were accepted; both studies were published and ran to completion, and no objection to a study asking for feedback on written investment content was reported.
+- **Unverified:** whether unused screen-out slots are refunded; whether Prolific asks for an extra payment for Study B (measured median 10.2 minutes against a 10-minute estimate); whether Study B's form routes an answer of "No" on the first screening question to the screen-out page (one reader answered "No" and completed the form; check in the form's preview).
+- **Risk:** respondents using AI to write the open answers. Read them for specifics (named numbers, named sections); reject only on Prolific's valid grounds. No clear sign found in either study.
 - **Not done here:** the Reddit and outreach channels, which run in parallel (`m0/round-2-channels.md`).
+
+## 7. What happened (2026-10-13, Rome time)
+
+- **Study A.** Published at 16:00 with 3 places; the pilot submissions were in by about 16:35. The pilot review found a typo in one form question and the scale mismatch described in §5; 7 places were added in the late afternoon and all 10 were complete by about 19:00. No screen-outs (0 of 10 slots used), one submission returned, no rejections.
+- **Study B.** Published at 20:11 as a duplicate of Study A with its participants blocked; all 6 places were complete by about 21:00, 2 of 6 screen-out slots used, no rejections. No participant took both studies (compared by ID, locally).
+- **Time.** Measured median completion time: Study A 12.3 minutes (estimate 20), Study B 10.2 minutes (estimate 10).
+- **Attention checks.** One reader failed one check; nobody failed two.
+- **Anomalies.** One Study B reader answered "No" to the first screening question and still completed the form (see §6). One of Study B's two screen-outs left no form response, probably because the person copied the screen-out code without pressing Submit (inference).
+- **Results and spend.** Results: `m0/reader-feedback-log.md`. Spend: §3 and `m0/intervention-log.md`.

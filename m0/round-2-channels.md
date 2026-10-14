@@ -20,7 +20,7 @@ One aggregate data point, **secondary and from a commercial vendor** (redditapis
 
 | # | Channel | Speed | Persona fit | Cost | What was verified |
 |---|---|---|---|---|---|
-| A | **Paid reader panel (Prolific)** | Unverified; the vendor markets "hours, not weeks". Its help pages give only a 40–50% response rate from the eligible pool, no turnaround guarantee | Medium: no investing filter in the documented list, so screening must be a custom question | One-off: see below | Fee 42.857% on top of rewards (corporate rate), VAT on the fee only; minimum pay £6 / $8 per hour, recommended £9 / $12; workspaces in GBP or USD. Studies collecting names or **emails** are "unlikely to be supported". No investing filter in the pages read; custom screening is the documented fallback and screened-out participants receive the reward set at creation. Google Forms works with a manual completion code (no automatic redirect). Rejection only for two failed valid attention checks (studies over 5 minutes), skipped required questions, clear low effort or 3-SD-fast outliers; content questions are not grounds. Read 2026-10-12. |
+| A | **Paid reader panel (Prolific)** | Hours (observed 2026-10-13: the 3 pilot places filled in about 35 minutes, and all 16 places across two studies were filled the same day). The help pages give a 40–50% response rate from the eligible pool and no turnaround guarantee | Medium to high: investing filters exist in the study setup (observed 2026-10-13) but are self-reported profile data, so the form also screens with two questions | One-off: see below | Fee 42.857% on top of rewards (corporate rate), VAT on the fee only; minimum pay £6 / $8 per hour, recommended £9 / $12; workspaces in GBP or USD. Studies collecting names or **emails** are "unlikely to be supported". No investing filter in the help pages read, but the study setup has them (observed 2026-10-13); custom screening is the documented fallback and screened-out participants receive the reward set at creation. Google Forms works with a manual completion code (no automatic redirect). Rejection only for two failed valid attention checks (studies over 5 minutes), skipped required questions, clear low effort or 3-SD-fast outliers; content questions are not grounds. Read 2026-10-12. |
 | B | **Reddit, target subreddits** | Days; unpredictable | High if a post survives | Free | Nothing verified (§3). |
 | C | **Value Investors Club** | Weeks | Very high | Free | Membership by individual application that must include "a favorite current investment recommendation", judged by an investment manager; "only a select few are chosen". Ideas up to about 25,000 characters; ratings become visible once at least 6 members have rated; authors are expected to answer questions that identify flaws. Scope: value and special-situation equity ideas, so a multi-name basket write-up is a poor fit; a single-name pitch would be needed. |
 | D | **Direct outreach to independent analysts and small newsletter authors** | Days | High | Free | Not researched; list to be built. Expected low response rate, high quality per response. |
@@ -37,7 +37,9 @@ Reward for a 20-minute read-and-answer task, plus the platform fee (rewards × 1
 
 Figures are estimates from the pricing page's stated fee and rates; screened-out participants also receive a small payment and the page does not say who pays it. This is one-off spend, not a stack component, so it does not read as a breach of ADR-0002 D-19, but `AGENTS.md` §6 ("Money") makes it the founder's explicit call. If approved, record it as validation spend in `m0/intervention-log.md`.
 
-**Approved 2026-10-12 (founder, chat): cap EUR 100.** Design, worst-case cost (about $92.59, EUR 83 at 1.1206 USD per EUR) and steps: `m0/prolific-study-spec.md`; form text: `m0/prolific-form-text.md`; one-page reading version: `m0/topic-thesis-13-one-page.md`.
+**Approved 2026-10-12 (founder, chat): cap EUR 100.** Design, cost and steps (the first plan was in USD with a worst case of about EUR 83; the workspace turned out to be in GBP): `m0/prolific-study-spec.md`; form text: `m0/prolific-form-text.md`; one-page reading version: `m0/topic-thesis-13-one-page.md`.
+
+**Run 2026-10-13:** two studies, both filled the same day, £72.81 reserved (about EUR 86). Setup, spend and what happened: `m0/prolific-study-spec.md` §3 and §7. Results: `m0/reader-feedback-log.md`, Round 2.
 
 What a paid panel can and cannot show:
 
@@ -146,10 +148,21 @@ No link to topicron.vercel.app in the first post; add it only if a moderator or 
 | 2026-10-10 | Subreddit rules pasted (§3.0); X account set up | Founder |
 | 2026-10-11 | New topic chosen, facts checked against primary sources, thesis and one-page version written (`m0/topic-thesis-13-us-wireless-spacex.md`, `m0/topic-thesis-13-distribution-copy.md`) | Claude |
 | 2026-10-12 | Done: write-up 13 committed (12:19) and the Claude Project re-synced; closes confirmed against investing.com; Request to Post sent to r/SecurityAnalysis; Prolific approved up to EUR 100 | Founder |
-| 2026-10-12/14 | Build the form and run the Prolific pilot (3 places) and second wave (`m0/prolific-study-spec.md`); send the outreach messages from the private kit (not in the repository); X thread on Wed 2026-10-14 at 16:00 Rome time | Founder, with Claude |
-| by 2026-10-24 | r/SecurityAnalysis: no answer by about 2026-10-14 counts as no (§3.2). Prolific results analysed; outreach reviewed (fewer than 2 specific replies out of 10 means the channel is not working). r/ValueInvesting: retry Create Post in a week or two | Founder |
+| 2026-10-13 | Done: Prolific Study A (full text, 10 readers, a pilot of 3 then 7 more) and Study B (one page, 6 readers) built, run and analysed; both filled the same day (`m0/prolific-study-spec.md` §7). Results: `m0/reader-feedback-log.md`, Round 2 | Founder, with Claude |
+| 2026-10-14 | r/SecurityAnalysis: the Request to Post was unanswered when this was written; no answer by about 15:10 counts as no (§3.2) and the sub is dropped, and if approved the post goes out between 15:30 and 18:00. X thread at 16:00 Rome time. Start the outreach messages from the private kit (not in the repository): at most 5 a day, one follow-up after 5 days | Founder |
+| 2026-10-20 | r/ValueInvesting: retry Create Post (account-age check); decide then whether to send message A by modmail (§3.3). If it stays blocked, Reddit is closed for round 2 | Founder |
+| by 2026-10-24 | Outreach reviewed (fewer than 2 specific replies out of 10 means the channel is not working); free-reader signals tallied (§4.1) | Founder, with Claude |
 | in parallel | Channel D: private kit, with the list found by the founder using a 60-second filter (a verified list was not possible with the tools available); Channel C only if a single-name pitch comes out of the new thesis | Claude drafts, founder sends |
-| 2026-11-07 | M0 gate verdict written into `PROJECT_STATE.md` from the evidence collected, including "not validated" if that is what it shows | Founder |
+| 2026-11-07 | M0 gate verdict written into `PROJECT_STATE.md` from the evidence collected, including "not validated" if that is what it shows (wording: §4.1) | Founder |
+
+### 4.1 How the verdict is worded (proposed; the founder accepts or changes it before the data arrives)
+
+The M0 gate in `docs/ROADMAP.md` asks two things, and each is recorded on its own:
+
+- **Quality and intervention delta** ("do target-persona readers find the write-ups genuinely useful, and is the intervention delta small enough that a pipeline could plausibly close it?"). The first part is read from the paid panel against the thresholds in `m0/prolific-study-spec.md` §5 (result: `m0/reader-feedback-log.md`, Round 2); the second from `m0/intervention-log.md` at the gate.
+- **Demand** ("how would you feel if this no longer existed", `docs/RISKS.md`). Only readers who read for free count: X, outreach, any Reddit post that goes out, and the landing-page list as a passive signal. Paid readers do not feed it.
+
+A half with no valid signal is recorded as "not tested", never as passed or failed: zero replies to cold outreach measures the cost of getting attention, not the need. Whether the project moves to M1 with a half untested is the founder's call (`AGENTS.md` §6, milestone sequencing). If he decides to proceed, it is written down in a new ADR (`AGENTS.md` §9) together with the condition that would stop the project before M2.
 
 ## 5. Sources
 
