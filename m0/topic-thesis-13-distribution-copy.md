@@ -9,7 +9,7 @@
 3. **Fill the placeholders** marked in square brackets: your positions, and whether you will report back at day 30/60/90.
 4. **Rewrite the Reddit body in your own voice.** It is a draft written with AI assistance and it reads like one in places. Shorten it, keep the numbers, keep the disclosure. Rewriting is not a way to hide the AI assistance and the disclosure line stays.
 5. **No link to topicron.vercel.app or the repository in the Reddit post**, no form, no survey (r/SecurityAnalysis rule 3). Links to primary sources only.
-6. **One Reddit post.** r/stockpitches turned out to be dormant (checked 2026-10-12: last post and last comment 8 years old, 1 weekly visitor), so only r/SecurityAnalysis remains, and only if the moderators approve the Request to Post (no answer by about 2026-10-14 counts as no). Do not repost the same text elsewhere while that runs.
+6. **One Reddit post.** r/stockpitches turned out to be dormant (checked 2026-10-12: last post and last comment 8 years old, 1 weekly visitor), so only r/SecurityAnalysis remained, and only if the moderators approved the Request to Post (no answer by about 2026-10-14 counts as no). Do not repost the same text elsewhere while that runs. **Outcome, 2026-10-14:** no answer by 15:45, so no. The Reddit post has no home until r/ValueInvesting opens (retry about 2026-10-20; its rule 5 limits self-promotion to regular participants), and after AT&T's Q3 report on 21 Oct it must be rewritten.
 
 ## 1. Reddit text post
 
@@ -129,5 +129,7 @@ Card summarising a Topicron thesis on Verizon, AT&T and T-Mobile after the Space
 ```
 
 **Slot:** Wednesday 2026-10-14, 16:00 Rome time (10:00 in New York), between post #3 (Tue 13 Oct) and post #4 (Thu 15 Oct), a week before AT&T's Q3 report. Post #5 only goes out after the thesis commit is on `main`. If the thesis is committed later than Tuesday, move the thread to the next Tuesday to Thursday and keep #3 and #4 where they are.
+
+**Status:** posted on Wednesday 2026-10-14 (first post and four replies, following this section).
 
 The thread says "AI" in its first line and links to the full text in its last post, so the disclosure in `docs/brand/BRAND.md` §4 rule 2 is met without a separate reply.

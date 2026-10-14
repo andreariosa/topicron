@@ -93,14 +93,20 @@ Study B without the one reader who answered "No" to the first screening question
 
 ### Study B against Study A
 
-The spec's rule: if B scores within one point of A on clarity, content accuracy and the weakest assumptions named, the one-page version becomes the default reading format for the public post and the email. B matched or beat A on clarity (median 4 against 3), on content accuracy (6 of 6 with all four right against 8 of 10) and on naming a specific weakest assumption (5 of 6 against 5 of 9). The largest gaps against B are one point each, on "could have been written about almost any stock" (3 against 2) and on "serious bear case" (3 against 4). **The rule is met.** Those two are the measures a compressed version should be expected to hurt, so they are the ones to watch; the full text stays linked from the one-pager.
+The spec's rule, written before the data and for a five-point scale: if B scores within one point of A on clarity, content accuracy and the weakest assumptions named, the one-page version becomes the default reading format for the public post and the email. It is a non-inferiority margin, not a test of which version is better, and it does not define "a point" for the two count measures, so the reading below is the analyst's.
+
+B matched or beat A on clarity (median 4 against 3), on content accuracy (6 of 6 with all four right against 8 of 10) and on naming a specific weakest assumption (5 of 6 against 5 of 9). B was lower on "could have been written about almost any stock" (3 against 2, one point), on "serious bear case" (3 against 4, one point) and on "supported by evidence" (3.5 against 4, half a point). The two one-point gaps are the measures a compressed version should be expected to hurt, so they are the ones to watch.
+
+**Read as: B is not shown to be worse than A beyond the margin; it is not shown to be better.** Judged on its own against the thresholds above, B would miss one: its "any stock" median is 3 against a limit of 2 (4 of 6 agreed the piece could be about any stock). With 6 and 9 readers these are counts, not a test.
+
+**How the one-page version is used:** as the entry format for readers who do not know the author (email, direct messages, public posts), with the full text always given as a second link. The one-pager names the full text in its first lines but does not link it, so a message that uses it carries both links. The case for the default rests on two things that this study did not test: round 1 (2 of 3 readers called the pieces too long) and the lower cost of a stranger's first read. The study itself shows little difference in time (median 10.2 against 12.3 minutes, form included), and 9 of 10 readers of the full text called its length about right.
 
 ### Limits and anomalies
 
 - Paid readers. The persona match rests on Prolific's profile filters and on the answers to two screening questions in the form.
 - 16 readers in total: counts, not percentages.
 - One reader per study gave the top rating to every statement, including the reversed ones ("any stock", "selling a stock"). Both are kept, because the pre-set rule excludes only readers with fewer than 3 of 4 content answers right; they add to the "any stock" counts.
-- One Study B reader answered "No" to "do you personally buy and sell individual company stocks" and still completed the form, which should have sent them to the screen-out page. The routing needs a check in the form's preview. They are counted in Study B's numbers; the alternative is shown above.
+- One Study B reader answered "No" to "do you personally buy and sell individual company stocks" and still completed the form, which should have sent them to the screen-out page. The founder checked the form's routing on 2026-10-14 and it is correct (the "No" answer leads to the screen-out page with its code), so the cause is unknown. They are counted in Study B's numbers; the alternative is shown above.
 - The thresholds were mapped from a five-point to the form's four-point scale after the three pilot responses had been read (spec §5).
 
 ### Carry-forward to the next write-ups: bear-case checklist
@@ -117,4 +123,4 @@ One reader asked for examples of how similar sell-offs recovered in the past. AD
 
 ### Round 2 read
 
-The quality half of the gate can now be read. The thresholds are met, three of four at the limit. The strongest signal is that 13 of 16 careful readers picked the invalidation conditions among the most useful parts; the weakest is genericity (4 of 9 in Study A and 4 of 6 in Study B agree the piece could be about almost any stock). The one-page version holds up against the full text. **The demand half is untested:** paid readers cannot answer "would you miss this" without inflation (`m0/prolific-study-spec.md` §1) and round 1 was three skimmers. Nothing here changes the hypothesis of write-up 13.
+The quality half of the gate can now be read. The thresholds are met, three of four at the limit. The strongest signal is that 13 of 16 careful readers picked the invalidation conditions among the most useful parts; the weakest is genericity (4 of 9 in Study A and 4 of 6 in Study B agree the piece could be about almost any stock). The one-page version is not shown to be worse than the full text within the pre-set margin, and on its own it misses the "any stock" threshold (see "Study B against Study A"). **The demand half is untested:** paid readers cannot answer "would you miss this" without inflation (`m0/prolific-study-spec.md` §1) and round 1 was three skimmers. Nothing here changes the hypothesis of write-up 13.

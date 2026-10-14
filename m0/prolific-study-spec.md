@@ -47,7 +47,7 @@ Amounts are Prolific's own totals at the confirmation step, in GBP, VAT included
 
 How it adds up (observed): the platform fee is between 42.7% and 42.9% of the rewards plus the screen-out budget (Prolific's published corporate rate is 42.857%), and VAT is 20% of the fee, not of the rewards. Screen-out slots are budgeted and charged upfront at publication.
 
-The cap of EUR 100 is £84.48 at 1 EUR = 0.84478 GBP (ECB reference rate, 2026-10-12). The £72.81 above is about EUR 86. When a study is published Prolific sets aside the cost of all its places from the balance; stopping the study returns the money for unfilled places. Screened-out submissions do not count towards the places and are paid the fixed screen-out reward (read 2026-10-13). The workspace balance limits what can be reserved; the cap is enforced by comparing each confirmation total with the estimate before publishing. The amount actually spent, after any refund of unused screen-out slots, is recorded in `m0/intervention-log.md` once the Finance page has been read.
+The cap of EUR 100 is £84.48 at 1 EUR = 0.84478 GBP (ECB reference rate, 2026-10-12). The £72.81 above is about EUR 86. When a study is published Prolific sets aside the cost of all its places from the balance; stopping the study returns the money for unfilled places. Screened-out submissions do not count towards the places and are paid the fixed screen-out reward (read 2026-10-13). The workspace balance limits what can be reserved; the cap is enforced by comparing each confirmation total with the estimate before publishing. The amount actually spent was about £66.49 (roughly EUR 79), derived on 2026-10-14 from the workspace balance after both studies closed (£120 topped up, £53.51 left). The £6.32 below the reserved total matches, within 4p, the refund of the 14 unused screen-out slots (§6). Detail and limits: `m0/intervention-log.md`.
 
 ## 4. Steps as run
 
@@ -70,11 +70,15 @@ Report, for each study: the number of completed and screened-out readers, the me
 
 Study B is judged against Study A on clarity, content accuracy and the weakest assumptions named, using the medians and counts above. If B scores within one point of A, the one-page version becomes the default reading format for the public post and the email.
 
+*How this rule was read (2026-10-14).* It was written before the data, for a five-point scale, and it is a non-inferiority margin: it can show that B is not much worse, not that B is better. A "point" is not defined for the two count measures (content accuracy, assumptions named), so the reading is the analyst's, reported in `m0/reader-feedback-log.md`. Judged on its own against the thresholds above, B would miss one ("any stock": median 3 against a limit of 2). The default is therefore used as the entry format for readers who do not know the author, with the full text always linked, and not as a finding that the short version is better.
+
 ## 6. Open items
 
 - **Verified 2026-10-13** on researcher-help.prolific.com (articles 445183 Google Forms, 445170 completion codes, 445165 screening inside a study, 445164 excluding participants, 445201 increasing places, 445203 what can change after publishing, 445132 publishing, 445134 testing as a participant, 445241 and 445242 adding money, 445230 payment model).
 - **Observed in practice, 2026-10-13:** the investing filters exist in the setup page; a duplicated study keeps its filters, screening path and completion codes; the "Median time" tile on a study page shows the estimate, not the measured median; the screen-out reward of £0.30 and VAT of 20% on the fee were accepted; both studies were published and ran to completion, and no objection to a study asking for feedback on written investment content was reported.
-- **Unverified:** whether unused screen-out slots are refunded; whether Prolific asks for an extra payment for Study B (measured median 10.2 minutes against a 10-minute estimate); whether Study B's form routes an answer of "No" on the first screening question to the screen-out page (one reader answered "No" and completed the form; check in the form's preview).
+- **Observed 2026-10-14:** after both studies closed, the workspace balance had fallen by £66.49 against £72.81 reserved; the 14 unused screen-out slots account for the gap to within 4p (§3). In Study B's form, an answer of "No" on the first screening question leads to the screen-out page, which shows the code (checked by the founder).
+- **Unverified:** that unused screen-out slots are refunded (inferred from the balance; the Finance page statement was not used); whether Prolific asks for an extra payment for Study B (measured median 10.2 minutes against a 10-minute estimate; none reported so far).
+- **Unexplained:** one Study B reader answered "No" to the first screening question and still completed the form. The routing is correct, so it does not explain this reader. A path through the browser's Back button is possible but not established.
 - **Risk:** respondents using AI to write the open answers. Read them for specifics (named numbers, named sections); reject only on Prolific's valid grounds. No clear sign found in either study.
 - **Not done here:** the Reddit and outreach channels, which run in parallel (`m0/round-2-channels.md`).
 
@@ -84,5 +88,5 @@ Study B is judged against Study A on clarity, content accuracy and the weakest a
 - **Study B.** Published at 20:11 as a duplicate of Study A with its participants blocked; all 6 places were complete by about 21:00, 2 of 6 screen-out slots used, no rejections. No participant took both studies (compared by ID, locally).
 - **Time.** Measured median completion time: Study A 12.3 minutes (estimate 20), Study B 10.2 minutes (estimate 10).
 - **Attention checks.** One reader failed one check; nobody failed two.
-- **Anomalies.** One Study B reader answered "No" to the first screening question and still completed the form (see §6). One of Study B's two screen-outs left no form response, probably because the person copied the screen-out code without pressing Submit (inference).
+- **Anomalies.** One Study B reader answered "No" to the first screening question and still completed the form; the form's routing was checked on 2026-10-14 and is correct, so the cause is unknown (§6). One of Study B's two screen-outs left no form response, probably because the person copied the screen-out code without pressing Submit (inference).
 - **Results and spend.** Results: `m0/reader-feedback-log.md`. Spend: §3 and `m0/intervention-log.md`.
