@@ -55,8 +55,8 @@ The rules below are the founder's copy of each subreddit's rules page and sideba
 
 | Subreddit | Decision | Rules that decide it |
 |---|---|---|
-| r/SecurityAnalysis | **Dropped (2026-10-14).** It was the first choice (restricted mode; the sidebar invites posting requests, "this isn't a blocker", and the sub has a Request to Post form, which replaces modmail). The request sent on 2026-10-12 had no answer by 15:45 on 2026-10-14, which §3.2 counts as no | Rule 3: no overt self-promotion of blogs, apps, websites, YouTube channels or surveys. Rule 2: factual, unedited titles, written with linked articles in mind. No rule on AI text in the pasted text. |
-| r/ValueInvesting | **Blocked for now.** Create Post is refused by an account-age check (u/topicron was 1 day old on 2026-10-11; threshold not shown). Retry in a week or two; no message to the moderators | Rule 4: authored on-topic articles allowed, ask by modmail if unsure. Rule 5: limited self-promotion for regular participants only. Rule 10: moderators may remove AI-generated content. Rule 2: no content posted to many subs at once. Rule 9: no soliciting contact details. |
+| r/SecurityAnalysis | **Posted, live since 2026-10-16.** It was the first choice (restricted mode; the sidebar invites posting requests, "this isn't a blocker", and the sub has a Request to Post form, which replaces modmail). The request sent on 2026-10-12 had no answer by 15:45 on 2026-10-14, which §3.2 counts as no, so the sub was dropped from the plan. The moderators approved the request on 2026-10-15. The founder posted that evening (about 22:00 Rome) and AutoModerator removed the post at once: the sub requires an account at least 60 days old and u/topicron was about 5 days old. That threshold was not in the pasted rules; it appeared only in the removal message. The founder sent modmail asking the moderators to approve the post from the queue, and they did; the post was visible on 2026-10-16. Text as submitted: `m0/topic-thesis-13-distribution-copy.md` §1 | Rule 3: no overt self-promotion of blogs, apps, websites, YouTube channels or surveys. Rule 2: factual, unedited titles, written with linked articles in mind. No rule on AI text in the pasted text. Sidebar posting guidelines (pasted 2026-10-15): a post on an individual security must contain analysis, not a recitation of ratios; specific questions are asked for and "Thoughts" posts are discouraged. Flair options: No flair, Long Thesis, Short Thesis, Thesis. |
+| r/ValueInvesting | **Blocked for now.** Create Post is refused by an account-age check (u/topicron was 1 day old on 2026-10-11; threshold not shown). It is probably the same kind of check that removed the r/SecurityAnalysis post (60 days); if the threshold is the same, the account would pass about 2026-12-09 (not verified). Retry about 2026-10-20 (§4); no message to the moderators. The r/SecurityAnalysis post is now live and rule 2 bars the same content in several subs, so only different content could go here | Rule 4: authored on-topic articles allowed, ask by modmail if unsure. Rule 5: limited self-promotion for regular participants only. Rule 10: moderators may remove AI-generated content. Rule 2: no content posted to many subs at once. Rule 9: no soliciting contact details. |
 | r/stockpitches | **Dropped (2026-10-12).** Dormant: last post and last comment 8 years old, 1 weekly visitor (founder's check) | Sidebar: "post your own ideas". No rules in the pasted text. Format fit, no readers. |
 | r/investing | **Excluded** | Rule 1: large amounts of Gen AI text are low effort. Rule 4: (self-)promotion, surveys and blogs: permanent ban. |
 | r/StockMarket | **Excluded** | Rule 7: the same AI-text rule. Rule 2: self-promotion and surveys: permanent ban. Rule 3: the same post across several subs is spam. |
@@ -75,7 +75,7 @@ The rules below are the founder's copy of each subreddit's rules page and sideba
 >
 > Disclosure, stated in the post: I'm the author, the draft was written with AI assistance (Claude), I check every figure against the filings before posting, and I'll state any positions I hold. I'm after critique of the reasoning, not upvotes. The same analysis may also appear in r/stockpitches. Happy to send the draft here first. If it isn't a fit, I won't post it.
 
-Sent 2026-10-12 as written. It still says the analysis may also appear in r/stockpitches, which turned out to be dormant; the text is kept as sent.
+Sent 2026-10-12 as written. It still says the analysis may also appear in r/stockpitches, which turned out to be dormant; the text is kept as sent. The moderators approved it on 2026-10-15, a day after the cut-off that had counted the missing answer as no.
 
 ### 3.1 What to paste back (about 5 minutes per subreddit)
 
@@ -98,7 +98,8 @@ With that text the rules analysis can be done properly and the messages in §3.3
 | A stickied feedback / self-promotion thread exists | Use it; lowest risk, lowest reach. |
 | Self-promotion or own content is restricted | Post the analysis itself as text, no link, no mention of a product, with author disclosure; or skip the sub. |
 | Pre-approval is required | Send message B (§3.3). No answer in 48 hours counts as no. Do not repost elsewhere from another account to get around it. |
-| A minimum karma or age above the account's | Build history with real comments first, or skip the sub. |
+| A minimum karma or age above the account's | Build history with real comments first, or skip the sub. A threshold may not be in the rules text: r/SecurityAnalysis's 60-day account age was visible only in AutoModerator's removal message (2026-10-15). |
+| AutoModerator removes a post after an approval (for example for account age) | Send modmail asking the moderators to approve the post from the queue, and wait. Do not delete, edit or repost it, and do not post from another account. This worked on 2026-10-16 (§3.0). |
 | AI-generated content is banned or must be flaired | Follow it. A write-up drafted with Claude is AI-assisted; disclose it everywhere, and skip subs that ban it. Never disguise it. |
 | Moderators already declined the earlier request from the personal account | Do not retry from `u/topicron`. That reads as circumvention. |
 
@@ -141,6 +142,8 @@ Unverified (Reddit's help pages were unreadable), stated as working assumptions 
 
 No link to topicron.vercel.app in the first post; add it only if a moderator or reader asks.
 
+The r/SecurityAnalysis post (§3.0) used one specific closing question instead of the three above, because the sub's posting guidelines ask for specific questions and discourage "Thoughts" posts. It therefore does not ask whether the reader read all of it or would want the format regularly. A reply there says something about attention and critique; it is not a direct answer to the demand question (§4.1).
+
 ## 4. Execution order and review date
 
 | When | Step | Owner |
@@ -149,10 +152,12 @@ No link to topicron.vercel.app in the first post; add it only if a moderator or 
 | 2026-10-11 | New topic chosen, facts checked against primary sources, thesis and one-page version written (`m0/topic-thesis-13-us-wireless-spacex.md`, `m0/topic-thesis-13-distribution-copy.md`) | Claude |
 | 2026-10-12 | Done: write-up 13 committed (12:19) and the Claude Project re-synced; closes confirmed against investing.com; Request to Post sent to r/SecurityAnalysis; Prolific approved up to EUR 100 | Founder |
 | 2026-10-13 | Done: Prolific Study A (full text, 10 readers, a pilot of 3 then 7 more) and Study B (one page, 6 readers) built, run and analysed; both filled the same day (`m0/prolific-study-spec.md` §7). Results: `m0/reader-feedback-log.md`, Round 2 | Founder, with Claude |
-| 2026-10-14 | Done: no answer from r/SecurityAnalysis by 15:45, counted as no (§3.2), sub dropped; X thread posted (first post and four replies, `m0/topic-thesis-13-distribution-copy.md` §2); Prolific spend closed, about £66.49 (`m0/intervention-log.md`) | Founder |
+| 2026-10-14 | Done: no answer from r/SecurityAnalysis by 15:45, counted as no (§3.2), sub dropped from the plan (reversed the next day, see below); X thread posted (first post and four replies, `m0/topic-thesis-13-distribution-copy.md` §2); Prolific spend closed, about £66.49 (`m0/intervention-log.md`) | Founder |
+| 2026-10-15 | Done: the moderators approved the Request to Post; the founder posted at about 22:00 and AutoModerator removed the post at once (account under 60 days old, §3.0); modmail sent to the moderators | Founder |
+| 2026-10-16 | Done: the moderators approved the post; it is live (§3.0). Next: check the comments the same day and the next morning, reply on substance without links, log them anonymously (`m0/topic-thesis-13-distribution-copy.md` §1.1) | Founder, with Claude |
 | 2026-10-15 and 10-16 | Start the outreach messages from the private kit (not in the repository): at most 5 a day, by hand. Link the one-page version first and give the full text as a second link. One follow-up after 5 days, then stop | Founder |
-| 2026-10-20 | r/ValueInvesting: retry Create Post (account-age check); decide then whether to send message A by modmail (§3.3). If it stays blocked, Reddit is closed for round 2. Outreach follow-up for the messages of 15 Oct (those of 16 Oct on 21 Oct) | Founder |
-| by 2026-10-24 | Outreach reviewed (fewer than 2 specific replies out of 10 means the channel is not working); free-reader signals tallied (§4.1) | Founder, with Claude |
+| 2026-10-20 | r/ValueInvesting: retry Create Post (account-age check), only for content different from the r/SecurityAnalysis post (its rule 2); decide then whether to send message A by modmail (§3.3). If it stays blocked, the r/SecurityAnalysis post is the only Reddit post of round 2. Outreach follow-up for the messages of 15 Oct (those of 16 Oct on 21 Oct) | Founder |
+| by 2026-10-24 | Outreach reviewed (fewer than 2 specific replies out of 10 means the channel is not working); free-reader signals tallied (§4.1), including the comments on the r/SecurityAnalysis post | Founder, with Claude |
 | in parallel | Channel D: private kit, with the list found by the founder using a 60-second filter (a verified list was not possible with the tools available); Channel C only if a single-name pitch comes out of the new thesis | Claude drafts, founder sends |
 | 2026-11-07 | M0 gate verdict written into `PROJECT_STATE.md` from the evidence collected, including "not validated" if that is what it shows (wording: §4.1) | Founder |
 

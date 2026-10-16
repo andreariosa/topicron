@@ -1,17 +1,19 @@
 # Thesis 13: distribution copy
 
-*Copy for the first public use of `m0/topic-thesis-13-us-wireless-spacex.md`: a Reddit text post (about 705 words including sources) and an X thread. Written 2026-10-11, re-checked 2026-10-12. Everything here restates the thesis file; if the two disagree, the thesis file wins. Rules for each channel come from the text the founder pasted on 2026-10-10 (r/SecurityAnalysis, r/stockpitches) and from `docs/brand/BRAND.md`.*
+*Copy for the first public use of `m0/topic-thesis-13-us-wireless-spacex.md`: a Reddit text post (about 710 words including sources) and an X thread. Written 2026-10-11, re-checked 2026-10-12; the Reddit post was submitted on 2026-10-15 and has been live since 2026-10-16 (§1). Everything here restates the thesis file; if the two disagree, the thesis file wins. Rules for each channel come from the text the founder pasted on 2026-10-10 (r/SecurityAnalysis, r/stockpitches), from the r/SecurityAnalysis posting guidelines pasted on 2026-10-15, and from `docs/brand/BRAND.md`.*
 
 ## 0. Before anything is posted
 
 1. **Commit the thesis first.** The commit time is the thesis's `published_at`; the tracking entry is the first close after it (`docs/DATA_MODEL.md`, 90-day holding rule). Nothing below goes out before that.
 2. **Closes: done.** The 9 Oct closes were confirmed against investing.com on 2026-10-12 (founder): T 22.18, VZ 41.65, TMUS 148.58, SPY 778.57.
-3. **Fill the placeholders** marked in square brackets: your positions, and whether you will report back at day 30/60/90.
+3. **Fill the placeholders** marked in square brackets: your positions, and whether you will report back at day 30/60/90. **Done 2026-10-15:** the post states that the founder holds no position in VZ, T or TMUS; the report-back line was removed before posting (the tracking itself is unchanged: `m0/topic-thesis-13-us-wireless-spacex.md`).
 4. **Rewrite the Reddit body in your own voice.** It is a draft written with AI assistance and it reads like one in places. Shorten it, keep the numbers, keep the disclosure. Rewriting is not a way to hide the AI assistance and the disclosure line stays.
 5. **No link to topicron.vercel.app or the repository in the Reddit post**, no form, no survey (r/SecurityAnalysis rule 3). Links to primary sources only.
-6. **One Reddit post.** r/stockpitches turned out to be dormant (checked 2026-10-12: last post and last comment 8 years old, 1 weekly visitor), so only r/SecurityAnalysis remained, and only if the moderators approved the Request to Post (no answer by about 2026-10-14 counts as no). Do not repost the same text elsewhere while that runs. **Outcome, 2026-10-14:** no answer by 15:45, so no. The Reddit post has no home until r/ValueInvesting opens (retry about 2026-10-20; its rule 5 limits self-promotion to regular participants), and after AT&T's Q3 report on 21 Oct it must be rewritten.
+6. **One Reddit post.** r/stockpitches turned out to be dormant (checked 2026-10-12: last post and last comment 8 years old, 1 weekly visitor), so only r/SecurityAnalysis remained, and only if the moderators approved the Request to Post (no answer by about 2026-10-14 counts as no). Do not repost the same text elsewhere while that runs. **Outcome:** no answer by 15:45 on 2026-10-14, so the sub was dropped from the plan. The moderators approved the request on 2026-10-15, after that cut-off, and the founder posted it. AutoModerator removed the post at once (account under 60 days old); after a modmail the moderators approved it, and it has been live since 2026-10-16 (`m0/round-2-channels.md` §3.0). It is the only Reddit post of round 2 for now: r/ValueInvesting blocks the account by an account-age check, its rule 2 bars the same content in several subs and its rule 5 limits self-promotion to regular participants. After AT&T's Q3 report on 21 Oct the text needs a rewrite before any reuse.
 
 ## 1. Reddit text post
+
+**Status:** submitted on 2026-10-15 at about 22:00 Rome, removed at once by AutoModerator (60-day account-age rule), approved by the moderators and live since 2026-10-16. Flair: Thesis; no tags. The body below is the text as submitted: the founder's copy was the final version of the draft, without its report-back line and with "Metric" in the first header cell of the table. Against the draft that stood here before 2026-10-16 it differs in four ways: the disclosure states positions (none) and the writing date; the hypothesis names its window (the 12 Oct 2026 close to the 11 Jan 2027 close); the sources are primary links only, with the press cited by name and no link (the Request to Post said the only links would be primary filings); and there is one closing question instead of three.
 
 **Title for r/SecurityAnalysis** (descriptive, not a claim, because rule 2 asks for factual, unedited titles):
 
@@ -25,12 +27,12 @@ US wireless carriers after the SpaceX spectrum deal: thesis, bear case and inval
 VZ / T / TMUS: the SpaceX selloff prices a 2027 threat into 2026 stocks (AI-assisted pitch, as of 9 Oct 2026)
 ```
 
-**Body** (Reddit markdown):
+**Body** (Reddit markdown, as submitted):
 
 ```text
-**Disclosure.** I wrote this with AI assistance (Claude) and checked the figures against company releases, FCC orders and Treasury data; links at the end. [POSITIONS: state what you hold in VZ, T and TMUS, or write "I hold no position in any of them."] This is a hypothesis I'm tracking, not investment advice. I'm after critique of the reasoning, not upvotes.
+**Disclosure.** I wrote this with AI assistance (Claude) and checked the figures against company releases, FCC orders and Treasury data; links at the end. VZ, T and TMUS: I hold no position in any of them. This is a hypothesis I'm tracking, not investment advice. I'm after critique of the reasoning, not upvotes. I wrote it on 11-12 October from data as of the 9 October close; prices have moved since, so check current ones.
 
-**Hypothesis.** Over the next 90 days a basket of Verizon (40%), AT&T (40%) and T-Mobile (20%) beats the S&P 500 by at least 5 percentage points on price return, as the 9 October selloff partly reverses.
+**Hypothesis.** Over 90 days, from the 12 October close (my entry) to the 11 January 2027 close, a basket of Verizon (40%), AT&T (40%) and T-Mobile (20%) beats the S&P 500 by at least 5 percentage points on price return, as the 9 October selloff partly reverses.
 
 **Why now.** On 8 Oct SpaceX agreed to buy Grain Management's nationwide 800 MHz licences (up to 14 MHz paired; price undisclosed, the WSJ reported $8bn in cash; FCC approval needed). On 9 Oct T-Mobile fell 13.3%, AT&T 10.8% and Verizon 10.1%, while the S&P rose 0.6%. About 1.1 and 1.5 points of the AT&T and Verizon moves were the dividend going ex that day.
 
@@ -45,7 +47,7 @@ VZ / T / TMUS: the SpaceX selloff prices a 2027 threat into 2026 stocks (AI-assi
 
 **Valuation.**
 
-| | VZ | T | TMUS |
+| Metric | VZ | T | TMUS |
 |---|---|---|---|
 | Close, 9 Oct | $41.65 | $22.18 | $148.58 |
 | P/E on 2026 guidance | 8.3x | 9.4-9.9x | 11.8x forward (aggregator) |
@@ -64,13 +66,19 @@ At a 9-10% required return (my assumption), a 12% FCF yield implies free cash fl
 
 **Weighting.** T-Mobile is only 20% because it has the highest multiple, the thinnest dividend, a Q3 it has guided soft, and it sold its 800 MHz licences to Grain for $2.9bn in cash plus Grain's 600 MHz licences; SpaceX has now agreed to buy that band for a reported $8bn (not a like-for-like comparison).
 
-I'll report back at day 30, 60 and 90, win or lose. [OPTIONAL: delete this line if you won't.]
+**Question.** What is the weakest assumption here, and would you change any of the three conditions that would prove me wrong?
 
-**Three questions:** (1) What is the weakest assumption here? (2) Did you read all of it or skim, and why? (3) Would you want this format regularly?
-
-**Sources.** FCC order DA 26-653 (https://docs.fcc.gov/public/attachments/DA-26-653A1.pdf); Verizon Q2 release (https://www.sec.gov/Archives/edgar/data/0000732712/000073271226000040/a2026q2exhibit99.htm); AT&T Q2 release (https://about.att.com/story/2026/2q-earnings.html); T-Mobile Q2 release (https://www.sec.gov/Archives/edgar/data/0001283699/000128369926000100/tmus06302026ex991.htm); US Treasury yield data (https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value_month=202610); Reuters on the deal (https://whbl.com/2026/10/08/spacex-to-acquire-spectrum-that-enables-starlink-mobile-services/); Forbes for the $8bn report (https://www.forbes.com/sites/siladityaray/2026/10/09/att-verizon-and-t-mobile-stocks-slump-as-spacex-announces-key-starlink-mobile-deal/); Satellite Today on the FCC order (https://www.satellitetoday.com/connectivity/2026/10/07/fcc-grants-spacex-approval-for-15000-direct-to-device-satellites-in-mss-spectrum/); Benzinga on the Scotiabank note (https://www.benzinga.com/analyst-stock-ratings/analyst-color/26/10/62280889/analyst-raises-concerns-over-wireless-carrier-pricing-and-retention-following-spacex-news). Prices: stockanalysis.com closes for 8-9 Oct.
+**Sources.** Primary: FCC order DA 26-653 (https://docs.fcc.gov/public/attachments/DA-26-653A1.pdf); Verizon Q2 release (https://www.sec.gov/Archives/edgar/data/0000732712/000073271226000040/a2026q2exhibit99.htm); AT&T Q2 release (https://about.att.com/story/2026/2q-earnings.html); T-Mobile Q2 release (https://www.sec.gov/Archives/edgar/data/0001283699/000128369926000100/tmus06302026ex991.htm); US Treasury yield data (https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value_month=202610). Press, cited by name only: Reuters on the deal; Forbes for the WSJ's $8bn report; Satellite Today on the FCC order on Starlink satellites; Benzinga on the Scotiabank note. Prices: stockanalysis.com closes for 8-9 Oct.
 
 ```
+
+### 1.1 After posting (agreed 2026-10-15)
+
+- Answer on substance. No link to topicron.vercel.app or the repository unless a reader asks for it.
+- A factual error gets a dated "Edit:" line. The hypothesis is never edited after posting.
+- Log each comment anonymously (no usernames): specific or generic, which assumption it challenges, whether it shows the commenter read all of it, any request for the format or the source material. The tally goes into `m0/reader-feedback-log.md` and into the free-reader count of `m0/round-2-channels.md` §4.1.
+- Do not delete or repost the post, and do not post it from another account.
+- Open: after AT&T's Q3 report on 21 Oct, how to reflect new facts on the live post (a dated reply rather than an edit of the hypothesis).
 
 ## 2. X thread (post #5 in `docs/brand/BRAND.md`)
 
