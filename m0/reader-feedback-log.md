@@ -124,3 +124,37 @@ One reader asked for examples of how similar sell-offs recovered in the past. AD
 ### Round 2 read
 
 The quality half of the gate can now be read. The thresholds are met, three of four at the limit. The strongest signal is that 13 of 16 careful readers picked the invalidation conditions among the most useful parts; the weakest is genericity (4 of 9 in Study A and 4 of 6 in Study B agree the piece could be about almost any stock). The one-page version is not shown to be worse than the full text within the pre-set margin, and on its own it misses the "any stock" threshold (see "Study B against Study A"). **The demand half is untested:** paid readers cannot answer "would you miss this" without inflation (`m0/prolific-study-spec.md` §1) and round 1 was three skimmers. Nothing here changes the hypothesis of write-up 13.
+
+## Round 2 — free-reader channels, status 2026-10-16
+
+*Free readers are the only source for the demand half of the gate (`m0/round-2-channels.md` §4.1). This section holds counts and routes only: no names, handles, usernames or contact details of anyone. The checks are the founder's, on the dates and times given (Rome).*
+
+### Channels so far
+
+| Channel | What was done | Result so far |
+|---|---|---|
+| X thread | Posted 2026-10-14 (first post and four replies) | No reply has been reported to this log |
+| r/SecurityAnalysis | Text post, live since 2026-10-16 after an automatic removal for account age (`m0/round-2-channels.md` §3.0) | No comments at 21:34 on 2026-10-16 |
+| Outreach (channel D) | 2 messages on 2026-10-16, both through a contact form on the author's own site: the one-page version first, the full text second, and the three questions of the questionnaire. One follow-up is due on 2026-10-21 if there is no reply | No reply yet |
+| Landing-page list | Not promoted: no round-2 message links to the site, by design (the Reddit rules and the outreach text say no link), and the last X post links to the full text on GitHub. Whether the X profile links to the page was not checked | 0 subscribers in Resend at 22:09 on 2026-10-16. This measures nothing, because nothing pointed to the page |
+
+### Outreach log (anonymous)
+
+| ID | Route | Sent | Replied | Read all? | Weakest assumption named | Would read again? |
+|---|---|---|---|---|---|---|
+| R2-D1 | Contact form on an independent investor's own site | 2026-10-16, about 21:30 | Not yet | | | |
+| R2-D2 | Contact form on a content creator's own site | 2026-10-16, about 22:00 | Not yet | | | |
+
+### The search for outreach candidates
+
+The filter, from the private kit: a finance piece from the last 60 days; analysis of individual companies with numbers; independent (not a business built on trading signals, courses or mentorship, and not an institution's marketing); a contact route the person publishes; not bulk AI-written daily notes.
+
+- **16 candidates checked**, from the kit's own list, from search leads and from Seeking Alpha contributors who wrote about the event. One passed. Primary reason for the other 15 (one reason each, though several failed more than one test): last post older than 60 days, 3; no public contact route, or only a closed inbox or a support address, 6; commercial or brand-run (membership, paid service, trading products, media company, advisory firm), 5; bulk AI-written daily notes, 1.
+- **5 Substack searches** (Verizon SpaceX; AT&T free cash flow; T-Mobile Starlink; telecom dividend yield; special situations), newest first, the first 20 results of each: one more candidate passed, a person with a personal site and a contact form.
+- **The founder closed the search on 2026-10-16 at 22:01:** 2 candidates who passed, out of 16 candidates and 100 search results examined. Reason given: the results were mostly written with AI or run by brands, and the effort was out of proportion to the yield.
+
+### Observations (not measures)
+
+- **The market around this reader (the founder's observation, no count kept):** most of what the searches returned was written with AI or run by a brand. A hypothesis to test later, not a finding: a thesis with disclosed AI assistance, figures checked against filings and a public 90-day record would stand apart. It is not evidence of demand, and it does not measure quality either.
+- **The yield of this channel:** 2 messages from 116 items examined.
+- **What this does to the gate's review rule:** the rule written for this channel ("fewer than 2 specific replies out of 10 means the channel is not working") cannot be applied with a denominator of 2. Replies, if any, are read as they are, and the demand half stays "not tested" unless real signals arrive (`m0/round-2-channels.md` §4.1).
