@@ -78,7 +78,7 @@ At a 9-10% required return (my assumption), a 12% FCF yield implies free cash fl
 - A factual error gets a dated "Edit:" line. The hypothesis is never edited after posting.
 - Log each comment anonymously (no usernames): specific or generic, which assumption it challenges, whether it shows the commenter read all of it, any request for the format or the source material. The tally goes into `m0/reader-feedback-log.md` and into the free-reader count of `m0/round-2-channels.md` §4.1.
 - Do not delete or repost the post, and do not post it from another account.
-- Open: after AT&T's Q3 report on 21 Oct, how to reflect new facts on the live post (a dated reply rather than an edit of the hypothesis).
+- Done 2026-10-21: after AT&T's Q3 report, the new facts went into a dated comment under the live post (facts only, no link; the post body and the hypothesis untouched).
 
 ## 2. X thread (post #5 in `docs/brand/BRAND.md`)
 

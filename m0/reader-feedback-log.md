@@ -158,3 +158,17 @@ The filter, from the private kit: a finance piece from the last 60 days; analysi
 - **The market around this reader (the founder's observation, no count kept):** most of what the searches returned was written with AI or run by a brand. A hypothesis to test later, not a finding: a thesis with disclosed AI assistance, figures checked against filings and a public 90-day record would stand apart. It is not evidence of demand, and it does not measure quality either.
 - **The yield of this channel:** 2 messages from 116 items examined.
 - **What this does to the gate's review rule:** the rule written for this channel ("fewer than 2 specific replies out of 10 means the channel is not working") cannot be applied with a denominator of 2. Replies, if any, are read as they are, and the demand half stays "not tested" unless real signals arrive (`m0/round-2-channels.md` §4.1).
+
+### Status on 2026-10-21 (round-2 review)
+
+*Counts and routes only, as above. The checks are the founder's, at 12:32 and again at 21:15 (Rome) on 2026-10-21. The note of 2026-10-16 that nobody had checked whether the X profile links to the page is superseded: the founder verified that it does.*
+
+| Channel | Since 2026-10-16 | Result on 2026-10-21 |
+|---|---|---|
+| X thread | An update post after AT&T's Q3 report (facts only, hypothesis unchanged) | No replies |
+| r/SecurityAnalysis | A dated comment under the post with the AT&T Q3 facts; the post body was not edited | No comments and no score shown, at both checks |
+| Outreach (channel D) | One follow-up to each of the 2 contacts, sent through the same contact forms at about 21:30 (no links, one question); R2-D1 and R2-D2 had not replied | No reply in the inbox at either check |
+| Landing-page list | The X profile links to the page | 0 subscribers in Resend at 21:15 |
+
+- **Decisions on 2026-10-21 (founder):** r/ValueInvesting is skipped (the retry slot of 2026-10-20 passed with no action and the founder confirmed it); no further free-reader channel is planned. Hacker News was considered on 2026-10-16 and not used. Prolific: no further spend (founder, 2026-10-21); the remaining balance will not be used, and a paid panel cannot answer the demand question anyway. The M0 gate verdict was brought forward from 2026-11-07 to 2026-10-26.
+- **Reading:** every free-reader source is at zero, five days after the first post and the first two messages. That is the cost of getting attention, not a finding about need: the demand half of the gate stays "not tested" (`m0/round-2-channels.md` §4.1). Replies to the follow-ups, if any, are added here as they come.
