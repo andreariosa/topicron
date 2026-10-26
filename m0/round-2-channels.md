@@ -158,9 +158,9 @@ The r/SecurityAnalysis post (§3.0) used one specific closing question instead o
 | 2026-10-16 (outreach) | Done: outreach from the private kit (not in the repository). The search found 2 candidates who passed the filter and was then closed by the founder; 2 messages were sent through contact forms, with the one-page version first and the full text as a second link. One follow-up after 5 days if there is no reply, then stop (`m0/reader-feedback-log.md`) | Founder |
 | 2026-10-20 | Skipped: r/ValueInvesting (the retry slot passed with no action; confirmed by the founder on 2026-10-21). The r/SecurityAnalysis post is the only Reddit post of round 2 | Founder |
 | 2026-10-21 | Done: round-2 review, three days before the 24 Oct limit. Free-reader signals tallied, all at zero: no comments and no score on the r/SecurityAnalysis post, no replies on X, no reply from the 2 outreach contacts, 0 subscribers (the X profile links to the page). Sent the same day: one follow-up to each outreach contact (no links, one question), a dated AT&T Q3 comment under the r/SecurityAnalysis post and an AT&T Q3 post on X. The "fewer than 2 specific replies out of 10" rule was not applicable (2 messages). The founder has no further free-reader channel to try; replies to the follow-ups are logged as they come (`m0/reader-feedback-log.md`). The reading of the intervention log is in `m0/intervention-log-review.md` | Founder, with Claude |
-| 2026-10-26 and 2026-10-28 | X update after the Verizon and the T-Mobile Q3 reports, in the same format as the AT&T post (facts only, hypothesis unchanged) | Founder |
+| 2026-10-26 and 2026-10-28 | X update after the Verizon and the T-Mobile Q3 reports, in the same format as the AT&T post (facts only, hypothesis unchanged). Verizon was read on 2026-10-26 (no invalidation condition triggered); the founder also decided that Verizon gets a dated comment under the r/SecurityAnalysis post | Founder |
 | in parallel | Channel D: private kit, with the list found by the founder using a 60-second filter (a verified list was not possible with the tools available); Channel C only if a single-name pitch comes out of the new thesis | Claude drafts, founder sends |
-| 2026-10-26 | M0 gate verdict written into `PROJECT_STATE.md` from the evidence collected, including "not validated" if that is what it shows (wording: §4.1). Brought forward from 2026-11-07 by the founder on 2026-10-21: no further free channel is planned, so no new demand data is expected beyond late replies | Founder |
+| 2026-10-26 | M0 gate verdict written into `PROJECT_STATE.md` from the evidence collected, including "not validated" if that is what it shows (wording: §4.1). Brought forward from 2026-11-07 by the founder on 2026-10-21: no further free channel is planned, so no new demand data is expected beyond late replies. **Done 2026-10-26:** every free-reader source was still at zero, the verdict is in `PROJECT_STATE.md`, and the founder accepted ADR-0004 without changes (§4.1) | Founder |
 
 ### 4.1 How the verdict is worded (proposed; the founder accepts or changes it before the data arrives)
 
@@ -174,6 +174,23 @@ A half with no valid signal is recorded as "not tested", never as passed or fail
 **Status on 2026-10-16 (a record, not part of the proposed wording):** outreach reached 2 people and the search was closed; the r/SecurityAnalysis post has no comments yet; the X thread has no reported reply; the landing-page list is empty (0 subscribers), and it cannot register a signal because the round-2 channels deliberately carry no link to the site. Details: `m0/reader-feedback-log.md`, free-reader channels.
 
 **Status on 2026-10-21 (a record, not part of the proposed wording):** every free-reader source is at zero: no comments and no score on the r/SecurityAnalysis post, no replies on X, no reply from the 2 outreach contacts (a follow-up went to each that day), 0 subscribers (the X profile links to the page). No further free channel is planned. The demand half is therefore "not tested" for the reason given above, the cost of attention. The intervention-delta half is read in `m0/intervention-log-review.md` (reading: "plausible, conditional"); it is recorded as a gate result only when the verdict is written, due on 2026-10-26 (brought forward from 2026-11-07).
+
+**Status on 2026-10-26 (a record, not part of the proposed wording):** the founder's checks that evening found every free-reader source still at zero: no new comment or score on the r/SecurityAnalysis post, no reply on X, no new subscriber in Resend, nothing in the inbox (so no reply from the 2 outreach contacts). The verdict was written into `PROJECT_STATE.md` the same evening: quality met, intervention delta "plausible, conditional", demand "not tested". The founder decided to start M1 with the demand half untested and accepted ADR-0004 without changes (`docs/ADR/ADR-0004-m1-start-with-untested-demand.md`): the stop condition mentioned above became the demand checkpoint of 2026-11-16, which decides whether M2 starts.
+
+### 4.2 X promoted-post test (approved 2026-10-26, hard cap EUR 50)
+
+**Decision (founder, chat, 2026-10-26):** one paid test of promoted posts on X, with a hard cap of EUR 50 in total. It is a one-off validation spend, not a stack component, so ADR-0002 D-19 is untouched, on the same footing as the Prolific panel (`m0/intervention-log.md`, "Validation spend"; `AGENTS.md` §6, "Money"). It is not recurring: there is no budget beyond the cap and no renewal, and any further spend is a new founder decision. ADR-0004 itself authorises no spend.
+
+**Purpose:** put the thesis in front of readers who read for free, so that the checkpoint of 2026-11-16 (ADR-0004, D-34) counts something other than the founder's own reach.
+
+**Conditions (proposed by Claude; the founder confirms or changes them):**
+
+- Start only once the landing-page survey is live. Without it the spend buys reach without the measurement the checkpoint needs.
+- Promote the dated thesis-13 post, with the same "not advice" line; do not reword the hypothesis for the ad.
+- Read the total spent from the X Ads account and record it in `m0/intervention-log.md` ("Validation spend"), as for Prolific.
+- The payment method is entered by the founder in X's own interface; it is never shared in chat or committed.
+
+**Open:** X's ad policy for investment-related posts could not be read in full (the policy pages fetched on 2026-10-26 do not state a rule), so whether a promoted thesis post passes X's review is unknown until a campaign is created. If it is rejected, the founder decides what, if anything, to try next; the cap still applies.
 
 ## 5. Sources
 

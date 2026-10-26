@@ -1,6 +1,6 @@
 # M0 intervention-log review
 
-*Written for the founder's round-2 review on 2026-10-21 and accepted by him that day (chat). The reading in section 6 is recorded as a gate result only when the verdict is written. Nothing here changes an ADR. Source: `m0/intervention-log.md` at commit 36a9d52 (13 write-ups).*
+*Written for the founder's round-2 review on 2026-10-21 and accepted by him that day (chat). The reading in section 6 was recorded as the intervention-delta gate result on 2026-10-26 (`PROJECT_STATE.md`). Nothing here changes an ADR. Source: `m0/intervention-log.md` at commit 36a9d52 (13 write-ups).*
 
 ## 1. The question and the rule
 

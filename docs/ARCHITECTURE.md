@@ -53,6 +53,8 @@ Six scheduled jobs, each a Python script triggered by GitHub Actions on its own 
 
 ¹ Reverts to every-6-hours / daily automation once ADR-0002, D-24's reinstatement trigger fires. Until then, "job" here means a prompt the founder runs personally through Claude Code or claude.ai, not a cron trigger — see `docs/AI_SYSTEM.md` for the execution-mode notes under each agent.
 
+`thesis/` also needs access to primary sources — company releases and filings, regulator orders, exchange or Treasury data — to check every factual claim in a generated thesis or label it unverified (ADR-0004, D-35). Under free-tier-first the founder-run session fetches them (ADR-0002, D-20), so this adds no cost.
+
 A seventh, lightweight job — `digest/`, weekly — queries Postgres for the week's published theses and triggers the Resend email. Like every other job, it runs on schedule, independent of any page load; nothing about sending the digest should ever block or depend on a user request.
 
 `prices/` and `perf/` ship alongside `ingest/` in M1/M2 — deliberately ahead of `synth/` and `thesis/` being trustworthy — because cached daily price history is the one component in this plan whose value accrues with elapsed time rather than with pipeline quality (ADR-0001, D-03; `docs/ROADMAP.md`). By the time `thesis/` opens its first position, weeks of price history already exist for every tracked company.

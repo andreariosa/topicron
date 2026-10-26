@@ -89,7 +89,7 @@ A PR changing a load-bearing invariant, a schema table, a milestone deliverable,
 
 Nothing in ADR-0001, ADR-0002, or ADR-0003 changes by editing prose in `docs/`. It changes by a new, numbered ADR:
 
-1. Draft `docs/ADR/ADR-000N-kebab-title.md`, continuing the sequence (next is ADR-0004), with the header block ADR-0001/0002/0003 already establish: `Status`, `Date`, `Context`, `Decision owners`, `Relationship to prior ADRs`.
+1. Draft `docs/ADR/ADR-000N-kebab-title.md`, continuing the sequence (next is ADR-0005), with the header block ADR-0001/0002/0003 already establish: `Status`, `Date`, `Context`, `Decision owners`, `Relationship to prior ADRs`.
 2. State the criticism or trigger being responded to, the verdict, the reasoning, the MVP impact, and the exact docs that need to change — the format existing ADRs already use.
 3. Status starts `Proposed`. An assistant may draft it; only the founder moves it to `Accepted`.
 4. Once accepted, apply the listed documentation changes in the same batch of work, not as a follow-up — an accepted ADR whose docs haven't caught up is a tracked, temporary state (`PROJECT_STATE.md`), not a resting one.

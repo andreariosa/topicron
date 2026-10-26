@@ -1,7 +1,7 @@
 # ADR-0004: Starting M1 With the Demand Half of the M0 Gate Not Tested
 
-**Status:** Proposed
-**Date:** 2026-10-21 (draft); revised 2026-10-25 with the founder's answers to the open points. Written before the M0 verdict of 2026-10-26; the Context is updated at the verdict if anything changes.
+**Status:** Accepted
+**Date:** 2026-10-26 (drafted 2026-10-21, revised 2026-10-25 with the founder's answers to the open points, accepted by the founder at the M0 verdict without changes to the decisions). The free-reader count was checked again on the evening of 2026-10-26 and was still zero, so the Context stands as written.
 **Decision owners:** founder + technical co-founder
 **Relationship to prior ADRs:** Additive, not reopening. It uses ADR-0001 D-03 (the price clock is the one component whose value grows with elapsed time) and ADR-0002 D-20 (the pipeline is founder-run and free). It does not change any M1 or M2 gate in `docs/ROADMAP.md`; it splits M1 in two parts that run in order, adds a checkpoint before M2 and adds one requirement to M2. It is the founder decision that `m0/round-2-channels.md` §4.1 and `AGENTS.md` §6 ("Milestone sequencing") reserve for the case where a gate half is "not tested".
 **Decision registry:** D-34 and D-35 (continues `DECISIONS.md` §3; ADR-0003 = D-25–D-33)

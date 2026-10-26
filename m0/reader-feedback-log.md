@@ -172,3 +172,16 @@ The filter, from the private kit: a finance piece from the last 60 days; analysi
 
 - **Decisions on 2026-10-21 (founder):** r/ValueInvesting is skipped (the retry slot of 2026-10-20 passed with no action and the founder confirmed it); no further free-reader channel is planned. Hacker News was considered on 2026-10-16 and not used. Prolific: no further spend (founder, 2026-10-21); the remaining balance will not be used, and a paid panel cannot answer the demand question anyway. The M0 gate verdict was brought forward from 2026-11-07 to 2026-10-26.
 - **Reading:** every free-reader source is at zero, five days after the first post and the first two messages. That is the cost of getting attention, not a finding about need: the demand half of the gate stays "not tested" (`m0/round-2-channels.md` §4.1). Replies to the follow-ups, if any, are added here as they come.
+
+### Status on 2026-10-26 (verdict day)
+
+*Counts and routes only, as above. The checks are the founder's, on the evening of 2026-10-26 (Rome).*
+
+| Channel | Result on 2026-10-26 |
+|---|---|
+| X thread | No replies |
+| r/SecurityAnalysis | No new comment and no new score |
+| Outreach (channel D) | No reply in the inbox; the follow-ups of 2026-10-21 got none |
+| Landing-page list | No new subscriber in Resend (0 in total) |
+
+- **Reading:** every free-reader source is still at zero, twelve days after the first public post. The demand half of the gate stays "not tested" (`m0/round-2-channels.md` §4.1) and the verdict was written on this date (`PROJECT_STATE.md`). The next count is the demand checkpoint of 2026-11-16 (ADR-0004, D-34). Replies, if any, are added here as they come.

@@ -9,8 +9,9 @@ Two tracks, deliberately kept separate: **build weeks** are estimable, the way a
 | Milestone | Build weeks | Deliverables | Gate to pass |
 |---|---|---|---|
 | **M0 — Validate the writing** | 2–3 | 10–20 hand-written topic+thesis write-ups; intervention log; primary persona defined; landing page + email list live; distribution list of named communities; Reddit-vs-RSS earliness comparison; Reddit API application filed; cost model estimated | Do target-persona readers find the write-ups genuinely useful, and is the intervention delta small enough that a pipeline could plausibly close it? |
-| **M1 — Ingestion + the clock** | 2 | RSS connectors (10–15 feeds), dedupe, ticker extraction, `price_snapshots` ingestion, schema migration, cron on GitHub Actions | Is content flowing cleanly, and is price history accumulating daily without gaps across weekends and holidays? |
-| **M2 — Pipeline + first positions** | 3–4 | Topic synthesis with continuity resolution, thesis generation with citations, structured-output validation, golden-set regression check, first system positions opened under the 90-day rule, daily `performance_snapshots` job. **No UI.** | Does automated output hold the M0 quality bar, judged against the same rubric by the same readers? *Highest-risk gate in the plan.* |
+| **M1a — The price clock** | 2, together with M1b (the split is not estimated; ADR-0004, D-34) | Repo scaffolding (`jobs/`, GitHub Actions for CI and cron, an initial migration limited to what M1a needs); the daily `prices/` job writing `price_snapshots` for the US-listed tickers and benchmarks named in the write-ups, starting with thesis 13 (VZ, T, TMUS and SPY). No ingestion, no AI generation, no UI. | Is price history accumulating daily without gaps across weekends and holidays? |
+| **M1b — Ingestion** | (inside M1's 2 weeks) | RSS connectors (10–15 feeds), dedupe, ticker extraction, the migration for `content_items`. Starts after M1a and does not wait for the demand checkpoint (ADR-0004, D-34). | Is content flowing cleanly? |
+| **M2 — Pipeline + first positions** | 3–4 | Topic synthesis with continuity resolution, thesis generation with citations, structured-output validation, golden-set regression check built from the cases in `m0/intervention-log.md`, a primary-source check (or an "unverified" label) for every factual claim in a generated thesis (ADR-0004, D-35), first system positions opened under the 90-day rule, daily `performance_snapshots` job. **No UI.** Starts only after the demand checkpoint of 2026-11-16 (ADR-0004, D-34). | Does automated output hold the M0 quality bar, judged against the same rubric by the same readers? *Highest-risk gate in the plan.* |
 | **M3 — Publication v1** | 2 | Public, indexable topic/thesis pages; weekly email; PostHog instrumentation; first 100+ subscribers via the M0 distribution list | Do people open, read, return, and share — measured over at least four issues? |
 | **M4 — Surface the record** | 1 | Performance charts against dual benchmarks; public track-record page including losers; closed-position retrospectives | Does visible accountability measurably change engagement or conversion? |
 | **M5 — Dashboard and retention** | 3 | Interactive trending feed, filtering, watchlists, auth (now that user-specific state exists) | Return-rate gate at a usable denominator (n≈200) |
@@ -24,6 +25,7 @@ Construction total through M4: **10–12 weeks.** Elapsed time including gates i
 - The weekly email moved from M5 into M3, and the interactive dashboard moved from M3 into M5 — publication is the actual MVP; the dashboard is a retention-gated addition, not the launch vehicle (ADR-0001, D-18).
 - Auth moved from M3 into M5 — there's nothing user-specific to protect until M5, and a login wall in front of an unvalidated product would depress the exact metric M5's gate measures (ADR-0001, D-07).
 - The Reddit connector moved from week 2 of the original plan to M6, conditional on both a demonstrated earliness advantage and revenue to fund the commercial tier (ADR-0001, D-10).
+- M1 was split into M1a (the price clock) and M1b (ingestion), which run in order, and a demand checkpoint on 2026-11-16 was added before M2: M2 alone waits for it (ADR-0004, D-34). M2 also gained a primary-source check for every factual claim and a golden set built from the intervention log; its 3–4 week estimate is not revised and is expected to move (ADR-0004, D-35).
 
 ## Reading the gates
 
@@ -53,15 +55,15 @@ This covers M0 in full and the start of M1 — roughly four to five weeks at the
 - Build the one-page cost model (`docs/AI_SYSTEM.md`, Cost model) and confirm Claude API, Finnhub, and Supabase access.
 - **Gate:** do target-persona readers find the write-ups genuinely useful, and is the intervention delta small enough that a pipeline could plausibly close it? If not, stop and revisit the concept before writing a line of pipeline code.
 
-**Weeks 4–5 — M1 begins: ingestion and the clock.**
+**Weeks 4–5 — M1: the clock first, then ingestion (ADR-0004, D-34).**
 
-- Scaffold the repo: Next.js on Vercel, the `jobs/` package for the Python scripts, GitHub Actions for CI and cron (`docs/ARCHITECTURE.md`).
-- Write the Postgres schema migration for the core tables (`docs/DATA_MODEL.md`).
-- Build the RSS connectors for the feeds validated in M0, with dedupe into `content_items`, running hourly.
-- Build ticker/company extraction (`docs/AI_SYSTEM.md`, Agent 1).
-- Start the `prices/` job — daily `price_snapshots` for every tracked company — deliberately before the AI pipeline exists, so price history already has weeks of depth by the time `thesis/` needs it (ADR-0001, D-03).
+- M1a: scaffold the repo — Next.js on Vercel, the `jobs/` package for the Python scripts, GitHub Actions for CI and cron (`docs/ARCHITECTURE.md`) — and write the Postgres migration limited to what M1a needs (`docs/DATA_MODEL.md`).
+- M1a: start the `prices/` job — daily `price_snapshots` for the US-listed tickers and benchmarks named in the write-ups, starting with thesis 13 — deliberately before the AI pipeline exists, so price history already has weeks of depth by the time `thesis/` needs it (ADR-0001, D-03).
+- M1b, after M1a and without waiting for the demand checkpoint: build the RSS connectors for the feeds validated in M0, with dedupe into `content_items`, running hourly, and the rest of the core migration.
+- M1b: build ticker/company extraction (`docs/AI_SYSTEM.md`, Agent 1).
+- Before the demand checkpoint of 2026-11-16: add a short survey to the landing page with the "how would you feel if this no longer existed" question, so that answers from visitors the founder did not contact can be counted (ADR-0004, D-34).
 
-By day 30–35, the honest state of the project is: the M0 gate has passed, content is flowing, and price history has started accumulating. There is no AI pipeline yet and no user-facing page yet — both come later, and rushing them earlier is exactly the bundled-estimate mistake ADR-0001 D-08 flags.
+By day 30–35, the honest state of the project is: M0 is closed with its quality half met and its demand half untested (ADR-0004), price history has started accumulating, and content is flowing or about to. M2 waits for the demand checkpoint of 2026-11-16. There is no AI pipeline yet and no user-facing page yet — both come later, and rushing them earlier is exactly the bundled-estimate mistake ADR-0001 D-08 flags.
 
 ## First 10 tasks
 
@@ -70,8 +72,8 @@ By day 30–35, the honest state of the project is: the M0 gate has passed, cont
 3. Write down the primary persona and share the write-ups with 5–10 readers who actually match it (`docs/VISION.md`, Who this is for).
 4. Read the relevant subreddits by hand for the same period as task 2, and log whether they surfaced narratives earlier than curated RSS would have (`docs/ARCHITECTURE.md`, Data ingestion).
 5. Stand up the landing page, email list, and a named-communities distribution list (ADR-0001, D-11); sign up for Finnhub and Supabase, confirm Claude API access, and finalize the 10–15 curated RSS feeds.
-6. Scaffold the repo — Next.js on Vercel, the `jobs/` package, GitHub Actions for CI and cron — and write the initial Postgres schema migration (`docs/DATA_MODEL.md`).
-7. Build the RSS ingestion connector with dedupe into `content_items`, running hourly, plus ticker/company extraction (`docs/AI_SYSTEM.md`, Agent 1).
-8. Start the `prices/` job — daily `price_snapshots` — before the AI pipeline exists, so price history has real depth by the time positions start opening (ADR-0001, D-03).
-9. Build the topic synthesizer (with continuity resolution) and thesis generator, with structured output, citations, and a golden-set regression check, run against real ingested data. No UI (`docs/AI_SYSTEM.md`).
+6. **M1a.** Scaffold the repo — Next.js on Vercel, the `jobs/` package, GitHub Actions for CI and cron — and write the initial Postgres schema migration (`docs/DATA_MODEL.md`).
+7. **M1b**, after M1a and without waiting for the demand checkpoint. Build the RSS ingestion connector with dedupe into `content_items`, running hourly, plus ticker/company extraction (`docs/AI_SYSTEM.md`, Agent 1).
+8. **M1a**, first. Start the `prices/` job — daily `price_snapshots` — before the AI pipeline exists, so price history has real depth by the time positions start opening (ADR-0001, D-03).
+9. **M2**, only after the demand checkpoint of 2026-11-16, with a primary-source check for every factual claim and a golden set built from `m0/intervention-log.md` (ADR-0004, D-34, D-35). Build the topic synthesizer (with continuity resolution) and thesis generator, with structured output, citations, and a golden-set regression check, run against real ingested data. No UI (`docs/AI_SYSTEM.md`).
 10. Open the first system positions under the fixed 90-day rule, start the daily `performance_snapshots` job, and only then build the public pages and weekly email. Do not start the interactive dashboard until M5's retention gate passes (`docs/MVP_SCOPE.md`).
