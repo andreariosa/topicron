@@ -1,0 +1,25 @@
+[project]
+name = "topicron-jobs"
+version = "0.1.0"
+description = "Scheduled jobs for Topicron (GitHub Actions). Standard library only at runtime."
+requires-python = ">=3.12"
+dependencies = []
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["common", "prices"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+files = ["common", "prices", "tests"]

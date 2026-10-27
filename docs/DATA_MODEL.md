@@ -129,13 +129,13 @@ Momentum is gone as a stored field for a different reason — not consolidation,
 
 | Field | Type | Notes |
 |---|---|---|
-| id | uuid (PK) | |
-| ticker | string | |
+| id | uuid (PK) | Defaults to `gen_random_uuid()` |
+| ticker | string | `(ticker, exchange)` is unique — the prices job upserts on that pair |
 | name | string | |
-| sector | string | |
+| sector | string | Nullable (M1a): a benchmark fund such as SPY has no sector |
 | exchange | string | |
 
-Unchanged from the original plan.
+Otherwise unchanged from the original plan. Created in M1a (`supabase/migrations/20261027000000_m1a_companies_price_snapshots.sql`, ADR-0004 D-34). Row-level security is on and no policy exists yet, so the public (anon) key can neither read nor write it; the read policy arrives with the public pages (M4).
 
 ### content_item_company_mentions (join)
 
@@ -202,12 +202,12 @@ Links a `topics` row to the `content_items` that support it, with a relevance sc
 
 | Field | Type | Notes |
 |---|---|---|
-| company_id | uuid (FK → companies) | |
-| date | date | |
-| open / high / low / close | numeric | |
-| volume | bigint | |
+| company_id | uuid (FK → companies) | Primary key together with `date`: one bar per company and session, which makes the daily job safe to re-run |
+| date | date | The New York date of the last trade, not the date the job ran |
+| open / high / low / close | numeric | All positive, `low <= high` (enforced by the table) |
+| volume | bigint | Nullable (M1a): Finnhub's free plan has no daily candles, so the bar is built from `/quote` (open, high, low, current price), which carries no volume |
 
-Cached daily bars — the single source of truth for all performance calculations, so tracking is fast, consistent, and doesn't repeatedly hit the market data API. Unchanged from the original plan.
+Cached daily bars — the single source of truth for all performance calculations, so tracking is fast, consistent, and doesn't repeatedly hit the market data API. Created in M1a (ADR-0004 D-34) with the constraints above; row-level security is on with no policy, as for `companies`. The job writes nothing while the US session is open and fails loudly when the next day's previous close differs from the stored close (`jobs/README.md`).
 
 ### performance_snapshots
 

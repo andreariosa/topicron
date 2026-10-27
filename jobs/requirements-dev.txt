@@ -1,0 +1,5 @@
+# Development and CI only. The jobs themselves use the standard library alone.
+# ruff: lint and format (CURSOR_RULES.md section 3). pytest: tests. mypy: type check.
+pytest==8.3.4
+ruff==0.9.2
+mypy==1.14.1

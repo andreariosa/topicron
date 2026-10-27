@@ -1,0 +1,47 @@
+name: Prices
+
+# Daily prices job (M1a, ADR-0004 D-34). Writes one bar per tracked company to
+# price_snapshots. Zero LLM cost, zero spend (ADR-0002).
+on:
+  schedule:
+    # Main run: 21:30 UTC on weekdays, after the US close in both summer time
+    # (close 20:00 UTC) and winter time (close 21:00 UTC).
+    - cron: "30 21 * * 1-5"
+    # Catch-up: 06:30 UTC Tuesday to Saturday. It sees the same last session and
+    # upserts the same row, so it refills an evening run that was dropped or failed
+    # without creating duplicates. GitHub scheduled runs are best-effort.
+    - cron: "30 6 * * 2-6"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Fetch and print only, write nothing to the database"
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+
+concurrency:
+  group: prices
+  cancel-in-progress: false
+
+jobs:
+  prices:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: jobs
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Record prices
+        run: python -m prices
+        env:
+          FINNHUB_API_KEY: ${{ secrets.FINNHUB_API_KEY }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
+          # Empty on scheduled runs (a real run); "true" on a manual run unless unticked.
+          PRICES_DRY_RUN: ${{ inputs.dry_run }}
