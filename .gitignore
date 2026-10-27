@@ -21,3 +21,11 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
+
+# python (jobs/)
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
