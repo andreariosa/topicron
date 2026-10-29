@@ -62,8 +62,12 @@ All texts are under 280 characters. Counts are characters including line breaks.
 | 3 | Format (273) | Every Topicron thesis has the same ten parts: hypothesis, why now, what the market may be missing, bull case, best bear case, valuation, catalysts, invalidation conditions, basket and benchmark, results at 30/60/90 days.<br><br>The one that matters most: invalidation conditions. | `x/post-ten-parts-card-1600x900.png` |
 | 4 | Why (211) | Most investment writing can't be proven wrong, because it never says what would prove it wrong.<br><br>Every thesis I publish here names that condition before anything happens, so the result at day 90 means something. | none |
 | 5 | First thesis thread (write-up 13, five posts) | Text in `m0/topic-thesis-13-distribution-copy.md` §2. Written 2026-10-11 from a thesis checked against primary sources. Goes out only after the thesis commit is on `main`. | `x/post-thesis-13-card-1600x900.png` on the first post |
+| 6 | Project status (262) | Where Topicron stands: 13 theses written by hand, one tested on 16 paid readers, a daily price record since 27 Oct. Not yet known: would anyone miss it? I count that on 16 Nov.<br><br>If you read markets, tell me what would make you come back. AI-assisted. Not advice. | `x/post-status-card-1600x900.png` |
+| 6b | Link, as a reply under #6 (52) | If you'd rather follow by email: topicron.vercel.app | none |
 
 **Alt text for the image in #3:** "List of the ten parts of every Topicron thesis: the hypothesis, why now, what the market may be missing, bull case, best bear case, valuation and expectations, catalysts, invalidation conditions (highlighted: what would prove us wrong, stated up front), basket and benchmark, and results at 30, 60 and 90 days."
+
+**Alt text for the image in #6:** "Status card, 28 October 2026. Done: 13 hand-written theses; 16 paid readers tested the format, and the pre-set quality bar was met, narrowly. Running: thesis 13 is being judged, with results at day 30, 60 and 90 (11 November, 11 December, 11 January); closing prices have been saved daily since 27 October. Not yet known, highlighted: would anyone miss it? What would prove this wrong, counted on 16 November."
 
 **Planned slots** (Europe/Rome time; reasoned, not measured):
 
@@ -73,6 +77,7 @@ All texts are under 280 characters. Counts are characters including line breaks.
 | #3 | Tue 2026-10-13, 16:00 | planned |
 | #4 | Thu 2026-10-15, 16:00 | planned |
 | #5 | Wed 2026-10-14, 16:00 (after the thesis commit) | to schedule; move to the next Tue–Thu if the commit slips |
+| #6, then #6b | Tue 2026-11-03, 16:00 (10:00 in New York after the US clock change on 11-01) | proposed 2026-10-28; the founder scheduled it on X the same evening. The thesis updates after AT&T, Verizon and T-Mobile (10-21, 10-26, 10-28) are not numbered here. Before posting: check that the daily price record is still running (a red Prices run would make the card wrong), and regenerate the card if the post slips past 2026-11-10 (the counts and the date on it are as of 2026-10-28) |
 
 The slots are weekday US-morning times: 16:00 in Rome is 10:00 in New York until 2026-10-25 (Europe's clocks change that day, the US's on 2026-11-01) and 11:00 until 2026-11-01. They are a starting guess for an audience that reads on weekdays, not a measured optimum. After two or three weeks, compare the impressions shown on each post and adjust. Whether X's composer offers scheduling for this account was not verified; if it does not, post by hand at the nearest convenient time.
 
@@ -90,6 +95,7 @@ A credibility surface, not a feedback channel: it is what a moderator, a Reddit 
 | `x/topicron-x-banner-1500x500.png` | Header |
 | `x/post-ten-parts-card-1600x900.png` | Image for post #3 |
 | `x/post-thesis-13-card-1600x900.png` | Image for the first post of the thesis thread (#5). No price or performance figure |
-| `src/avatar.html`, `src/banner.html`, `src/ten-parts-card.html`, `src/thesis-13-card.html` | Sources for the four images. Open each at its exact pixel size and take a screenshot at device scale 1 (headless Chromium was used). They expect Inter installed locally. |
+| `x/post-status-card-1600x900.png` | Image for post #6 (project status). Counts and dates only: no price or performance figure. Amber marks the project's own falsifier (amber's one meaning, section 1), as in the other cards |
+| `src/avatar.html`, `src/banner.html`, `src/ten-parts-card.html`, `src/thesis-13-card.html`, `src/status-card.html` | Sources for the five images. Open each at its exact pixel size and take a screenshot at device scale 1 (headless Chromium was used). They expect Inter installed locally. |
 
 Source: https://help.x.com/en/managing-your-account/how-to-customize-your-profile
