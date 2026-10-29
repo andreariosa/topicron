@@ -8,6 +8,7 @@ The price of that is that the guards below are ours to keep.
 from __future__ import annotations
 
 import http.client
+import re
 import time
 import urllib.error
 import urllib.request
@@ -133,8 +134,32 @@ def _child_text(element: ET.Element, tag: str) -> str:
     return (child.text or "").strip() if child is not None else ""
 
 
+_TWELVE_HOUR = re.compile(r"\b(\d{1,2}):(\d{2}):(\d{2}) ([AP]M)\b", re.IGNORECASE)
+
+
+def _to_rfc_2822(value: str) -> str:
+    """Rewrite the two habits of Verizon's feeds that the standard library mishandles.
+
+    Verizon writes "Thu, 29 Oct 2026 09:12:17 AM EDT" and "29 Sept 2026". For the first,
+    parsedate_to_datetime drops the AM/PM without an error, so a PM item would be stored twelve
+    hours early; for the second it raises. Any other AM/PM form is refused rather than guessed.
+    """
+    value = re.sub(r"\bSept\b", "Sep", value)
+    match = _TWELVE_HOUR.search(value)
+    if match:
+        hour = int(match.group(1))
+        if not 1 <= hour <= 12:
+            raise ValueError("hour is not 1-12 next to AM/PM")
+        hour = hour % 12 + (12 if match.group(4).upper() == "PM" else 0)
+        clock = f"{hour:02d}:{match.group(2)}:{match.group(3)}"
+        value = value[: match.start()] + clock + value[match.end() :]
+    if re.search(r"\b[AP]M\b", value, re.IGNORECASE):
+        raise ValueError("AM/PM in a form this parser does not read")
+    return value
+
+
 def _parse_date(value: str) -> datetime:
-    parsed = parsedate_to_datetime(value)  # raises ValueError (or TypeError) on junk
+    parsed = parsedate_to_datetime(_to_rfc_2822(value))  # raises ValueError (or TypeError) on junk
     # A date written "-0000" or without a zone comes back naive; RSS dates are UTC by convention.
     return parsed.replace(tzinfo=UTC) if parsed.tzinfo is None else parsed.astimezone(UTC)
 

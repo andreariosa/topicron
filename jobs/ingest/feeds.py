@@ -65,6 +65,37 @@ FEEDS: tuple[Feed, ...] = (
         note="probe 2026-10-29: 10 items, fresh; the robots.txt URL of its host answers "
         "AccessDenied (read as no file); terms unread",
     ),
+    # The carriers' own newsrooms, switched on by the founder's decision of 2026-10-29 after the
+    # robots.txt files and the terms were read (m0/rss-feeds.md). robots.txt covers neither feed,
+    # but the terms of both sites ban robots and automated scripts in plain words (neither
+    # mentions RSS) while the companies advertise the feeds themselves; the founder chose to
+    # switch them on for consistency with CNBC and did not ask the press offices. If either
+    # company objects, set active=False and delete its rows, as was done for Yahoo.
+    Feed(
+        source="att-newsroom",
+        name="AT&T newsroom",
+        url="https://about.att.com/aboutus/rss/rssfeed.html?category=all",
+        # 25 items covering a few weeks: it can be quiet for a week.
+        max_age_hours=336,
+        note="RSS 2.0, 25 items, newest 28 Oct 2026 (page-reader summary); robots.txt of "
+        "about.att.com only disallows /system/; the Web Services Terms of Use ban any robot, "
+        "spider or automatic device and systematic collection (section 14) and do not mention "
+        "RSS; on by the founder's decision of 2026-10-29",
+    ),
+    Feed(
+        source="verizon-financial",
+        name="Verizon financial news releases",
+        url="https://www.verizon.com/about/news/financial-news.xml",
+        # 10 items spanning 24 Jul to 29 Oct 2026: about one a week, and quieter some weeks.
+        max_age_hours=720,
+        note="RSS 2.0, 10 items, newest 29 Oct 2026 (page-reader summary, raw XML not seen); "
+        "pubDate is written 'h:mm:ss AM EDT' and 'Sept' (read by ingest.rss since 2026-10-29); "
+        "robots.txt of www.verizon.com does not cover /about/news/*.xml; the Website Terms of "
+        "Use ban automated scripts, bots and offline readers and data-gathering tools and do "
+        "not mention RSS; on by the founder's decision of 2026-10-29; the guid is, per the "
+        "summary, the headline, so a repeated headline would be dropped as already stored; "
+        "verizon-news-releases.xml overlaps it and is not listed until cross-feed dedupe exists",
+    ),
     # Switched off.
     Feed(
         source="yahoo-tickers",
