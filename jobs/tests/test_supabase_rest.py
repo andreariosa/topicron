@@ -80,3 +80,40 @@ def test_errors_raise_and_do_not_leak_the_key() -> None:
 
     assert "HTTP 401" in str(error.value)
     assert NEW_KEY not in str(error.value)
+
+
+def test_insert_new_ignores_duplicates_and_returns_only_new_rows() -> None:
+    rows = [{"source": "s", "external_id": "1"}, {"source": "s", "external_id": "2"}]
+    recorder = Recorder(201, json.dumps([rows[1]]).encode())
+
+    result = SupabaseRest("https://x.supabase.co", NEW_KEY, recorder).insert_new(
+        "content_items", rows, "source,external_id"
+    )
+
+    method, url, headers, body = recorder.calls[0]
+    assert method == "POST"
+    assert url == "https://x.supabase.co/rest/v1/content_items?on_conflict=source%2Cexternal_id"
+    assert headers["Prefer"] == "resolution=ignore-duplicates,return=representation"
+    assert body is not None and json.loads(body) == rows
+    assert result == [rows[1]]
+
+
+def test_insert_new_errors_do_not_leak_the_key() -> None:
+    recorder = Recorder(400, f"bad {NEW_KEY}".encode())
+
+    with pytest.raises(RuntimeError) as error:
+        SupabaseRest("https://x.supabase.co", NEW_KEY, recorder).insert_new("t", [], "id")
+
+    assert "insert into t failed with HTTP 400" in str(error.value)
+    assert NEW_KEY not in str(error.value)
+
+
+@pytest.mark.parametrize(("status", "body"), [(201, b"[]"), (201, b""), (204, b""), (200, b"[]")])
+def test_insert_new_with_nothing_inserted_returns_an_empty_list(status: int, body: bytes) -> None:
+    recorder = Recorder(status, body)
+
+    result = SupabaseRest("https://x.supabase.co", NEW_KEY, recorder).insert_new(
+        "content_items", [{"source": "s", "external_id": "1"}], "source,external_id"
+    )
+
+    assert result == []
