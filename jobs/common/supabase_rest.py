@@ -67,6 +67,27 @@ class SupabaseRest:
         result: list[dict[str, Any]] = json.loads(self._check(status, body, f"upsert into {table}"))
         return result
 
+    def insert_new(
+        self, table: str, rows: list[dict[str, Any]], on_conflict: str
+    ) -> list[dict[str, Any]]:
+        """Insert the rows whose conflict key is new and leave existing rows untouched.
+
+        Returns only the rows that were actually inserted (PostgREST leaves ignored
+        duplicates out of the representation), so the caller can count what is new.
+        """
+        query = urllib.parse.urlencode({"on_conflict": on_conflict})
+        headers = {
+            **self._headers(),
+            "Prefer": "resolution=ignore-duplicates,return=representation",
+        }
+        status, body = self._http(
+            "POST", f"{self._base}/rest/v1/{table}?{query}", headers, json.dumps(rows).encode()
+        )
+        if status == 204 or (status in (200, 201) and not body.strip()):
+            return []  # nothing was inserted, and PostgREST sent no representation
+        result: list[dict[str, Any]] = json.loads(self._check(status, body, f"insert into {table}"))
+        return result
+
     def select(self, table: str, query: dict[str, str]) -> list[dict[str, Any]]:
         url = f"{self._base}/rest/v1/{table}?{urllib.parse.urlencode(query)}"
         status, body = self._http("GET", url, self._headers(), None)

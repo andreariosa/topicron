@@ -6,10 +6,11 @@ Scheduled jobs for Topicron, run by GitHub Actions (`docs/ARCHITECTURE.md`, ADR-
 jobs/
 ├── common/        shared clients: finnhub.py (/quote), supabase_rest.py (PostgREST)
 ├── prices/        the daily prices job (M1a)
+├── ingest/        the hourly RSS ingestion job (M1b)
 └── tests/
 ```
 
-More jobs (`ingest/`, `extract/`, `perf/`, `digest/`) join this folder in later milestones, each with a `main()` the scheduler calls (`CURSOR_RULES.md` section 3).
+More jobs (`extract/`, `perf/`, `digest/`) join this folder in later milestones, each with a `main()` the scheduler calls (`CURSOR_RULES.md` section 3).
 
 ## prices (M1a, ADR-0004 D-34)
 
@@ -41,6 +42,28 @@ Holidays are not modelled. A manual run inside the session window on a holiday i
 cd jobs
 FINNHUB_API_KEY=... python -m prices --dry-run
 ```
+
+## ingest (M1b, ADR-0004 D-34)
+
+Reads the curated RSS feeds listed in `ingest/feeds.py` and stores each item once in `content_items`. Hourly (`.github/workflows/ingest.yml`), zero LLM cost. Ticker extraction is a separate, later step.
+
+**The feed list is code.** `ingest/feeds.py` holds each feed's `source` id, URL, an age limit and an `active` flag (`docs/DATA_MODEL.md`: sources are a config file, not a table). Adding a feed is a reviewed change that comes after reading the publisher's robots.txt and terms; what was found for each feed is in `m0/rss-feeds.md`. A `source` id is part of the dedupe key and is never renamed.
+
+**What is stored.** Title, link, the feed's own short description (tags stripped, no article page is ever fetched), author when the feed has one, publication time, and the publisher's category tags in `raw_metadata`. The standard-library parser accepts RSS 2.0 only and refuses a document with a DTD or larger than 5 MB.
+
+**Dedupe.** The key is `(source, external_id)`, where `external_id` is the feed's guid, or its link when there is none. The job inserts with `ON CONFLICT DO NOTHING`: the first copy of an item is kept as ingested, a later edit by the publisher does not change it, and a re-run adds nothing. Matching the same article across two different feeds is not done yet; it comes with the second feed.
+
+**What it refuses to do (and fails loudly instead).**
+
+- Stay green when a feed errors, is not valid RSS 2.0, or parses to no usable item.
+- Stay green when a feed's newest item is older than its `max_age_hours` (72 by default): a feed that went quiet would feed stale news to the pipeline.
+- Trust an item dated more than an hour in the future (it is skipped).
+
+Items that cannot be used (no title, no http(s) link, no readable date) are skipped and counted in the log, not hidden. Whatever could be written is written first, then the run raises, so one bad feed does not hide the others. GitHub sends a failed-run email for each failed run (subject to the account's notification settings), so a dead feed means an email on every hourly run until it is fixed or switched off.
+
+**Secrets.** `SUPABASE_URL` and `SUPABASE_SECRET_KEY`, the same two as the prices job. No other key.
+
+**Run it.** In GitHub: Actions, Ingest, Run workflow. The `dry_run` box is ticked by default: it fetches and parses the feeds, prints the counts, the newest and oldest dates and the first three items, and writes nothing (it needs no secret). Untick it for a real run. Locally: `cd jobs && python -m ingest --dry-run`.
 
 ## Checks
 

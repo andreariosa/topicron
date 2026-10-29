@@ -115,7 +115,7 @@ Momentum is gone as a stored field for a different reason — not consolidation,
 | Field | Type | Notes |
 |---|---|---|
 | id | uuid (PK) | |
-| source | string | Matches an entry in the maintained feed list (config, not a foreign key — see Consolidation notes) |
+| source | string | Matches an entry in the maintained feed list (`jobs/ingest/feeds.py`; config, not a foreign key — see Consolidation notes) |
 | external_id | string | Dedupe key from the origin platform |
 | title | string | |
 | body | text | |
@@ -124,6 +124,8 @@ Momentum is gone as a stored field for a different reason — not consolidation,
 | published_at | timestamp | |
 | ingested_at | timestamp | |
 | raw_metadata | jsonb | Source-specific fields not otherwise modeled |
+
+Created in M1b (`supabase/migrations/20261029000000_m1b_content_items.sql`, ADR-0004 D-34). `(source, external_id)` is unique and is the dedupe key: the ingest job inserts with `ON CONFLICT DO NOTHING`, so the first copy of an item is kept and a re-run adds nothing. `external_id` is the feed's guid, or its link when the item has none. `body` is the feed's own short description with the tags stripped (empty when the feed has none); the job never fetches an article page, so no article text is in the table, and it is never shown on a public page (ADR-0001, D-15). `author` is empty when the feed gives none. `raw_metadata` holds `{"categories": [...]}` for now — the tickers as the publisher tagged them, kept for the rule-based extractor (`docs/AI_SYSTEM.md`, Agent 1). `published_at` and `ingested_at` are `timestamptz`; `ingested_at` defaults to `now()`. The title must not be blank and the URL must start with `http`. Row-level security is on and no policy exists yet, so the public (anon) key can neither read nor write it; the read policy arrives with the public pages (M4).
 
 ### companies
 

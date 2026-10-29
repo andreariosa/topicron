@@ -31,3 +31,18 @@
 1. Pull the exact feed URL for each "needs a quick grab" row above directly from the publisher.
 2. Spot-check each feed's actual XML in a browser or `curl` once — a directory listing confirms a feed *exists*, not that its current structure matches what the ingestion connector expects to parse.
 3. Revisit this list once M1's dedupe/ticker-extraction step is built — the right feed count depends on how well that step performs, not on maximizing source count up front.
+
+## Checked before wiring in (M1b, 2026-10-29)
+
+Read by Claude through a fetch tool that returns summaries and short excerpts, not the full pages, so the founder confirms the wording of the terms below before any commercial use.
+
+| Source | Status | What was found |
+|---|---|---|
+| MarketBeat | **Wired in** (`jobs/ingest/feeds.py`, active) | The feed is RSS 2.0 with no namespaces. Each item has title, link, a `guid` (`isPermaLink="false"`), `pubDate`, a description of about 190 characters, and one or two `category` elements holding tickers (several tickers in one category, separated by a line break). No author. `robots.txt` has no rule against `/feed/` (its `*/rss-feeds/*` rule concerns the directory page of feeds, which the job never fetches), and it carries the content signals `search=yes, ai-input=yes, ai-train=yes`. `llms.txt` allows use for AI purposes and says: cite MarketBeat as the source and link back to the original page with each citation. The Terms of Service say nothing about RSS or AI; they grant a personal licence and forbid resale, reproduction for commercial purposes and bulk redistribution of MarketBeat's data. |
+| Benzinga | In the list, **switched off** | Its `robots.txt` could not be read by Claude's tool. The founder is to open `https://feeds.benzinga.com/robots.txt` in a browser; the feed is switched on in a later pull request only if it allows the feed. |
+| Financial Times | **Not wired in** | Paywalled, and its terms could not be read. Revisit only if a headline-and-link use is wanted. |
+
+**Proposed rule for MarketBeat items (the founder confirms it by merging the pull request that adds this section):** store only what the feed publishes (headline, link, short description, tags); never fetch the article page; public pages show a MarketBeat item only as the source name, the headline and a link to the original page, never the description text; a thesis citation names MarketBeat and links to the article, as `docs/AI_SYSTEM.md` already requires of every citation. Do not resell or export the stored items in bulk.
+
+**Freshness is not confirmed.** Through the fetch tool the feed showed items from 13 to 21 September 2026 and a last-build date of 21 September, which may be an old copy (the same tool has returned old copies of other pages). The first dry run of the Ingest workflow settles it: the log prints the newest and oldest dates. The job also fails any run in which the newest item is more than 72 hours old.
+

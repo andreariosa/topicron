@@ -1,0 +1,44 @@
+name: Ingest
+
+# Hourly ingestion job (M1b, ADR-0004 D-34). Reads the curated RSS feeds in
+# jobs/ingest/feeds.py and stores each item once in content_items.
+# Zero LLM cost, zero spend (ADR-0002).
+on:
+  schedule:
+    # Hourly (docs/ARCHITECTURE.md). Minute 17 and not 0: GitHub delays the runs that
+    # start at the top of the hour the most. Scheduled runs are best-effort, and the
+    # job is idempotent, so a late or skipped run only delays items.
+    - cron: "17 * * * *"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Fetch and print only, write nothing to the database"
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ingest
+  cancel-in-progress: false
+
+jobs:
+  ingest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: jobs
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Ingest feeds
+        run: python -m ingest
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
+          # Empty on scheduled runs (a real run); "true" on a manual run unless unticked.
+          INGEST_DRY_RUN: ${{ inputs.dry_run }}
