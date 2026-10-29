@@ -150,6 +150,11 @@ def _parse_item(element: ET.Element) -> Item:
     )
 
 
+def _snippet(xml: bytes) -> str:
+    """The first characters of a document, for an error message (a block page shows up here)."""
+    return repr(" ".join(xml[:120].decode("utf-8", errors="replace").split())[:100])
+
+
 def parse_feed(xml: bytes) -> ParseResult:
     """Parse an RSS 2.0 document. Items that cannot be used are listed in `skipped`, not hidden."""
     if len(xml) > MAX_BYTES:
@@ -162,9 +167,13 @@ def parse_feed(xml: bytes) -> ParseResult:
     try:
         root = ET.fromstring(xml)
     except ET.ParseError as error:
-        raise ValueError(f"feed is not valid XML: {error}") from None
+        raise ValueError(
+            f"feed is not valid XML: {error}; it starts with {_snippet(xml)}"
+        ) from None
     if root.tag != "rss":
-        raise ValueError(f"not an RSS 2.0 feed (root element <{root.tag}>)")
+        raise ValueError(
+            f"not an RSS 2.0 feed (root element <{root.tag}>); it starts with {_snippet(xml)}"
+        )
     channel = root.find("channel")
     if channel is None:
         raise ValueError("RSS feed has no <channel>")

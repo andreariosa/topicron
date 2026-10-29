@@ -1,20 +1,28 @@
 name: Ingest
 
-# Hourly ingestion job (M1b, ADR-0004 D-34). Reads the curated RSS feeds in
+# Ingestion job (M1b, ADR-0004 D-34), hourly once a feed is verified. Reads the curated RSS feeds in
 # jobs/ingest/feeds.py and stores each item once in content_items.
 # Zero LLM cost, zero spend (ADR-0002).
 on:
-  schedule:
-    # Hourly (docs/ARCHITECTURE.md). Minute 17 and not 0: GitHub delays the runs that
-    # start at the top of the hour the most. Scheduled runs are best-effort, and the
-    # job is idempotent, so a late or skipped run only delays items.
-    - cron: "17 * * * *"
+  # The hourly schedule is OFF until a feed has been verified from GitHub's runners
+  # (2026-10-29: MarketBeat timed out and answered 503, Benzinga closed the connection).
+  # With no active feed the job would fail every hour and email for nothing. To switch it
+  # on, add back, in the pull request that activates the first feed:
+  #   schedule:
+  #     # Hourly (docs/ARCHITECTURE.md). Minute 17 and not 0: GitHub delays the runs that
+  #     # start at the top of the hour the most. Scheduled runs are best effort, and the
+  #     # job is idempotent, so a late or skipped run only delays items.
+  #     - cron: "17 * * * *"
   workflow_dispatch:
     inputs:
       dry_run:
         description: "Fetch and print only, write nothing to the database"
         type: boolean
         default: true
+      include_inactive:
+        description: "Probe: also try the switched-off feeds (needs dry_run) and print one line each"
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -40,5 +48,6 @@ jobs:
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
-          # Empty on scheduled runs (a real run); "true" on a manual run unless unticked.
+          # "true" on a manual run unless unticked. (Empty on a scheduled run, a real one.)
           INGEST_DRY_RUN: ${{ inputs.dry_run }}
+          INGEST_INCLUDE_INACTIVE: ${{ inputs.include_inactive }}
