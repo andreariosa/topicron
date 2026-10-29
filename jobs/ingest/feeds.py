@@ -70,20 +70,21 @@ FEEDS: tuple[Feed, ...] = (
     # the terms ban robots and automated scripts in plain words (they do not mention RSS) while the
     # company advertises the feed itself; the founder chose to switch it on for consistency with
     # CNBC and did not ask the press office. The first dry run on GitHub read it right (10 items,
-    # 09:12:17 AM EDT as 13:12:17 UTC). If the company objects, set active=False and delete its
-    # rows.
+    # 09:12:17 AM EDT as 13:12:17 UTC) and the hourly runs stored all ten. If the company
+    # objects, set active=False and delete its rows.
     Feed(
         source="verizon-financial",
         name="Verizon financial news releases",
         url="https://www.verizon.com/about/news/financial-news.xml",
         # 10 items spanning 24 Jul to 29 Oct 2026: about one a week, and quieter some weeks.
         max_age_hours=720,
-        note="RSS 2.0, 10 items, newest 29 Oct 2026 (page-reader summary, raw XML not seen); "
+        note="RSS 2.0, 10 items, newest 29 Oct 2026; "
         "pubDate is written 'h:mm:ss AM EDT' and 'Sept' (read by ingest.rss since 2026-10-29); "
         "robots.txt of www.verizon.com does not cover /about/news/*.xml; the Website Terms of "
         "Use ban automated scripts, bots and offline readers and data-gathering tools and do "
-        "not mention RSS; on by the founder's decision of 2026-10-29; the guid is, per the "
-        "summary, the headline, so a repeated headline would be dropped as already stored; "
+        "not mention RSS; on by the founder's decision of 2026-10-29; the guid is the headline "
+        "(seen in the stored rows, 2026-10-29), so a repeated headline would be dropped as "
+        "already stored; "
         "verizon-news-releases.xml overlaps it and is not listed until cross-feed dedupe exists",
     ),
     # Switched off.
@@ -98,7 +99,8 @@ FEEDS: tuple[Feed, ...] = (
         "15:26 UTC), which the job takes as the publisher saying no and does not retry; it had "
         "answered a page-reading tool earlier that day; robots.txt of about.att.com only "
         "disallows /system/; the Web Services Terms of Use ban any robot, spider or automatic "
-        "device (section 14) and do not mention RSS",
+        "device (section 14) and do not mention RSS; the founder decided on 2026-10-29 not to ask "
+        "the press office, so it stays off",
     ),
     Feed(
         source="yahoo-tickers",
