@@ -217,13 +217,73 @@ def test_the_feed_list_is_sane() -> None:
 
     assert len(sources) == len(set(sources))
     assert all(feed.url.startswith("https://") for feed in FEEDS)
-    # The one feed whose robots.txt and terms were read before wiring it in.
-    assert [feed.source for feed in FEEDS if feed.active] == ["marketbeat"]
+    assert all(feed.max_age_hours > 0 for feed in FEEDS)
+    # A switched-off feed says why, so the reason is next to the URL and not lost.
+    assert all(feed.note for feed in FEEDS if not feed.active)
+
+
+def test_no_active_feed_is_a_problem_not_a_silent_green() -> None:
+    off = Feed(source="off", name="Off", url="https://off.example.com/", active=False)
+
+    report = run(now=NOW, feeds=[off], fetch=lambda url: make_feed(1), db=FakeDb())
+
+    assert report.feeds == []
+    assert report.problems == ["no feed is active, so there is nothing to ingest"]
+
+
+def test_probe_mode_fetches_the_switched_off_feeds_too() -> None:
+    off = Feed(
+        source="off", name="Off", url="https://off.example.com/", active=False, note="try me"
+    )
+    fetched: list[str] = []
+
+    def fetch(url: str) -> bytes:
+        fetched.append(url)
+        return make_feed(2)
+
+    report = run(now=NOW, feeds=[off, FEED], fetch=fetch, db=None, include_inactive=True)
+
+    assert fetched == [off.url, FEED.url]
+    assert report.problems == []
+    lines = job.probe_lines(report, [off, FEED], NOW)
+    assert (
+        lines[0].startswith("probe off: answered, 2 items, newest 2.0 h ago")
+        and "[try me]" in lines[0]
+    )
+    assert lines[1].startswith("probe example: answered")
+
+
+def test_probe_mode_names_each_failure() -> None:
+    blocked = Feed(source="blocked", name="Blocked", url="https://blocked.example.com/")
+
+    def fetch(url: str) -> bytes:
+        if url == blocked.url:
+            raise OSError("The read operation timed out")
+        return make_feed(1, newest_age_hours=100)
+
+    feeds = [blocked, FEED]
+    report = run(now=NOW, feeds=feeds, fetch=fetch, db=None, include_inactive=True)
+
+    lines = job.probe_lines(report, feeds, NOW)
+    assert lines[0] == "probe blocked: FAILED  The read operation timed out"
+    assert "answered, 1 items" in lines[1] and "hours old" in lines[1]
+
+
+def test_probe_mode_never_writes() -> None:
+    with pytest.raises(ValueError, match="dry run"):
+        run(
+            now=NOW,
+            feeds=[FEED],
+            fetch=lambda url: make_feed(1),
+            db=FakeDb(),
+            include_inactive=True,
+        )
 
 
 def test_main_dry_run_needs_no_database_secrets(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.delenv("SUPABASE_URL", raising=False)
     monkeypatch.delenv("SUPABASE_SECRET_KEY", raising=False)
+    monkeypatch.setattr(job, "FEEDS", (FEED,))
     monkeypatch.setattr(job, "fetch_feed", lambda url: make_feed(2))
 
     assert job.main(["--dry-run"], now=NOW) == 0
@@ -241,15 +301,55 @@ def test_main_requires_the_database_secrets_for_a_real_run(
 
 
 def test_main_raises_when_a_feed_has_a_problem(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr(job, "FEEDS", (FEED,))
     monkeypatch.setattr(job, "fetch_feed", lambda url: make_feed(2, newest_age_hours=200))
 
     with pytest.raises(RuntimeError, match="hours old"):
         job.main(["--dry-run"], now=NOW)
 
 
+def test_main_raises_when_no_feed_is_active(monkeypatch: pytest.MonkeyPatch) -> None:
+    off = Feed(source="off", name="Off", url="https://off.example.com/", active=False)
+    monkeypatch.setattr(job, "FEEDS", (off,))
+
+    with pytest.raises(RuntimeError, match="no feed is active"):
+        job.main(["--dry-run"], now=NOW)
+
+
+def test_main_probe_reports_failures_without_failing(monkeypatch: pytest.MonkeyPatch) -> None:
+    off = Feed(source="off", name="Off", url="https://off.example.com/", active=False)
+
+    def fetch(url: str) -> bytes:
+        raise OSError("connection closed")
+
+    monkeypatch.setattr(job, "FEEDS", (off, FEED))
+    monkeypatch.setattr(job, "fetch_feed", fetch)
+
+    assert job.main(["--dry-run", "--include-inactive"], now=NOW) == 0
+
+
+def test_main_refuses_probe_mode_without_dry_run(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.delenv("INGEST_DRY_RUN", raising=False)
+
+    with pytest.raises(RuntimeError, match="only allowed on a dry run"):
+        job.main(["--include-inactive"], now=NOW)
+
+
+def test_the_environment_variables_also_select_probe_mode(monkeypatch: pytest.MonkeyPatch) -> None:
+    off = Feed(source="off", name="Off", url="https://off.example.com/", active=False)
+    monkeypatch.setenv("INGEST_DRY_RUN", "true")
+    monkeypatch.setenv("INGEST_INCLUDE_INACTIVE", "true")
+    monkeypatch.setattr(job, "FEEDS", (off,))
+    monkeypatch.setattr(job, "fetch_feed", lambda url: make_feed(1))
+
+    assert job.main([], now=NOW) == 0
+
+
 def test_the_environment_variable_also_selects_a_dry_run(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.delenv("SUPABASE_URL", raising=False)
     monkeypatch.setenv("INGEST_DRY_RUN", "true")
+    monkeypatch.delenv("INGEST_INCLUDE_INACTIVE", raising=False)
+    monkeypatch.setattr(job, "FEEDS", (FEED,))
     monkeypatch.setattr(job, "fetch_feed", lambda url: make_feed(1))
 
     assert job.main([], now=NOW) == 0

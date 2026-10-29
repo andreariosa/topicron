@@ -45,7 +45,7 @@ FINNHUB_API_KEY=... python -m prices --dry-run
 
 ## ingest (M1b, ADR-0004 D-34)
 
-Reads the curated RSS feeds listed in `ingest/feeds.py` and stores each item once in `content_items`. Hourly (`.github/workflows/ingest.yml`), zero LLM cost. Ticker extraction is a separate, later step.
+Reads the curated RSS feeds listed in `ingest/feeds.py` and stores each item once in `content_items`. Zero LLM cost. Ticker extraction is a separate, later step. It is meant to run hourly (`.github/workflows/ingest.yml`), but **the schedule is off for now**: no feed has been verified from GitHub's runners yet (below), so only manual runs exist. The pull request that switches on the first feed adds the `cron` line back (it is in a comment in the workflow).
 
 **The feed list is code.** `ingest/feeds.py` holds each feed's `source` id, URL, an age limit and an `active` flag (`docs/DATA_MODEL.md`: sources are a config file, not a table). Adding a feed is a reviewed change that comes after reading the publisher's robots.txt and terms; what was found for each feed is in `m0/rss-feeds.md`. A `source` id is part of the dedupe key and is never renamed.
 
@@ -55,13 +55,16 @@ Reads the curated RSS feeds listed in `ingest/feeds.py` and stores each item onc
 
 **What it refuses to do (and fails loudly instead).**
 
-- Stay green when a feed errors, is not valid RSS 2.0, or parses to no usable item.
+- Stay green when a feed errors, is not valid RSS 2.0, or parses to no usable item. The error shows how the response started, so a block page is recognisable.
+- Stay green when no feed is active at all.
 - Stay green when a feed's newest item is older than its `max_age_hours` (72 by default): a feed that went quiet would feed stale news to the pipeline.
 - Trust an item dated more than an hour in the future (it is skipped).
 
 Items that cannot be used (no title, no http(s) link, no readable date) are skipped and counted in the log, not hidden. Whatever could be written is written first, then the run raises, so one bad feed does not hide the others. GitHub sends a failed-run email for each failed run (subject to the account's notification settings), so a dead feed means an email on every hourly run until it is fixed or switched off.
 
 **Secrets.** `SUPABASE_URL` and `SUPABASE_SECRET_KEY`, the same two as the prices job. No other key.
+
+**Try a feed before switching it on (probe mode).** A feed that works in a browser may still not answer GitHub's runners, and a feed in a directory may be dead. Run the workflow with `dry_run` and `include_inactive` both ticked (locally: `python -m ingest --dry-run --include-inactive`): it fetches every feed in the list, active or not, writes nothing, and ends with one line per feed saying whether it answered, how many items it had and how old the newest one is. A probe never fails the run, because a failing feed is the answer. It only reads, once per feed, as any feed reader does; a feed is switched on only after its robots.txt and terms have been read (`m0/rss-feeds.md`).
 
 **Run it.** In GitHub: Actions, Ingest, Run workflow. The `dry_run` box is ticked by default: it fetches and parses the feeds, prints the counts, the newest and oldest dates and the first three items, and writes nothing (it needs no secret). Untick it for a real run. Locally: `cd jobs && python -m ingest --dry-run`.
 

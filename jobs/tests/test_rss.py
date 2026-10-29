@@ -196,3 +196,17 @@ def test_fetch_refuses_an_oversized_answer() -> None:
             "https://news.example.com/feed/",
             lambda url, headers: (200, b"x" * (rss.MAX_BYTES + 1)),
         )
+
+
+def test_an_html_block_page_shows_how_it_starts() -> None:
+    page = b"<!DOCTYPE html><html><head><title>Just a moment...</title></head></html>"
+    # A DTD is refused before parsing, so use a page without one, as most block pages are.
+    page = page.replace(b"<!DOCTYPE html>", b"")
+
+    with pytest.raises(ValueError, match="not an RSS 2.0 feed.*Just a moment"):
+        parse_feed(page)
+
+
+def test_broken_xml_shows_how_it_starts() -> None:
+    with pytest.raises(ValueError, match="not valid XML.*starts with 'Service Unavailable"):
+        parse_feed(b"Service Unavailable. Please try again later.")
