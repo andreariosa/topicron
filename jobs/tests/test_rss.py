@@ -1,3 +1,4 @@
+import http.client
 from datetime import UTC, datetime
 
 import pytest
@@ -210,3 +211,58 @@ def test_an_html_block_page_shows_how_it_starts() -> None:
 def test_broken_xml_shows_how_it_starts() -> None:
     with pytest.raises(ValueError, match="not valid XML.*starts with 'Service Unavailable"):
         parse_feed(b"Service Unavailable. Please try again later.")
+
+
+class Flaky:
+    """An http_get that follows a script, one entry per call: (status, body) or an exception."""
+
+    def __init__(self, *script: tuple[int, bytes] | Exception) -> None:
+        self.script = list(script)
+        self.calls = 0
+
+    def __call__(self, url: str, headers: dict[str, str]) -> tuple[int, bytes]:
+        self.calls += 1
+        step = self.script.pop(0)
+        if isinstance(step, Exception):
+            raise step
+        return step
+
+
+def test_a_server_error_is_retried_and_the_second_try_can_succeed() -> None:
+    waits: list[float] = []
+    http_get = Flaky((503, b"busy"), (200, b"<rss/>"))
+
+    assert fetch_feed("https://f.example/feed/", http_get, waits.append) == b"<rss/>"
+    assert http_get.calls == 2 and waits == [5]
+
+
+def test_a_network_failure_is_retried_up_to_three_tries() -> None:
+    waits: list[float] = []
+    http_get = Flaky(
+        TimeoutError("The read operation timed out"),
+        http.client.IncompleteRead(b""),
+        TimeoutError("The read operation timed out"),
+    )
+
+    with pytest.raises(RuntimeError, match="failed after 3 tries, last: TimeoutError"):
+        fetch_feed("https://f.example/feed/", http_get, waits.append)
+
+    assert http_get.calls == 3 and waits == [5, 15]
+
+
+def test_three_server_errors_end_in_a_loud_failure() -> None:
+    http_get = Flaky((503, b""), (502, b""), (503, b""))
+
+    with pytest.raises(RuntimeError, match="failed after 3 tries, last: HTTP 503"):
+        fetch_feed("https://f.example/feed/", http_get, lambda seconds: None)
+
+
+@pytest.mark.parametrize("status", [403, 404, 429])
+def test_a_client_error_is_not_retried(status: int) -> None:
+    waits: list[float] = []
+    http_get = Flaky((status, b"no"))
+
+    with pytest.raises(RuntimeError, match=f"HTTP {status}"):
+        fetch_feed("https://f.example/feed/", http_get, waits.append)
+
+    assert http_get.calls == 1 and waits == []
