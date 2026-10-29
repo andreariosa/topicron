@@ -7,6 +7,8 @@ The price of that is that the guards below are ours to keep.
 
 from __future__ import annotations
 
+import http.client
+import time
 import urllib.error
 import urllib.request
 import xml.etree.ElementTree as ET
@@ -25,6 +27,11 @@ MAX_BODY_CHARS = 5_000
 
 # (url, headers) -> (status, body). Replaced by a fake in tests.
 HttpGet = Callable[[str, dict[str, str]], tuple[int, bytes]]
+
+# Seconds to wait before the second and third try. Why: on 2026-10-29 MarketBeat timed out and
+# answered 503 and, hours later, answered fine; one bad moment should not be a red run.
+# A 4xx answer is not retried: 403 and 404 mean the publisher said no.
+RETRY_DELAYS = (5, 15)
 
 _DC_CREATOR = "{http://purl.org/dc/elements/1.1/}creator"
 
@@ -55,17 +62,34 @@ def _urllib_get(url: str, headers: dict[str, str]) -> tuple[int, bytes]:
         return error.code, error.read(1000)
 
 
-def fetch_feed(url: str, http_get: HttpGet = _urllib_get) -> bytes:
+def fetch_feed(
+    url: str,
+    http_get: HttpGet = _urllib_get,
+    sleep: Callable[[float], None] = time.sleep,
+) -> bytes:
+    """GET a feed, trying up to three times when the server or the network fails."""
     headers = {
         "User-Agent": USER_AGENT,
         "Accept": "application/rss+xml, application/xml;q=0.9, text/xml;q=0.8",
     }
-    status, body = http_get(url, headers)
-    if status != 200:
-        raise RuntimeError(f"{url} answered HTTP {status}")
-    if len(body) > MAX_BYTES:
-        raise ValueError(f"{url} is larger than {MAX_BYTES} bytes")
-    return body
+    tries = len(RETRY_DELAYS) + 1
+    for attempt in range(1, tries + 1):
+        try:
+            status, body = http_get(url, headers)
+        except (OSError, http.client.HTTPException) as error:
+            reason = f"{type(error).__name__}: {error}"
+        else:
+            if status == 200:
+                if len(body) > MAX_BYTES:
+                    raise ValueError(f"{url} is larger than {MAX_BYTES} bytes")
+                return body
+            if status < 500:
+                raise RuntimeError(f"{url} answered HTTP {status}")
+            reason = f"HTTP {status}"
+        if attempt == tries:
+            raise RuntimeError(f"{url} failed after {tries} tries, last: {reason}")
+        sleep(RETRY_DELAYS[attempt - 1])
+    raise AssertionError("unreachable")  # pragma: no cover
 
 
 class _TextExtractor(HTMLParser):

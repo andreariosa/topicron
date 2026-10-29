@@ -1,7 +1,8 @@
 """The feed list: a reviewed, version-controlled config, not a table (docs/DATA_MODEL.md).
 
 Adding a feed is a pull request, and it comes after reading the publisher's
-robots.txt and terms (m0/rss-feeds.md records what was found for each one). A feed with
+robots.txt and terms (m0/rss-feeds.md records what was found for each one, and the feeds
+that were tried and dropped). A feed with
 `active=False` is never fetched by the hourly job; `python -m ingest --dry-run
 --include-inactive` tries every feed once and prints one line each.
 `source` is stored in content_items.source and is part of the dedupe key, so it
@@ -31,60 +32,8 @@ FEEDS: tuple[Feed, ...] = (
         source="marketbeat",
         name="MarketBeat",
         url="https://www.marketbeat.com/feed/",
-        active=False,
-        note="robots.txt and terms read 2026-10-29 (m0/rss-feeds.md); but the feed answered 503 in "
-        "the founder's browser and timed out from GitHub that day. Switch on if it recovers",
-    ),
-    Feed(
-        source="benzinga",
-        name="Benzinga",
-        url="https://feeds.benzinga.com/benzinga",
-        active=False,
-        note="server closed the connection in the founder's browser 2026-10-29; robots.txt unread",
-    ),
-    # Candidates below are probe-only. Each is one plain GET, as any feed reader does. None is
-    # switched on before its robots.txt and terms have been read (m0/rss-feeds.md).
-    Feed(
-        source="cnbc-top",
-        name="CNBC Top News",
-        url="https://www.cnbc.com/id/100003114/device/rss/rss.html",
-        active=False,
-        note="candidate; robots.txt not readable by Claude's tool; terms unread",
-    ),
-    Feed(
-        source="cnbc-finance",
-        name="CNBC Finance",
-        url="https://www.cnbc.com/id/10000664/device/rss/rss.html",
-        active=False,
-        note="candidate; robots.txt not readable by Claude's tool; terms unread",
-    ),
-    Feed(
-        source="yahoo-finance",
-        name="Yahoo Finance",
-        url="https://finance.yahoo.com/news/rssindex",
-        active=False,
-        note="candidate; robots.txt has no rule against /news/rssindex (2026-10-29); terms unread",
-    ),
-    Feed(
-        source="yahoo-tickers",
-        name="Yahoo Finance, VZ T TMUS",
-        url="https://feeds.finance.yahoo.com/rss/2.0/headline?s=VZ,T,TMUS&region=US&lang=en-US",
-        active=False,
-        note="candidate; headlines for the thesis 13 tickers; robots.txt of this host unread",
-    ),
-    Feed(
-        source="nasdaq-markets",
-        name="Nasdaq Markets",
-        url="https://www.nasdaq.com/feed/rssoutbound?category=Markets",
-        active=False,
-        note="candidate; robots.txt has no rule against /feed/ (read 2026-10-29); terms unread",
-    ),
-    Feed(
-        source="marketwatch-top",
-        name="MarketWatch Top Stories",
-        url="https://feeds.content.dowjones.io/public/rss/mw_topstories",
-        active=False,
-        note="candidate; robots.txt and terms unread",
+        note="robots.txt and terms read 2026-10-29 (m0/rss-feeds.md); the probe found 100 items, "
+        "newest 5 h old; it timed out and answered 503 earlier that day, hence the retries",
     ),
     Feed(
         source="fed-press",
@@ -92,7 +41,40 @@ FEEDS: tuple[Feed, ...] = (
         url="https://www.federalreserve.gov/feeds/press_all.xml",
         # Official and public, but it can go quiet for days.
         max_age_hours=336,
+        note="the Board's site is public domain, cite the Board (disclaimer page, 2026-10-29)",
+    ),
+    # Switched on by the founder's decision of 2026-10-29. Claude could not read the robots.txt
+    # or the terms of these three publishers (its tool could not load them), so the founder reads
+    # them (m0/rss-feeds.md); the rule for news items applies: headline, link and short description
+    # stored, never the article page, never shown on a public page beyond headline and link.
+    Feed(
+        source="cnbc-top",
+        name="CNBC Top News",
+        url="https://www.cnbc.com/id/100003114/device/rss/rss.html",
+        note="probe 2026-10-29: 30 items, fresh; robots.txt and terms not read by Claude",
+    ),
+    Feed(
+        source="yahoo-tickers",
+        name="Yahoo Finance, VZ T TMUS",
+        url="https://feeds.finance.yahoo.com/rss/2.0/headline?s=VZ,T,TMUS&region=US&lang=en-US",
+        note="probe 2026-10-29: 19 items, fresh, about the thesis 13 companies; robots.txt of "
+        "this host and terms not read by Claude",
+    ),
+    Feed(
+        source="marketwatch-top",
+        name="MarketWatch Top Stories",
+        url="https://feeds.content.dowjones.io/public/rss/mw_topstories",
+        # Holds only the latest ten stories (about 90 minutes at midday), so an hourly run that
+        # GitHub delays by a few hours misses some. Fine for narratives; not a complete record.
+        note="probe 2026-10-29: 10 items, fresh; robots.txt and terms not read by Claude",
+    ),
+    # Switched off.
+    Feed(
+        source="nasdaq-markets",
+        name="Nasdaq Markets",
+        url="https://www.nasdaq.com/feed/rssoutbound?category=Markets",
         active=False,
-        note="candidate; official source; robots.txt not readable by Claude's tool",
+        note="timed out in the 2026-10-29 probe; robots.txt has no rule against /feed/; terms "
+        "unread",
     ),
 )

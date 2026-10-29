@@ -218,8 +218,16 @@ def test_the_feed_list_is_sane() -> None:
     assert len(sources) == len(set(sources))
     assert all(feed.url.startswith("https://") for feed in FEEDS)
     assert all(feed.max_age_hours > 0 for feed in FEEDS)
-    # A switched-off feed says why, so the reason is next to the URL and not lost.
-    assert all(feed.note for feed in FEEDS if not feed.active)
+    assert all(feed.note for feed in FEEDS)  # every entry says why it is on or off
+    # The feeds the founder switched on (m0/rss-feeds.md). Adding a name here is the review
+    # step, so it should never happen by accident.
+    assert {feed.source for feed in FEEDS if feed.active} == {
+        "marketbeat",
+        "fed-press",
+        "cnbc-top",
+        "yahoo-tickers",
+        "marketwatch-top",
+    }
 
 
 def test_no_active_feed_is_a_problem_not_a_silent_green() -> None:
