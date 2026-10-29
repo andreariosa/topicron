@@ -53,7 +53,8 @@ FEEDS: tuple[Feed, ...] = (
         name="CNBC Top News",
         url="https://www.cnbc.com/id/100003114/device/rss/rss.html",
         note="robots.txt read 2026-10-29: the rules for every robot do not cover the feed path and "
-        "Topicron is not named, but AI and finance bots are blocked by name; terms unread",
+        "Topicron is not named, but AI and finance bots are blocked by name; terms unread; kept "
+        "on by the founder's decision of 2026-10-29",
     ),
     Feed(
         source="marketwatch-top",
@@ -71,7 +72,7 @@ FEEDS: tuple[Feed, ...] = (
         url="https://feeds.finance.yahoo.com/rss/2.0/headline?s=VZ,T,TMUS&region=US&lang=en-US",
         active=False,
         note="robots.txt of this host read 2026-10-29: User-agent * Disallow /, so no robot may "
-        "fetch it; 17 rows were stored before the reading",
+        "fetch it; the 17 rows stored before the reading were deleted",
     ),
     Feed(
         source="nasdaq-markets",

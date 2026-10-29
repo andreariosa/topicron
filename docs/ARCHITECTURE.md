@@ -45,7 +45,7 @@ Six scheduled jobs, each a Python script triggered by GitHub Actions on its own 
 | Job | Cadence | Reads | Writes |
 |---|---|---|---|
 | `ingest/` | Hourly | RSS feeds | `content_items` (deduped) |
-| `extract/` | Hourly | New `content_items` | ticker/company mentions (rule-based only during free-tier-first — LLM fallback deferred, ADR-0002 D-20) |
+| `extract/` | Hourly | `content_items` ingested in the last 48 hours | `content_item_company_mentions` (rule-based only during free-tier-first — LLM fallback deferred, ADR-0002 D-20) |
 | `prices/` | Daily | Finnhub | `price_snapshots` |
 | `synth/` | Founder-triggered, ~weekly during free-tier-first¹ | Recent `content_items`, active topics | `topics` (created or updated, with continuity resolution) |
 | `thesis/` | Founder-triggered, ~weekly during free-tier-first¹ | Topics past the momentum threshold, `price_snapshots` | `theses`, `positions` |
