@@ -225,7 +225,6 @@ def test_the_feed_list_is_sane() -> None:
         "marketbeat",
         "fed-press",
         "cnbc-top",
-        "yahoo-tickers",
         "marketwatch-top",
     }
 

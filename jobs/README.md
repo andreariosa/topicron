@@ -45,7 +45,7 @@ FINNHUB_API_KEY=... python -m prices --dry-run
 
 ## ingest (M1b, ADR-0004 D-34)
 
-Reads the curated RSS feeds listed in `ingest/feeds.py` and stores each item once in `content_items`. Zero LLM cost. Ticker extraction is a separate, later step. It runs hourly (`.github/workflows/ingest.yml`, minute 17), and by hand from the Actions tab. Five feeds are switched on (MarketBeat, the Federal Reserve's press releases, CNBC Top News, Yahoo Finance for VZ, T and TMUS, and MarketWatch); the others in `feeds.py` are off (see `m0/rss-feeds.md`).
+Reads the curated RSS feeds listed in `ingest/feeds.py` and stores each item once in `content_items`. Zero LLM cost. Ticker extraction is a separate, later step. It runs hourly (`.github/workflows/ingest.yml`, minute 17), and by hand from the Actions tab. Four feeds are switched on (MarketBeat, the Federal Reserve's press releases, CNBC Top News and MarketWatch); the others in `feeds.py` are off, among them Yahoo Finance for VZ, T and TMUS, whose robots.txt disallows every robot (see `m0/rss-feeds.md`).
 
 **The feed list is code.** `ingest/feeds.py` holds each feed's `source` id, URL, an age limit and an `active` flag (`docs/DATA_MODEL.md`: sources are a config file, not a table). Adding a feed is a reviewed change that comes after reading the publisher's robots.txt and terms; what was found for each feed is in `m0/rss-feeds.md`. A `source` id is part of the dedupe key and is never renamed.
 

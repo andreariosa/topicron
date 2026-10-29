@@ -43,22 +43,17 @@ FEEDS: tuple[Feed, ...] = (
         max_age_hours=336,
         note="the Board's site is public domain, cite the Board (disclaimer page, 2026-10-29)",
     ),
-    # Switched on by the founder's decision of 2026-10-29. Claude could not read the robots.txt
-    # or the terms of these three publishers (its tool could not load them), so the founder reads
-    # them (m0/rss-feeds.md); the rule for news items applies: headline, link and short description
-    # stored, never the article page, never shown on a public page beyond headline and link.
+    # CNBC and MarketWatch were switched on by the founder's decision of 2026-10-29, before their
+    # robots.txt or terms had been read (Claude's tool could not load them). The founder then read
+    # the robots.txt files (m0/rss-feeds.md); the terms of both publishers are still unread. The
+    # rule for news items applies: headline, link and short description stored, never the
+    # article page, never shown on a public page beyond headline and link.
     Feed(
         source="cnbc-top",
         name="CNBC Top News",
         url="https://www.cnbc.com/id/100003114/device/rss/rss.html",
-        note="probe 2026-10-29: 30 items, fresh; robots.txt and terms not read by Claude",
-    ),
-    Feed(
-        source="yahoo-tickers",
-        name="Yahoo Finance, VZ T TMUS",
-        url="https://feeds.finance.yahoo.com/rss/2.0/headline?s=VZ,T,TMUS&region=US&lang=en-US",
-        note="probe 2026-10-29: 19 items, fresh, about the thesis 13 companies; robots.txt of "
-        "this host and terms not read by Claude",
+        note="robots.txt read 2026-10-29: the rules for every robot do not cover the feed path and "
+        "Topicron is not named, but AI and finance bots are blocked by name; terms unread",
     ),
     Feed(
         source="marketwatch-top",
@@ -66,9 +61,18 @@ FEEDS: tuple[Feed, ...] = (
         url="https://feeds.content.dowjones.io/public/rss/mw_topstories",
         # Holds only the latest ten stories (about 90 minutes at midday), so an hourly run that
         # GitHub delays by a few hours misses some. Fine for narratives; not a complete record.
-        note="probe 2026-10-29: 10 items, fresh; robots.txt and terms not read by Claude",
+        note="probe 2026-10-29: 10 items, fresh; the robots.txt URL of its host answers "
+        "AccessDenied (read as no file); terms unread",
     ),
     # Switched off.
+    Feed(
+        source="yahoo-tickers",
+        name="Yahoo Finance, VZ T TMUS",
+        url="https://feeds.finance.yahoo.com/rss/2.0/headline?s=VZ,T,TMUS&region=US&lang=en-US",
+        active=False,
+        note="robots.txt of this host read 2026-10-29: User-agent * Disallow /, so no robot may "
+        "fetch it; 17 rows were stored before the reading",
+    ),
     Feed(
         source="nasdaq-markets",
         name="Nasdaq Markets",
