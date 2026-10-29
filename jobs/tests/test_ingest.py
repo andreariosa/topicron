@@ -226,7 +226,6 @@ def test_the_feed_list_is_sane() -> None:
         "fed-press",
         "cnbc-top",
         "marketwatch-top",
-        "att-newsroom",
         "verizon-financial",
     }
 
