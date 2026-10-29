@@ -138,6 +138,40 @@ def test_a_date_with_an_offset_is_converted_to_utc() -> None:
     assert result.items[0].published_at == datetime(2026, 9, 21, 12, 50, tzinfo=UTC)
 
 
+@pytest.mark.parametrize(
+    ("raw", "expected"),
+    [
+        # Verizon's form: 12-hour clock, a US zone name. EDT is UTC-4.
+        ("Thu, 29 Oct 2026 09:12:17 AM EDT", datetime(2026, 10, 29, 13, 12, 17, tzinfo=UTC)),
+        ("Thu, 29 Oct 2026 04:26:25 PM EDT", datetime(2026, 10, 29, 20, 26, 25, tzinfo=UTC)),
+        ("Fri, 16 Oct 2026 12:00:00 AM EDT", datetime(2026, 10, 16, 4, 0, tzinfo=UTC)),
+        ("Fri, 16 Oct 2026 12:30:00 PM EDT", datetime(2026, 10, 16, 16, 30, tzinfo=UTC)),
+        ("Mon, 02 Nov 2026 07:00:09 am EST", datetime(2026, 11, 2, 12, 0, 9, tzinfo=UTC)),
+        # "Sept" is not an RFC 2822 month name.
+        ("Tue, 29 Sept 2026 04:26:25 PM EDT", datetime(2026, 9, 29, 20, 26, 25, tzinfo=UTC)),
+    ],
+)
+def test_a_twelve_hour_date_is_read_with_its_am_or_pm(raw: str, expected: datetime) -> None:
+    result = parse_feed(feed_with(item(pubDate=raw)))
+
+    assert result.items[0].published_at == expected
+
+
+@pytest.mark.parametrize(
+    "raw",
+    [
+        "Thu, 29 Oct 2026 13:12:17 PM EDT",  # 13 o'clock with PM is not a time
+        "Thu, 29 Oct 2026 00:12:17 AM EDT",
+        "Thu, 29 Oct 2026 9:12 AM EDT",  # no seconds: a form this parser does not read
+    ],
+)
+def test_an_am_pm_date_in_another_form_is_skipped_not_guessed(raw: str) -> None:
+    result = parse_feed(feed_with(item(pubDate=raw) + item(guid="g2")))
+
+    assert [entry.external_id for entry in result.items] == ["g2"]
+    assert "unreadable pubDate" in result.skipped[0]
+
+
 def test_the_same_item_twice_is_kept_once() -> None:
     result = parse_feed(feed_with(item() + item(title="Edited title")))
 
