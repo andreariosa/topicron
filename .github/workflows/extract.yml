@@ -1,0 +1,49 @@
+name: Extract
+
+# Hourly extraction job (M1b, ADR-0004 D-34). Looks at the content items ingested in the last
+# 48 hours and records which companies in the `companies` table each one mentions. Rule-based,
+# zero LLM cost, zero spend (ADR-0002). Ambiguous cases are listed in the log, not decided.
+on:
+  schedule:
+    # Hourly (docs/ARCHITECTURE.md), at minute 37 so that it follows the ingest job (minute 17)
+    # and stays away from the top of the hour, where GitHub delays runs the most. Scheduled runs
+    # are best-effort, and the job looks at a 48-hour window, so a late run loses nothing.
+    - cron: "37 * * * *"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Read and match only, write nothing to the database"
+        type: boolean
+        default: true
+      hours:
+        description: "Look at items ingested in the last N hours (empty: 48)"
+        type: string
+        default: ""
+
+permissions:
+  contents: read
+
+concurrency:
+  group: extract
+  cancel-in-progress: false
+
+jobs:
+  extract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: jobs
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Extract mentions
+        run: python -m extract
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
+          # Empty on scheduled runs (a real run); "true" on a manual run unless unticked.
+          EXTRACT_DRY_RUN: ${{ inputs.dry_run }}
+          EXTRACT_HOURS: ${{ inputs.hours }}

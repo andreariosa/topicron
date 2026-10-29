@@ -143,6 +143,14 @@ Otherwise unchanged from the original plan. Created in M1a (`supabase/migrations
 
 Links a `content_items` row to the `companies` it mentions, with an extraction confidence score. Many-to-many: one item can mention several companies; one company is mentioned by many items.
 
+| Field | Type | Notes |
+|---|---|---|
+| content_item_id | uuid (FK) | `content_items.id`; deleting an item deletes its mentions |
+| company_id | uuid (FK) | `companies.id` |
+| confidence | numeric | Greater than 0 and at most 1. The rule that found the mention sets it: 1.0 the publisher's tag, 0.9 the symbol in the text, 0.8 the name in the title, 0.6 the name in the description. A rule level, not a probability, and never shown |
+
+Created in M1b (`supabase/migrations/20261029150000_m1b_content_item_company_mentions.sql`, ADR-0004 D-34). The primary key is `(content_item_id, company_id)`, so the hourly `extract/` job can look at the same items again and add nothing; a row is never updated, so changing a rule means deleting the rows it should replace. A row can only point at a company that exists in `companies`, and `companies` is filled by the prices universe (`jobs/prices/universe.py`): today it holds thesis 13's four names, and it grows when a company is added there, which is a reviewed change. A tag that names any other company is counted in the job's log and not stored. Row-level security is on and no policy exists yet; the read policy arrives with the public pages (M4).
+
 ## Topics
 
 ### topics
