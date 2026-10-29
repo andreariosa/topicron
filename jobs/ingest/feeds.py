@@ -65,23 +65,13 @@ FEEDS: tuple[Feed, ...] = (
         note="probe 2026-10-29: 10 items, fresh; the robots.txt URL of its host answers "
         "AccessDenied (read as no file); terms unread",
     ),
-    # The carriers' own newsrooms, switched on by the founder's decision of 2026-10-29 after the
-    # robots.txt files and the terms were read (m0/rss-feeds.md). robots.txt covers neither feed,
-    # but the terms of both sites ban robots and automated scripts in plain words (neither
-    # mentions RSS) while the companies advertise the feeds themselves; the founder chose to
-    # switch them on for consistency with CNBC and did not ask the press offices. If either
-    # company objects, set active=False and delete its rows, as was done for Yahoo.
-    Feed(
-        source="att-newsroom",
-        name="AT&T newsroom",
-        url="https://about.att.com/aboutus/rss/rssfeed.html?category=all",
-        # 25 items covering a few weeks: it can be quiet for a week.
-        max_age_hours=336,
-        note="RSS 2.0, 25 items, newest 28 Oct 2026 (page-reader summary); robots.txt of "
-        "about.att.com only disallows /system/; the Web Services Terms of Use ban any robot, "
-        "spider or automatic device and systematic collection (section 14) and do not mention "
-        "RSS; on by the founder's decision of 2026-10-29",
-    ),
+    # Verizon's newsroom feed, switched on by the founder's decision of 2026-10-29 after the
+    # robots.txt file and the terms were read (m0/rss-feeds.md). robots.txt does not cover it, but
+    # the terms ban robots and automated scripts in plain words (they do not mention RSS) while the
+    # company advertises the feed itself; the founder chose to switch it on for consistency with
+    # CNBC and did not ask the press office. The first dry run on GitHub read it right (10 items,
+    # 09:12:17 AM EDT as 13:12:17 UTC). If the company objects, set active=False and delete its
+    # rows.
     Feed(
         source="verizon-financial",
         name="Verizon financial news releases",
@@ -97,6 +87,19 @@ FEEDS: tuple[Feed, ...] = (
         "verizon-news-releases.xml overlaps it and is not listed until cross-feed dedupe exists",
     ),
     # Switched off.
+    Feed(
+        source="att-newsroom",
+        name="AT&T newsroom",
+        url="https://about.att.com/aboutus/rss/rssfeed.html?category=all",
+        max_age_hours=336,
+        active=False,
+        note="switched on by the founder's decision of 2026-10-29 and off again the same day: "
+        "its server answered HTTP 403 to the job's own user agent from GitHub's runner (dry run, "
+        "15:26 UTC), which the job takes as the publisher saying no and does not retry; it had "
+        "answered a page-reading tool earlier that day; robots.txt of about.att.com only "
+        "disallows /system/; the Web Services Terms of Use ban any robot, spider or automatic "
+        "device (section 14) and do not mention RSS",
+    ),
     Feed(
         source="yahoo-tickers",
         name="Yahoo Finance, VZ T TMUS",
