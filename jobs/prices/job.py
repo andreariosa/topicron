@@ -9,7 +9,14 @@ section 3).
 How the date is chosen: the bar's date is the New York date of the quote's own
 timestamp, not the date the job runs. That makes the job idempotent and needs no
 market calendar: a run on a weekend, on a holiday or the next morning sees the
-last session's quote and upserts the same row again.
+last session's quote again.
+
+Which quote is kept: the first bar written for a session. A later run inserts only the
+bars that are missing (that is what the 06:30 UTC run is for) and leaves a stored bar as
+it is, printing a line when the new quote differs. Why: on 2026-10-29, one minute before the
+open, Finnhub returned the previous session's figures restated (open +0.01, close +0.01 to
++0.04, same high, low and last-trade time), and an upsert wrote that over the evening bar,
+which had matched the official close. The next-day check below caught it.
 """
 
 from __future__ import annotations
@@ -38,6 +45,10 @@ CLOSE_TOLERANCE = 0.005
 
 class Db(Protocol):
     def upsert(
+        self, table: str, rows: list[dict[str, Any]], on_conflict: str
+    ) -> list[dict[str, Any]]: ...
+
+    def insert_new(
         self, table: str, rows: list[dict[str, Any]], on_conflict: str
     ) -> list[dict[str, Any]]: ...
 
@@ -119,7 +130,7 @@ def run(
     db: Db | None,
     universe: Sequence[Company] = UNIVERSE,
 ) -> Report:
-    """Fetch every quote and upsert the bars. `db=None` is a dry run."""
+    """Fetch every quote and record the bars not yet stored. `db=None` is a dry run."""
     report = Report()
     if session_is_open(now):
         report.skipped_session_open = True
@@ -180,12 +191,50 @@ def run(
             report.problems.extend(_check_previous_close(db, company_id, day, quote))
 
     if db is not None and report.rows:
-        db.upsert("price_snapshots", report.rows, "company_id,date")
+        inserted = db.insert_new("price_snapshots", report.rows, "company_id,date")
         report.written = True
-        log.info("Wrote %d rows.", len(report.rows))
+        log.info(
+            "Wrote %d new rows, %d already stored.", len(inserted), len(report.rows) - len(inserted)
+        )
+        new_ids = {str(row["company_id"]) for row in inserted}
+        tickers = {company_id: ticker for ticker, company_id in ids.items()}
+        for row in report.rows:
+            if str(row["company_id"]) not in new_ids:
+                _note_if_different(db, tickers.get(str(row["company_id"]), "?"), row)
     elif db is None:
         log.info("Dry run: nothing written to the database.")
     return report
+
+
+def _note_if_different(db: Db, ticker: str, row: dict[str, Any]) -> None:
+    """Print a line when the bar already stored differs from the quote just read.
+
+    The stored bar is kept either way. The line is the only trace that the source restated
+    a session, and the next day's previous-close check decides whether the stored bar is
+    right."""
+    stored = db.select(
+        "price_snapshots",
+        {
+            "select": "open,high,low,close",
+            "company_id": f"eq.{row['company_id']}",
+            "date": f"eq.{row['date']}",
+            "limit": "1",
+        },
+    )
+    if not stored:
+        return
+    changes = [
+        f"{field} {stored[0][field]} -> {row[field]}"
+        for field in ("open", "high", "low", "close")
+        if abs(float(stored[0][field]) - float(row[field])) > 1e-6
+    ]
+    if changes:
+        log.warning(
+            "%s %s: kept the stored bar; this quote differs: %s",
+            ticker,
+            row["date"],
+            ", ".join(changes),
+        )
 
 
 def _check_previous_close(db: Db, company_id: str, day: date, quote: Quote) -> list[str]:

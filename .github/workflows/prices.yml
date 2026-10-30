@@ -8,8 +8,9 @@ on:
     # (close 20:00 UTC) and winter time (close 21:00 UTC).
     - cron: "30 21 * * 1-5"
     # Catch-up: 06:30 UTC Tuesday to Saturday. It sees the same last session and
-    # upserts the same row, so it refills an evening run that was dropped or failed
-    # without creating duplicates. GitHub scheduled runs are best-effort.
+    # inserts the bar only when it is missing, so it refills an evening run that was
+    # dropped or failed and never writes over a bar already stored (on 2026-10-29 a
+    # morning quote had been restated by the source). GitHub scheduled runs are best-effort.
     - cron: "30 6 * * 2-6"
   workflow_dispatch:
     inputs:
