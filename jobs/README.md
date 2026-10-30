@@ -19,7 +19,9 @@ Records one daily bar per tracked company in `price_snapshots`. The tracked set 
 
 **Where the bar comes from.** Finnhub's free plan has no daily candles, so the bar is built from `/quote`: open, high, low, current price, previous close and the time of the last trade. The quote has no volume, so `volume` stays empty.
 
-**Which date a row gets.** The New York date of the quote's own timestamp, not the date the job runs. That makes every run idempotent and needs no market calendar: a run on a weekend, on a holiday or the next morning sees the last session again and upserts the same row. The 06:30 UTC run exists for that reason: it refills an evening run that was dropped.
+**Which date a row gets.** The New York date of the quote's own timestamp, not the date the job runs. That makes every run idempotent and needs no market calendar: a run on a weekend, on a holiday or the next morning sees the last session again. The 06:30 UTC run exists for that reason: it refills an evening run that was dropped.
+
+**Which quote is kept.** The first bar written for a session. A later run inserts only the bars that are missing and leaves a stored bar as it is; when the new quote differs from the stored bar, the run prints one line (`kept the stored bar; this quote differs: ...`) and does not fail. Why: on 2026-10-29, one minute before the open, Finnhub returned the previous session restated (open +0.01 and close +0.01 to +0.04 on all four tickers, same high, low and last-trade time), and a run that overwrote the row replaced a bar that matched the official close; the next day's previous-close check, below, caught it. If a stored bar is wrong, update the row by hand from a source you trust and record the correction in `PROJECT_STATE.md`.
 
 **What it refuses to do (and fails loudly instead).**
 

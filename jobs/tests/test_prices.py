@@ -41,7 +41,7 @@ def make_quote(
 
 
 class FakeDb:
-    """In-memory stand-in with the same upsert and select behaviour as the REST client."""
+    """In-memory stand-in for the REST client: upsert, insert_new and select."""
 
     def __init__(self) -> None:
         self.companies: dict[tuple[str, str], dict[str, Any]] = {}
@@ -59,16 +59,30 @@ class FakeDb:
                 stored.update(row)
                 out.append(dict(stored))
             return out
-        if table == "price_snapshots":
-            for row in rows:
-                key = (row["company_id"], row["date"])
-                self.snapshots[key] = {**self.snapshots.get(key, {}), **row}
-            return rows
         raise AssertionError(f"unexpected table {table}")
+
+    def insert_new(
+        self, table: str, rows: list[dict[str, Any]], on_conflict: str
+    ) -> list[dict[str, Any]]:
+        assert table == "price_snapshots"
+        inserted = []
+        for row in rows:
+            key = (row["company_id"], row["date"])
+            if key not in self.snapshots:
+                self.snapshots[key] = dict(row)
+                inserted.append(row)
+        return inserted
 
     def select(self, table: str, query: dict[str, str]) -> list[dict[str, Any]]:
         assert table == "price_snapshots"
         company_id = query["company_id"].removeprefix("eq.")
+        if query["date"].startswith("eq."):
+            day = query["date"].removeprefix("eq.")
+            return [
+                dict(row)
+                for (cid, d), row in self.snapshots.items()
+                if cid == company_id and d == day
+            ]
         before = query["date"].removeprefix("lt.")
         earlier = sorted(
             (
@@ -200,6 +214,43 @@ def test_running_twice_does_not_duplicate_rows() -> None:
 
     assert len(db.snapshots) == 4
     assert len(db.companies) == 4
+
+
+def test_a_later_run_keeps_the_first_bar_and_says_when_the_quote_differs(
+    caplog: pytest.LogCaptureFixture,
+) -> None:
+    # 2026-10-29: the morning quote for the previous session was restated by the source.
+    db = FakeDb()
+    run(now=CLOSED_EVENING, fetch=fetch_all(), db=db)  # stores Monday 26: close 40.0
+
+    monday = at(2026, 10, 26, 20, 0)
+    restated = make_quote("VZ", 40.04, monday)
+    with caplog.at_level("INFO", logger="prices"):
+        report = run(now=at(2026, 10, 27, 13, 29), fetch=fetch_all(monday, VZ=restated), db=db)
+
+    assert db.snapshots[("id-VZ", "2026-10-26")]["close"] == 40.0
+    assert report.problems == []
+    assert "Wrote 0 new rows, 4 already stored." in caplog.text
+    assert "VZ 2026-10-26: kept the stored bar" in caplog.text
+    assert "close 40.0 -> 40.04" in caplog.text
+    assert "T 2026-10-26: kept the stored bar" not in caplog.text  # the others did not change
+
+
+def test_a_later_run_fills_a_bar_that_is_missing() -> None:
+    # The catch-up run is there for an evening run that failed for one ticker.
+    def evening(ticker: str) -> Quote:
+        if ticker == "T":
+            raise RuntimeError("T: Finnhub answered HTTP 429")
+        return make_quote(ticker)
+
+    db = FakeDb()
+    run(now=CLOSED_EVENING, fetch=evening, db=db)
+    assert len(db.snapshots) == 3
+
+    run(now=at(2026, 10, 27, 6, 30), fetch=fetch_all(), db=db)
+
+    assert len(db.snapshots) == 4
+    assert ("id-T", "2026-10-26") in db.snapshots
 
 
 def test_a_matching_previous_close_the_next_day_is_fine() -> None:
