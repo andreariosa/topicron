@@ -6,6 +6,15 @@
 import Link from "next/link";
 import { SubscribeForm } from "./subscribe-form";
 
+// Public links. The thesis files live in the public repository until the
+// public thesis pages exist (docs/ROADMAP.md, M3). The survey is a Tally form
+// (ADR-0004, D-34): it is linked, never embedded, so this page keeps loading
+// no third-party script and setting no cookies.
+const REPO_URL = "https://github.com/andreariosa/topicron/blob/main/m0";
+const ONE_PAGE_URL = `${REPO_URL}/topic-thesis-13-one-page.md`;
+const FULL_TEXT_URL = `${REPO_URL}/topic-thesis-13-us-wireless-spacex.md`;
+const SURVEY_URL = "https://tally.so/r/OQaZNk";
+
 export default function Home() {
   return (
     <main className="mx-auto flex min-h-screen max-w-2xl flex-col justify-center gap-10 px-6 py-16">
@@ -65,6 +74,48 @@ export default function Home() {
           </p>
         </li>
       </ul>
+
+      <div className="space-y-3 border-t border-slate-200 pt-8">
+        <h2 className="text-xl font-semibold text-slate-900">Latest thesis</h2>
+        <p className="text-base leading-relaxed text-slate-700">
+          Thesis 13 asks whether a basket of Verizon, AT&amp;T and T-Mobile
+          beats the S&amp;P 500 by at least 5 percentage points over 90 days,
+          after the SpaceX spectrum deal. It is tracked in public, with
+          results at 30, 60 and 90 days, whichever way they go.
+        </p>
+        <p className="text-base leading-relaxed text-slate-700">
+          <a
+            href={ONE_PAGE_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-semibold text-slate-900 underline underline-offset-2"
+          >
+            Read the one-page version
+          </a>{" "}
+          (about three minutes) or{" "}
+          <a
+            href={FULL_TEXT_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-semibold text-slate-900 underline underline-offset-2"
+          >
+            the full text
+          </a>
+          .
+        </p>
+        <p className="text-base leading-relaxed text-slate-700">
+          Read it? Tell us what you thought in{" "}
+          <a
+            href={SURVEY_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-semibold text-slate-900 underline underline-offset-2"
+          >
+            two quick questions
+          </a>{" "}
+          (about 30 seconds, no email needed, hosted by Tally).
+        </p>
+      </div>
 
       <div className="space-y-3 border-t border-slate-200 pt-8">
         <SubscribeForm />

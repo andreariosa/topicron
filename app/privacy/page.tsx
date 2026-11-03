@@ -16,7 +16,7 @@ export default function PrivacyPolicy() {
         <h1 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
           Privacy Policy
         </h1>
-        <p className="text-sm text-slate-500">Last updated: July 31, 2026</p>
+        <p className="text-sm text-slate-500">Last updated: November 3, 2026</p>
       </div>
 
       <p className="text-base leading-relaxed text-slate-700">
@@ -36,6 +36,12 @@ export default function PrivacyPolicy() {
           address you provide if you sign up for our mailing list. We do not
           require an account, and we do not collect names, payment
           information, or other personal details.
+        </p>
+        <p className="text-base leading-relaxed text-slate-700">
+          If you answer our optional survey, we also receive your answers:
+          the choices you tick and any text you write. The survey does not ask
+          for your name or email address, so please do not put personal
+          details in the free-text box.
         </p>
       </div>
 
@@ -60,6 +66,23 @@ export default function PrivacyPolicy() {
           email address is stored in Resend&apos;s systems to manage the
           mailing list and send you content. Resend&apos;s own privacy policy
           governs how they handle this data on our behalf.
+        </p>
+        <p className="text-base leading-relaxed text-slate-700">
+          The survey is a form hosted by Tally (tally.so), a separate website
+          that this site links to and does not embed. Your answers are stored
+          in our Tally account. How Tally handles technical data when you
+          open its form is described in{" "}
+          <a
+            href="https://tally.so/help/privacy-policy"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-semibold text-slate-900 underline underline-offset-2"
+          >
+            Tally&apos;s own privacy policy
+          </a>
+          . We use the answers only to understand whether Topicron is useful.
+          We may report them as totals and quote free-text answers without
+          any personal details.
         </p>
       </div>
 
@@ -89,6 +112,12 @@ export default function PrivacyPolicy() {
             andrea.riosa@hotmail.it
           </a>{" "}
           to request that we delete your email address from our list.
+        </p>
+        <p className="text-base leading-relaxed text-slate-700">
+          Survey answers are anonymous, so we cannot tell which answers are
+          yours and cannot delete them on request. Our plan with Tally does
+          not delete answers automatically; we will delete them when we no
+          longer need them.
         </p>
       </div>
 

@@ -192,6 +192,17 @@ A half with no valid signal is recorded as "not tested", never as passed or fail
 
 **Open:** X's ad policy for investment-related posts could not be read in full (the policy pages fetched on 2026-10-26 do not state a rule), so whether a promoted thesis post passes X's review is unknown until a campaign is created. If it is rejected, the founder decides what, if anything, to try next; the cap still applies.
 
+**Update 2026-11-03 (founder decision and a policy finding).** The founder confirmed the test ("Procediamo con la prova a pagamento su X come pianificato") and the survey went live the same evening: a Tally form, four questions, no email asked, linked from the landing page (`app/page.tsx`) and not embedded. Planned start: about 9 to 10 November, after the landing-page change is merged. Two points change the conditions above:
+
+- **Policy.** X's financial-services ads policy, read on 2026-11-03 through a summarising tool (not verbatim; re-read it in X's own interface before spending), prohibits promoting financial speculation meant to attract interest in stocks and shares, and allows investment advice or services only with X's certification for the category and country. It does not clearly cover educational stock content. So the dated thesis-13 post, with three tickers, may be rejected. The ad is therefore neutral: no tickers, no price or return claim, no call to buy or sell. Before spending, the founder can ask X Ads support (ads.x.com) whether an educational research publication is allowed. A rejection is a recorded result ("test not run"), not a failed demand test, and costs nothing.
+- **Funnel.** The ad points at the landing page, not at the form: the page shows the latest thesis first and then the survey, so the survey's first question ("Have you read at least one Topicron thesis?") has a real answer. Only readers who answer Yes count at the checkpoint; the last survey question ("How did you find Topicron?") separates readers from the ad from free readers.
+
+**Ad copy (English only, to paste into X's campaign builder).**
+
+- Text: "Topicron publishes investment theses written with AI assistance and checked against primary sources, with a public 90-day scoreboard, wins and losses alike. Read the latest in about 3 minutes, then tell us what you think. Research and education only, not investment advice."
+- Headline: "A public scoreboard for investment ideas"
+- Link: the landing page, https://topicron.vercel.app
+
 ## 5. Sources
 
 - Show HN rules: https://news.ycombinator.com/showhn.html (read 2026-10-10)
