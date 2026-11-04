@@ -103,17 +103,26 @@ export default function Home() {
           </a>
           .
         </p>
+      </div>
+
+      <div className="space-y-3 rounded-lg border border-slate-300 bg-slate-50 p-6">
+        <h2 className="text-xl font-semibold text-slate-900">
+          Read it? Tell us what you think
+        </h2>
         <p className="text-base leading-relaxed text-slate-700">
-          Read it? Tell us what you thought in{" "}
-          <a
-            href={SURVEY_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="font-semibold text-slate-900 underline underline-offset-2"
-          >
-            two quick questions
-          </a>{" "}
-          (about 30 seconds, no email needed, hosted by Tally).
+          Two quick questions, about 30 seconds. No email needed. Your answers
+          help us decide what Topicron does next.
+        </p>
+        <a
+          href={SURVEY_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-block rounded-md bg-slate-900 px-5 py-3 text-base font-semibold text-white hover:bg-slate-700"
+        >
+          Take the survey
+        </a>
+        <p className="text-xs leading-relaxed text-slate-500">
+          The survey is hosted by Tally. See the Privacy Policy below.
         </p>
       </div>
 
