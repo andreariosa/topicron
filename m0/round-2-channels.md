@@ -203,6 +203,8 @@ A half with no valid signal is recorded as "not tested", never as passed or fail
 - Headline: "A public scoreboard for investment ideas"
 - Link: the landing page, https://topicron.vercel.app
 
+**Update 2026-11-09 (campaign paused, result).** The campaign ran from 2026-11-04 with the neutral copy above, a budget of EUR 40.00 net and a daily cap of EUR 4.00, and was approved by X's review. The founder paused it on 2026-11-09 at about 21:04: 59,232 impressions, 115 link clicks, EUR 23.28 net spent (about EUR 28.4 with VAT; `m0/intervention-log.md`, "Validation spend"). Tally's Insights showed no completed answer from the ad (two visits to the form before the founder's own test, one of them probably Claude's check of 2026-11-03), and Resend shows 0 subscribers. The landing page has no analytics, so it is unknown whether the clicks reached the page, were read, or stopped before the survey button; adding analytics would need a change to the privacy policy and a founder decision. Reading: with this offer, cold traffic from X did not reach the survey, which says little about demand among readers who read a thesis. A miss at the checkpoint of 2026-11-16 is likely; it is not an automatic stop, and the choice goes into ADR-0005 (`docs/ADR/ADR-0004-m1-start-with-untested-demand.md`, D-34). No new spend is proposed.
+
 ## 5. Sources
 
 - Show HN rules: https://news.ycombinator.com/showhn.html (read 2026-10-10)
