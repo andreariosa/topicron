@@ -91,7 +91,23 @@ Wrong if any of these is observed within the window:
 
 ## Results at 30/60/90 days
 
-*(To be populated after publication: performance against SPY and against the equal-weight carrier basket, and which of the four explanations applied: thesis wrong, thesis right but priced in, catalyst did not occur, or the market moved for unrelated reasons. The weighting call (Verizon and AT&T over T-Mobile) is graded separately.)*
+*(Filled in at each checkpoint. The four-way explanation, which is thesis wrong, thesis right but priced in, catalyst did not occur, or the market moved for unrelated reasons, and the grading of the weighting call (Verizon and AT&T over T-Mobile) are written at day 90.)*
+
+**Day 30: Wednesday 11 November 2026 close (recorded 12 November 2026).** Price return from the 12 October close (the entry), dividends excluded, as the hypothesis states.
+
+| | Entry, 12 Oct close | Close, 11 Nov | Change |
+|---|---|---|---|
+| Verizon (VZ) | $42.78 | $46.60 | +8.93% |
+| AT&T (T) | $22.49 | $22.26 | -1.02% |
+| T-Mobile (TMUS) | $151.87 | $172.16 | +13.36% |
+| SPY | $778.10 | $759.81 | -2.35% |
+
+- **Basket 40/40/20: +5.83%**, which is **+8.19 points** against SPY. The hurdle is +5 points at day 90.
+- **Equal-weight carrier basket (secondary comparison): +7.09%**, which is +9.44 points against SPY. So far the weighting call cost 1.26 points.
+- **Contributions to the weighted basket:** Verizon +3.57, T-Mobile +2.67, AT&T -0.41 points.
+- **Invalidation:** condition 3 (a close below $37.50 for Verizon or $20.00 for AT&T on or after 6 November) has not triggered; the lowest closes since 6 November are $45.69 (Verizon) and $21.63 (AT&T). No condition was triggered at the three Q3 reports (`PROJECT_STATE.md`); the SpaceX pricing and launch-date part of conditions 1 and 2 was not re-read for this checkpoint.
+- **Reading:** a checkpoint, not a verdict. SPY fell 2.35% between entry and day 30, which accounts for 2.35 of the 8.19 points of lead (about 29%); the basket alone is up 5.83%, so it would have cleared the 5 points even against a flat SPY, by 0.83 points. T-Mobile's ex-dividend date (about 25 November) falls after day 30, so its price return from then on includes the dividend drop.
+- **Sources:** the entry closes of Verizon, AT&T and T-Mobile come from stockanalysis.com [19] and, for all four tickers, from investing.com (founder, 12 November 2026); they are not in `price_snapshots`, which starts on 27 October. The 11 November closes come from `price_snapshots` (Finnhub's quote, first bar written) and agree to the cent with investing.com (founder, 12 November 2026).
 
 ## Sources
 

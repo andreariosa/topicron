@@ -141,3 +141,43 @@ Card summarising a Topicron thesis on Verizon, AT&T and T-Mobile after the Space
 **Status:** posted on Wednesday 2026-10-14 (first post and four replies, following this section).
 
 The thread says "AI" in its first line and links to the full text in its last post, so the disclosure in `docs/brand/BRAND.md` §4 rule 2 is met without a separate reply.
+
+## 3. Day-30 update (drafted 2026-11-12, not yet posted)
+
+Facts only, hypothesis unchanged, next report named (the format of the Q3 updates). Plain text, no image: `docs/brand/BRAND.md` §4 rule 1 allows the checkpoint posts of thesis 13 as text, and only after the results section of the thesis is on `main`. Post whether the numbers are good or bad; the day-60 post (11 December) and the exit post (11 January) follow in the same format. Figures: `m0/topic-thesis-13-us-wireless-spacex.md`, results section (entry 12 October close, day 30 is the 11 November close, price return, dividends excluded).
+
+**X, post 1 (266 characters)**
+
+```text
+Thesis 13, day 30 (11 Nov close, price return, dividends excluded).
+
+12 Oct entry to 11 Nov: VZ +8.9%, T -1.0%, TMUS +13.4%. Basket 40/40/20: +5.8%. SPY: -2.4%. Gap: +8.2 points (hurdle: +5 at day 90).
+
+One thesis at day 30, not a track record. Hypothesis unchanged.
+```
+
+**X, post 2, as a reply to post 1 (251 characters, the link counts as 23)**
+
+```text
+SPY's fall is 2.4 of the 8.2 points; against a flat SPY the basket still clears the hurdle by 0.8.
+
+Next: day 60 on 11 Dec, exit 11 Jan, win or loss. AI-assisted; closes checked on two sources. Hypothesis, not advice.
+
+Details: https://github.com/andreariosa/topicron/blob/main/m0/topic-thesis-13-us-wireless-spacex.md
+```
+
+**Reddit, dated comment under the live r/SecurityAnalysis post** (no link, the post body and the hypothesis untouched, `m0/topic-thesis-13-distribution-copy.md` §1.1)
+
+```text
+Update, 12 Nov 2026: day 30 of 90, measured at the 11 Nov close, price return, dividends excluded, entry at the 12 Oct close.
+
+VZ 42.78 -> 46.60 (+8.93%); T 22.49 -> 22.26 (-1.02%); TMUS 151.87 -> 172.16 (+13.36%); SPY 778.10 -> 759.81 (-2.35%).
+
+Basket 40/40/20: +5.83%, which is 8.19 points above SPY; the hurdle is +5 points at day 90. Equal-weight basket: +7.09%, so weighting VZ and T over TMUS cost 1.26 points so far. SPY's fall accounts for 2.35 of the 8.19 points; against a flat SPY the basket would still clear the hurdle by 0.83 points.
+
+Invalidation condition 3 has not triggered (lowest closes since 6 Nov: VZ 45.69, T 21.63), and none of the three Q3 reports triggered a condition. I have not changed the hypothesis.
+
+This is one thesis at day 30, not a track record. Next updates: day 60 (11 Dec) and the exit on 11 Jan, win or loss. Hypothesis, not investment advice.
+```
+
+**Before posting:** the pull request with the results section is merged and the Claude Project re-synced; the founder confirms he wants to post (the Finnhub terms risk applies to figures shown to third parties, `docs/RISKS.md`, Data quality risks). After posting, record it in `m0/round-2-channels.md` §4 (the status table) and log any comment anonymously (§1.1).
