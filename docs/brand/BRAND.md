@@ -25,10 +25,10 @@ A paper-coloured "T" crossed by an amber line that the stem interrupts: the thes
 
 ## 4. Rules for anything public
 
-1. **No performance figures or price charts** until real, tracked data exists. `AGENTS.md` §7 forbids published backtests or historical performance under any framing; a decorative chart that implies results counts. Schematic diagrams of the format are fine (the banner is one).
+1. **No performance figures or price charts** until real, tracked data exists. `AGENTS.md` §7 forbids published backtests or historical performance under any framing; a decorative chart that implies results counts. Schematic diagrams of the format are fine (the banner is one). **Exception, 2026-11-12:** the dated 30, 60 and 90-day checkpoint results of thesis 13, whose hypothesis was committed in `m0/` before the data existed and is tracked forward, may be posted as plain text (no chart, no image that carries a figure), worded as in `m0/topic-thesis-13-distribution-copy.md` §3: one thesis, interim, not a track record, not advice, the next checkpoint named, and posted whether the number is good or bad. `AGENTS.md` §7 targets backtests (`docs/MVP_SCOPE.md`), which a forward checkpoint is not, and ADR-0003's template has a results section for exactly these checkpoints.
 2. **Disclose AI assistance** wherever the work is described. It is also the project's pitch: transparency.
 3. **"Hypotheses, not investment advice."** stays visible in the bio and on image cards (`docs/RISKS.md`, publisher's-exclusion posture).
-4. **Do not promise a track record that does not exist yet.** Say how theses are judged (30/60/90 days), not how they have performed.
+4. **Do not promise a track record that does not exist yet.** Say how theses are judged (30/60/90 days), not how they have performed, apart from the checkpoint posts allowed in rule 1.
 5. No stock photography, no third-party logos, nothing personal in any image (this repository is public).
 
 ## 5. X profile, @topicron
