@@ -10,14 +10,15 @@
 | **ADR-0002** | Free-tier-first MVP | `Accepted` | Constrains *how* ADR-0001's plan gets implemented while Topicron is pre-revenue — no component may add a recurring cost beyond the founder's existing Cursor + Claude Pro subscriptions | `docs/AI_SYSTEM.md`, `docs/ARCHITECTURE.md`, `docs/TECH_STACK.md`, `docs/MVP_SCOPE.md`, `README.md`, `docs/RISKS.md` |
 | **ADR-0003** | Thesis structure standard | `Accepted` | Replaces the original five-section topic-and-thesis format with a ten-section structure (falsifiable hypothesis, valuation, catalysts, invalidation criteria, conviction-weighted baskets, source hierarchy), prompted by converging reader-feedback findings during M0 | `docs/AI_SYSTEM.md` (Agent 3 output contract — accepted but not yet reflected; tracked in `PROJECT_STATE.md`) |
 | **ADR-0004** | Starting M1 with the demand half of the M0 gate not tested | `Accepted` | Splits M1 into M1a (the price clock) and M1b (ingestion), which run in order; sets a demand checkpoint on 2026-11-16 that decides only whether M2 starts; requires a primary-source verification step and an intervention-log golden set before M2's thesis generation counts as done | `docs/ROADMAP.md`, `docs/AI_SYSTEM.md`, `docs/ARCHITECTURE.md`, `PROJECT_STATE.md` |
+| **ADR-0005** | Starting M2 after the demand checkpoint of 2026-11-16 was missed | `Accepted` | Records the result of the checkpoint (0 signups, 0 survey answers; counted 2026-11-21, five days late) and the founder's choice to start M2 anyway, once, with no new spend and no further checkpoint; waives only the pre-condition that ADR-0004 D-34 attached to M2 and leaves ADR-0004's text unedited; leaves open how M2's gate gets its readers | `docs/ROADMAP.md`, `PROJECT_STATE.md`, `m0/round-2-channels.md`, `m0/reader-feedback-log.md`, `m0/intervention-log.md` |
 
 \* `docs/VISION.md`, `docs/TECH_STACK.md`, and `docs/MVP_SCOPE.md` postdate ADR-0001's own Part 5 table, which names six documents, not nine — these three were split out from `README.md` / `ARCHITECTURE.md` during implementation, and each states in its own header which ADR-0001 part it implements. A reasonable editorial split, not a deviation from the decision itself; it's just why this column lists the actual current document set rather than transcribing ADR-0001's table verbatim.
 
-**Next ID:** ADR-0005 (continuing the shared decision registry at **D-36** — see §3).
+**Next ID:** ADR-0006 (continuing the shared decision registry at **D-37** — see §3).
 
-Individual decisions inside an ADR (`D-01` through `D-35`, and onward) are indexed at the end of their own ADR — ADR-0001's "Summary of verdicts" table, ADR-0002's "Summary of decisions" table, and ADR-0003's "Decision" section are the canonical per-decision index. This file indexes ADRs, not the decisions inside them, so there's exactly one place each list lives.
+Individual decisions inside an ADR (`D-01` through `D-36`, and onward) are indexed at the end of their own ADR — ADR-0001's "Summary of verdicts" table, ADR-0002's "Summary of decisions" table, and ADR-0003's "Decision" section are the canonical per-decision index. This file indexes ADRs, not the decisions inside them, so there's exactly one place each list lives.
 
-ADR-0001 and ADR-0002 were confirmed `Accepted` by the founder on 2026-07-25; ADR-0003 followed on 2026-07-30, and ADR-0004 on 2026-10-26.
+ADR-0001 and ADR-0002 were confirmed `Accepted` by the founder on 2026-07-25; ADR-0003 followed on 2026-07-30, and ADR-0004 on 2026-10-26. ADR-0005 was accepted on 2026-11-21.
 
 ## 2. When a new ADR is required
 
