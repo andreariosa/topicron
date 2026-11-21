@@ -185,3 +185,18 @@ The filter, from the private kit: a finance piece from the last 60 days; analysi
 | Landing-page list | No new subscriber in Resend (0 in total) |
 
 - **Reading:** every free-reader source is still at zero, twelve days after the first public post. The demand half of the gate stays "not tested" (`m0/round-2-channels.md` §4.1) and the verdict was written on this date (`PROJECT_STATE.md`). The next count is the demand checkpoint of 2026-11-16 (ADR-0004, D-34). Replies, if any, are added here as they come.
+
+### Status on 2026-11-21 (demand checkpoint)
+
+*Counts and routes only, as above. The checks are the founder's, on the evening of 2026-11-21 (Rome), five days after the date set in ADR-0004, D-34.*
+
+| Channel | Result on 2026-11-21 |
+|---|---|
+| X (posts of 2026-10-26, 2026-10-28 and 2026-11-12) | No reply, no like |
+| r/SecurityAnalysis (day-30 comment of 2026-11-12 included) | No comment and no vote |
+| Outreach (channel D) | No reply in the inbox |
+| Landing-page list | 0 contacts in Resend (the founder's own test contact of 2026-11-13 deleted) |
+| Survey (Tally) | 0 submissions; 3 visits in all, some of them the founder's and the assistant's own |
+| X ad (paused 2026-11-09) | 59,232 impressions and 115 link clicks, no survey answer (`m0/round-2-channels.md` §4.2) |
+
+- **Reading:** the checkpoint rule (10 signups, or 3 answers with 2 "very disappointed") is missed on both branches. No free reader has reached the survey or the signup form, so the count says nothing about how a free reader who read a thesis would feel; the demand half stays "not tested". The founder started M2 anyway (ADR-0005, D-36). Replies, if any, are added here as they come.

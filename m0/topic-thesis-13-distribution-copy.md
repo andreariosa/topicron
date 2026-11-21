@@ -142,7 +142,7 @@ Card summarising a Topicron thesis on Verizon, AT&T and T-Mobile after the Space
 
 The thread says "AI" in its first line and links to the full text in its last post, so the disclosure in `docs/brand/BRAND.md` §4 rule 2 is met without a separate reply.
 
-## 3. Day-30 update (drafted 2026-11-12, not yet posted)
+## 3. Day-30 update (drafted 2026-11-12; posted by the founder on X and Reddit on 2026-11-12)
 
 Facts only, hypothesis unchanged, next report named (the format of the Q3 updates). Plain text, no image: `docs/brand/BRAND.md` §4 rule 1 allows the checkpoint posts of thesis 13 as text, and only after the results section of the thesis is on `main`. Post whether the numbers are good or bad; the day-60 post (11 December) and the exit post (11 January) follow in the same format. Figures: `m0/topic-thesis-13-us-wireless-spacex.md`, results section (entry 12 October close, day 30 is the 11 November close, price return, dividends excluded).
 
