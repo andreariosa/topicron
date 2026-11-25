@@ -13,7 +13,7 @@ target-version = "py312"
 select = ["E", "F", "I", "B", "UP"]
 
 [tool.ruff.lint.isort]
-known-first-party = ["common", "prices", "ingest", "extract"]
+known-first-party = ["common", "prices", "ingest", "extract", "thesis"]
 
 [tool.pytest.ini_options]
 pythonpath = ["."]
@@ -22,4 +22,4 @@ testpaths = ["tests"]
 [tool.mypy]
 python_version = "3.12"
 strict = true
-files = ["common", "prices", "ingest", "extract", "tests"]
+files = ["common", "prices", "ingest", "extract", "thesis", "tests"]

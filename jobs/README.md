@@ -8,6 +8,7 @@ jobs/
 ├── prices/        the daily prices job (M1a)
 ├── ingest/        the hourly RSS ingestion job (M1b)
 ├── extract/       the hourly company-matching job (M1b)
+├── thesis/        the validator of the Agent 3 output contract (M2)
 └── tests/
 ```
 
@@ -86,6 +87,14 @@ Looks at the content items ingested in the last 48 hours and records, in `conten
 **Secrets.** `SUPABASE_URL` and `SUPABASE_SECRET_KEY`, as for the other jobs. A dry run needs them too, because it reads the stored items; it writes nothing.
 
 **Run it.** In GitHub: Actions, Extract, Run workflow. `dry_run` is ticked by default: it reads, matches and prints, and writes nothing. Untick it for a real run. Locally: `cd jobs && SUPABASE_URL=... SUPABASE_SECRET_KEY=... python -m extract --dry-run --hours 168`, with the two values taken from your own environment and never typed into a chat.
+
+## thesis (M2, ADR-0003, ADR-0004 D-35)
+
+The validator of the Agent 3 output contract (`docs/AI_SYSTEM.md`, Agent 3). It checks what a schema can check, and nothing else: every field present and of the right type, no field outside the contract (so no `starting_value`, no `holding_period_days` and nothing about a reader), a one-sentence hypothesis (D-26), at least one catalyst dated inside the holding window (D-29), at least one invalidation condition with a threshold (D-30), a benchmark with a threshold above zero and a reason (D-27), weights that sum to 1 and are equal when `basket_weighting` says `equal` (D-32), citations numbered from 1 with no gap, every `[n]` in the text resolving to a citation and every citation used (D-33), and a `retrieved_at` for every source the session fetched itself (`content_item_id` null). Whether a hypothesis is falsifiable, whether a risk restates the bear case and whether a claim is backed by a primary source are reads for the founder and the golden set, not checks here.
+
+Two checks need the database and run only when the caller passes it in: `known_content_item_ids` (a citation cannot name an item that is not stored) and `source_bodies` (a paraphrase that shares a run of 8 or more words with the stored body is read as a copy, ADR-0001 D-15; 8 is a starting value to tune against the golden set). Pure functions, no network, no secrets.
+
+**Run it.** `cd jobs && python -m thesis path/to/thesis.json` prints one line per problem and exits 1, or prints `ok` and exits 0. The first fixture is write-up 13 (`m0/topic-thesis-13-us-wireless-spacex.md`) converted by hand into the contract (`tests/fixtures/thesis_13.json`); `retrieved_at` on its citations is the date of the write-up's last re-check (2026-10-12), because the original session logged no per-source time.
 
 ## Checks
 
