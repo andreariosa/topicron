@@ -54,11 +54,24 @@ erDiagram
         timestamp published_at
         string model_used
         string prompt_version
+        string title
+        date as_of
+        text hypothesis
+        text why_now
+        text market_missing
         text bull_case
         text bear_case
+        text valuation
         text_array risks
-        jsonb suggested_basket
+        string benchmark_ticker
+        string benchmark_sector_ticker
+        numeric benchmark_outperformance_pct_points
+        text benchmark_reason
+        string basket_weighting
         string confidence
+        jsonb catalysts
+        jsonb invalidation_conditions
+        jsonb suggested_basket
         jsonb citations
         text caveat
         numeric starting_value
@@ -166,6 +179,8 @@ Created in M1b (`supabase/migrations/20261029150000_m1b_content_item_company_men
 
 No `momentum_score` column. Momentum is computed at read time — see Consolidation notes.
 
+Created in M2 (`supabase/migrations/20261125150000_m2_topics_theses.sql`), in the same migration as `theses`, because `theses.topic_id` points at it. `status` is text with a check (`active`, `archived`). `topic_content_items` follows with the task that writes it.
+
 ### topic_content_items (join)
 
 Links a `topics` row to the `content_items` that support it, with a relevance score. This is what makes every topic's "why is this trending" claim traceable back to real source material.
@@ -183,15 +198,30 @@ Links a `topics` row to the `content_items` that support it, with a relevance sc
 | published_at | timestamp | Nullable. Replaces the original `draft`/`published` status enum (ADR-0001, D-05) — one publisher, one moment of publication |
 | model_used | string | Kept deliberately (ADR-0001, D-05), for auditability across model upgrades |
 | prompt_version | string | Kept deliberately (ADR-0001, D-05) |
+| title | text | |
+| as_of | date | The date every price and fact in the thesis is stated as of (ADR-0003, D-25, section 2) |
+| hypothesis | text | One falsifiable sentence, stated first (ADR-0003, D-26); a column of its own because the system and the results section refer to it |
+| why_now | text | |
+| market_missing | text | What the market may be missing (ADR-0003, D-25, section 3) |
 | bull_case | text | |
-| bear_case | text | |
-| risks | text[] | |
-| suggested_basket | jsonb | Allocation across linked companies, with a rationale per weight: equal weight unless the thesis argues differentiated conviction (ADR-0003, D-32), and the same for every reader — not a personalized recommendation (`docs/RISKS.md`) |
-| confidence | enum | `low`, `medium`, `high` |
-| citations | jsonb | Array of `{content_item_id, source_url, publisher, headline, published_at, paraphrase}` — paraphrase only, never a verbatim excerpt (ADR-0001, D-15). See Consolidation notes for why this is JSONB rather than its own table |
+| bear_case | text | The strongest competing reading, not a strawman (ADR-0003, D-25, section 5) |
+| valuation | text | What the market already prices in (ADR-0003, D-28) |
+| risks | text[] | At least one; portfolio mechanics and external risks the bear case does not cover (ADR-0003, D-31) |
+| benchmark_ticker | text | `SPY` for the theses so far (ADR-0003, D-27) |
+| benchmark_sector_ticker | text | Nullable: the sector or thematic ETF that `performance_snapshots.sector_benchmark_ticker` expects (see Dual benchmarks). Null when no clean ETF exists, as for write-up 13; how `performance_snapshots` then records a synthetic comparison basket is an open question, not settled here |
+| benchmark_outperformance_pct_points | numeric | The threshold stated in advance, greater than zero (ADR-0003, D-27) |
+| benchmark_reason | text | Why this benchmark, and when `benchmark_sector_ticker` is null, why none exists |
+| basket_weighting | text | `equal` or `conviction` (ADR-0003, D-32). A text column with a check rather than an enum type, so a new value is one constraint and not a type change |
+| confidence | text | `low`, `medium`, `high`, checked the same way |
+| catalysts | jsonb | Array of `{date, event}`, at least one; `date` is `YYYY-MM-DD` or `undated` (ADR-0003, D-29) |
+| invalidation_conditions | jsonb | Array of `{condition, threshold}`, at least one (ADR-0003, D-30) |
+| suggested_basket | jsonb | Array of `{ticker, weight, rationale}`, weights summing to 1: the thesis's own judgment, equal weight unless it argues differentiated conviction (ADR-0003, D-32), and the same for every reader — not a personalized recommendation (`docs/RISKS.md`) |
+| citations | jsonb | Array of `{n, content_item_id, source_url, publisher, headline, published_at, retrieved_at, paraphrase, source_type, unverified}`; `content_item_id` is null for a source the session fetched itself, which then has a `retrieved_at` — paraphrase only, never a verbatim excerpt (ADR-0001, D-15; ADR-0004, D-35). See Consolidation notes for why this is JSONB rather than its own table |
 | caveat | text | "This is a hypothesis for tracking purposes, not a recommendation" — a first-class stored field, not just UI copy |
-| starting_value | numeric | The fixed notional value the hypothetical portfolio starts at; absorbed from the original `Portfolio` table (see Consolidation notes) |
+| starting_value | numeric | The fixed notional value the hypothetical portfolio starts at; absorbed from the original `Portfolio` table (see Consolidation notes). Nullable until publication and required from then on; the value itself is not yet defined |
 | holding_period_days | int | Defaults to 90. Stored per-thesis rather than hardcoded, specifically so a future change to the rule applies only to theses published after the change — never retroactively (ADR-0001, D-13) |
+
+Created in M2 (`supabase/migrations/20261125150000_m2_topics_theses.sql`, ADR-0005 D-36), in a mixed shape decided by the founder on 2026-11-25: a column for what the system queries or calculates on, a text column for each prose section, and JSONB for the nested lists the contract may still change, so that a change to their inner shape needs no migration. The database checks the outer shape (each JSONB is a non-empty array, the enumerations, the benchmark threshold, `(topic_id, version)` unique, and a published thesis has a `starting_value`); the inner shape is checked by `jobs/thesis/` before a row is loaded (`docs/AI_SYSTEM.md`, Agent 3). `starting_value` and `holding_period_days` are attached by the application, never model output. Row-level security is on with no policy, as for every other table.
 
 ## Positions and performance
 
