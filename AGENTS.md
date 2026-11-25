@@ -66,7 +66,7 @@ Hold regardless of milestone:
 - **Money.** Anything adding a new metered or subscription service beyond Cursor + Claude Pro (D-19). "It's only $13/month" *is* the D-24 question — firing it is the founder's call, explicitly, even when the assistant thinks the condition is met.
 - **Schema reintroduction.** Any field or table ADR-0001 D-05 cut, or anything under `docs/DATA_MODEL.md`'s Deferred entities.
 - **Milestone sequencing.** Building ahead of a stated gate (`docs/ROADMAP.md`) — dashboard work before M5's retention threshold, auth before user-specific state exists.
-- **Regulatory-adjacent copy.** The `caveat` field, `suggested_basket`'s equal-weighting, any language describing what Topicron promises. This touches the publisher's-exclusion posture in `docs/RISKS.md`; not a place for a confident rewrite.
+- **Regulatory-adjacent copy.** The `caveat` field, `suggested_basket`'s weighting rule (equal by default, conviction-based only as ADR-0003, D-32 allows, never dependent on the reader), any language describing what Topicron promises. This touches the publisher's-exclusion posture in `docs/RISKS.md`; not a place for a confident rewrite.
 - **The Reddit question, in any form.** Even a "quick script to check subreddit activity" gets checked against the scraping boundary in `docs/MVP_SCOPE.md` first (ADR-0001, D-10).
 
 ## 7. When to refuse
@@ -76,7 +76,7 @@ Refuse here means: decline to implement via an ordinary chat request, and point 
 - **An LLM call inside a request path.** Breaks invariant 1, no exceptions.
 - **Scraping Reddit, or any source whose terms prohibit it**, as a workaround for cost or rate limits.
 - **Real trade execution or brokerage integration**, in any form.
-- **A personalized or conviction-weighted `suggested_basket`.** Stays naive equal-weight — a legal boundary, not a placeholder (`docs/RISKS.md`).
+- **A personalized `suggested_basket`**, meaning weights that depend on anything about a reader. The weights follow the thesis's own stated conviction (equal when it states none) and are identical for every reader (ADR-0003, D-32); the boundary is personalization, not conviction — a legal boundary, not a placeholder (`docs/RISKS.md`).
 - **Verbatim source text in a citation.** Paraphrase plus source id, never a quoted excerpt (ADR-0001, D-15).
 - **A published backtest or historical performance figure**, under any framing, including "just for the demo" (ADR-0001, D-02).
 - **An LLM grading another LLM's thesis for accuracy.** The only judge is `perf/` against real market data (`docs/AI_SYSTEM.md`, Evaluation engine).

@@ -186,7 +186,7 @@ Links a `topics` row to the `content_items` that support it, with a relevance sc
 | bull_case | text | |
 | bear_case | text | |
 | risks | text[] | |
-| suggested_basket | jsonb | Naive equal-weight allocation across linked companies — not a personalized recommendation (`docs/RISKS.md`) |
+| suggested_basket | jsonb | Allocation across linked companies, with a rationale per weight: equal weight unless the thesis argues differentiated conviction (ADR-0003, D-32), and the same for every reader — not a personalized recommendation (`docs/RISKS.md`) |
 | confidence | enum | `low`, `medium`, `high` |
 | citations | jsonb | Array of `{content_item_id, source_url, publisher, headline, published_at, paraphrase}` — paraphrase only, never a verbatim excerpt (ADR-0001, D-15). See Consolidation notes for why this is JSONB rather than its own table |
 | caveat | text | "This is a hypothesis for tracking purposes, not a recommendation" — a first-class stored field, not just UI copy |
