@@ -1,6 +1,6 @@
 # AI system design
 
-*This document covers agent responsibilities, input/output contracts, and evaluation. It implements the AI-pipeline decisions in ADR-0001 — D-02, D-05 (versioning fields), D-06, D-12, D-13, D-14, D-15, D-16 — and the execution-mode changes in ADR-0002, D-20. System-level job cadence is in [`ARCHITECTURE.md`](ARCHITECTURE.md); schema is in [`DATA_MODEL.md`](DATA_MODEL.md). Decisions are cited inline as "ADR-0001, D-XX" or "ADR-0002, D-XX." **Note:** ADR-0003 sets a new ten-section thesis structure (falsifiable hypothesis, valuation, catalysts, invalidation criteria) that the Agent 3 output contract below does not yet reflect — accepted but not yet applied here, tracked in `PROJECT_STATE.md`, to be incorporated before any M2 pipeline work begins.*
+*This document covers agent responsibilities, input/output contracts, and evaluation. It implements the AI-pipeline decisions in ADR-0001 — D-02, D-05 (versioning fields), D-06, D-12, D-13, D-14, D-15, D-16 — and the execution-mode changes in ADR-0002, D-20. System-level job cadence is in [`ARCHITECTURE.md`](ARCHITECTURE.md); schema is in [`DATA_MODEL.md`](DATA_MODEL.md). Decisions are cited inline as "ADR-0001, D-XX" or "ADR-0002, D-XX." **Note:** the Agent 3 output contract below follows ADR-0003's ten-section thesis structure and ADR-0004's primary-source step (D-35); it was rewritten on 2026-11-25 as the first task of M2 (ADR-0005, D-36). The persistence of the new fields (`theses`) is an M2 migration decision, tracked in `PROJECT_STATE.md`.*
 
 **Free-tier-first note (ADR-0002).** Everything below describes the pipeline's full designed behavior — the state it runs in once reinstated per ADR-0002, D-24. Until that trigger fires, `extract/`'s LLM fallback is deferred and `synth/`/`thesis/` run as founder-triggered sessions through Claude Code or claude.ai rather than scheduled API calls. The input/output contracts, prompts, and schemas below are identical either way — see the "Free-tier-first execution mode" note under each affected agent.
 
@@ -78,27 +78,44 @@ This resolves a real contradiction in the original plan, which paired a persiste
 
 ## Agent 3: thesis generator
 
-**Responsibility:** given a topic that has crossed a momentum threshold, produce a structured investment thesis.
+**Responsibility:** given a topic that has crossed a momentum threshold, produce a falsifiable investment thesis in the ten-section structure of ADR-0003 (D-25), as one structured object. Section 10 of that structure, the results at 30, 60 and 90 days, is not model output (see below).
 
 **Model:** Claude Opus 4.8 — reserved for this stage specifically, because thesis quality has the most product impact of anything this pipeline produces (`docs/VISION.md`, Why this is useful before the track record exists).
 
-**Input:** the topic (summary, citations, linked companies) plus real market data for those companies (recent price action, trailing returns) pulled from `price_snapshots`.
+**Input:** the topic (summary, citations, linked companies); real market data for those companies (recent price action, trailing returns) pulled from `price_snapshots`; an **as-of date** for every price and fact; and the primary sources (company releases and filings, regulator orders, exchange or Treasury data) that the founder-run session has fetched for the claims the thesis rests on (ADR-0004, D-35).
 
 **Output:**
 ```json
 {
+  "title": "string",
+  "as_of": "YYYY-MM-DD",
+  "hypothesis": "string",
+  "why_now": "string",
+  "market_missing": "string",
   "bull_case": "string",
   "bear_case": "string",
+  "valuation": "string",
+  "catalysts": [{"date": "YYYY-MM-DD | undated", "event": "string"}],
+  "invalidation_conditions": [{"condition": "string", "threshold": "string"}],
   "risks": ["string"],
+  "benchmark": {
+    "ticker": "SPY",
+    "sector_ticker": "string | null",
+    "outperformance_pct_points": 5,
+    "reason": "string"
+  },
+  "suggested_basket": [{"ticker": "VZ", "weight": 0.4, "rationale": "string"}],
+  "basket_weighting": "equal | conviction",
   "confidence": "low | medium | high",
-  "suggested_basket": [{"ticker": "NVDA", "weight": 0.33}],
   "citations": [
     {
-      "content_item_id": "uuid",
+      "n": 1,
+      "content_item_id": "uuid | null",
       "source_url": "string",
       "publisher": "string",
       "headline": "string",
       "published_at": "timestamp",
+      "retrieved_at": "timestamp | null",
       "paraphrase": "string",
       "source_type": "primary | secondary",
       "unverified": false
@@ -108,13 +125,23 @@ This resolves a real contradiction in the original plan, which paired a persiste
 }
 ```
 
-**Notes:** `suggested_basket` defaults to a naive equal weighting across the linked companies. This is a deliberate choice, not a placeholder for future sophistication: a personalized or conviction-weighted allocation is exactly the kind of tailored, individualized output that risks crossing from "impersonal publisher" into "investment adviser" territory (`docs/RISKS.md`), and a naive equal weight is also simpler to compute and to audit correctly.
+The fields map onto ADR-0003's sections as follows: `hypothesis` (1), `why_now` (2), `market_missing` (3), `bull_case` (4), `bear_case` (5), `valuation` (6), `catalysts` (7), `invalidation_conditions` (8), `benchmark` and `suggested_basket` (9). Facts in the text fields carry a marker `[n]` that points at `citations[].n`, the convention write-up 13 already uses.
 
-Every citation requires a paraphrase, never a quoted excerpt of the source material — the prompt instructs the model to restate the supporting claim in its own words, and structured-output validation rejects a citation object that looks like a near-verbatim copy of `content_items.body` (ADR-0001, D-15). This exists specifically so the product never republishes third-party article text it has no license to republish (`docs/RISKS.md`).
+**Rules the output must meet.** Structured-output validation checks what a schema can check; the rest is read by the founder and, from M2 on, by the golden set (below).
 
-`starting_value` and `holding_period_days` are not part of the model's output — they're fixed system parameters the application attaches when a thesis is published (`docs/DATA_MODEL.md`), not something the model is asked to decide.
+- **Hypothesis (D-26).** One sentence, first, naming the basket, the benchmark, the 90-day window, the threshold and the mechanism. Checked as one sentence by validation; whether it is falsifiable is a read, not a schema check.
+- **Benchmark (D-27).** A named benchmark, a threshold in percentage points stated in advance, and the reason for that benchmark. `sector_ticker` is the thematic or sector ETF that `performance_snapshots.sector_benchmark_ticker` expects (`docs/DATA_MODEL.md`, Dual benchmarks); it is `null` when no clean ETF exists, as for write-up 13, and `reason` then says so. How `performance_snapshots` records a synthetic comparison basket in that case (write-up 13 would need one, as its secondary comparison) is an open M2 schema question.
+- **Valuation (D-28).** What each linked company trades at (a multiple, against history, peers or growth where feasible) and one sentence on what that implies the market already believes.
+- **Catalysts (D-29).** At least one, and at least one with a date inside the holding window.
+- **Invalidation conditions (D-30).** At least one, each an observable threshold ("wrong if X"), distinct from the risks.
+- **Risks (D-31).** Portfolio mechanics and external risks the bear case does not cover; an item that restates the bear case is cut. Read in QA, not checked by schema.
+- **Basket (D-32).** Weights sum to 1. `basket_weighting` is `equal` only when the thesis text makes no differentiated claim about its components; otherwise it is `conviction`, each weight has a `rationale` taken from the thesis's own argument, and a name may be left out. The weights are the thesis's own judgment and are the same for every reader: no input, field or prompt carries anything about a reader, so the basket stays impersonal (`docs/RISKS.md`, publisher's exclusion). A pair or relative-value framing needs a short leg, which `positions` does not have (`docs/DATA_MODEL.md`); until it does, differentiated conviction is expressed by weights or by leaving a name out.
+- **Sources (D-33, D-35).** Every factual claim is checked against a primary source or labelled unverified, in the form write-up 13 uses for its $8 billion figure (a Wall Street Journal report relayed by Forbes, treated as unconfirmed). Each citation carries `source_type` and `unverified`; a claim backed only by a secondary source has `unverified: true` and is written as unconfirmed. Every `[n]` in the text resolves to a citation and every citation is used. `content_item_id` is `null` only for a primary source the session fetched itself, and then `retrieved_at` is set. A load-bearing fact older than a few weeks relative to publication is flagged with its as-of date; the threshold for "a few weeks" is fixed when the prompt is written and recorded in `prompt_version`.
+- **Paraphrase (ADR-0001, D-15).** Every citation requires a paraphrase, never a quoted excerpt of the source material; the prompt instructs the model to restate the supporting claim in its own words, and validation rejects a citation that looks like a near-verbatim copy of `content_items.body`. This exists so the product never republishes third-party article text it has no license to republish (`docs/RISKS.md`).
 
-**Primary-source check (ADR-0004, D-35).** Every factual claim in a generated thesis is checked against a primary source — company releases and filings, regulator orders, exchange or Treasury data — or is labelled unverified, in the form write-up 13 uses for its $8 billion figure (a Wall Street Journal report relayed by Forbes, treated as unconfirmed). Each citation therefore carries a `source_type` (`primary` or `secondary`) and an `unverified` flag; a claim backed only by a secondary source is `unverified: true` and is written as unconfirmed. M2's thesis generation is not done until this check exists. Under free-tier-first (ADR-0002, D-20) the founder-run session fetches the primary sources, so the step costs nothing. Whether the two fields are persisted in `theses.citations` is an M2 schema decision (`docs/DATA_MODEL.md`), not made here. The rest of ADR-0003's change to this output contract (the ten-section structure) is still due before M2.
+**What is not model output.** `starting_value` and `holding_period_days` are fixed system parameters the application attaches when a thesis is published (`docs/DATA_MODEL.md`). The results section (ADR-0003, D-25, section 10) is written after publication: the numbers come from `perf/` against `price_snapshots`, and the four-way explanation (thesis wrong, thesis right but priced in, catalyst did not occur, market moved for unrelated reasons) is written by the founder, never by a model grading its own or another thesis (`AGENTS.md` §7; Evaluation engine below).
+
+**Storage.** The `theses` table has columns for the earlier fields only (`docs/DATA_MODEL.md`). The new fields (`title`, `as_of`, `hypothesis`, `why_now`, `market_missing`, `valuation`, `catalysts`, `invalidation_conditions`, `benchmark`, `basket_weighting`, the `rationale` in each basket item, and the new keys in each citation) need an M2 migration; whether they become columns or one JSONB document is decided with that migration, and `docs/DATA_MODEL.md` is not changed here.
 
 **Free-tier-first execution mode (ADR-0002, D-20):** as with Agent 2, this runs as a founder-triggered session through Claude Code or claude.ai rather than a scheduled Opus 4.8 API call, during the free-tier-first MVP. Same input, same output contract, same citation-as-paraphrase rule. The founder reviewing every thesis before it's loaded into `theses` and published is a natural byproduct of running the prompt personally, not an extra step — it folds directly into the weekly manual QA sampling described below.
 
@@ -132,9 +159,9 @@ This only works as a differentiator if losing theses are shown as prominently as
 - **Structured output.** Every agent output is validated against its JSON schema; invalid output triggers a retry, not a silent pass-through to the database.
 - **Citations, not assertions.** Every claim in a thesis is expected to trace back to a `content_item` via the `citations` field — a paraphrase plus source metadata, never a verbatim excerpt (`docs/DATA_MODEL.md`; ADR-0001, D-15). A claim without a citation is a signal something went wrong upstream.
 - **Facts vs. inference.** Prompts separate what the source material actually says from what the model is inferring, so the UI can label each differently and readers can calibrate trust accordingly.
-- **Conservative language.** System prompts explicitly avoid confident phrasing ("will," "is going to") in favor of hedged phrasing ("could," "may"), and every thesis carries the "hypothesis, not advice" caveat as a first-class field, not just UI copy.
+- **Falsifiable language, not hedging.** System prompts ask for plain, testable statements. The hypothesis and the invalidation conditions carry the uncertainty as thresholds and dates, not as scattered "could" and "may": a thesis written to be true in almost any outcome defeats the purpose of publishing losers (ADR-0003, Context). A fact the sources do not settle is marked `unverified`, not softened, and every thesis still carries the "hypothesis, not advice" caveat as a first-class field, not just UI copy.
 - **Versioning.** Every generation logs `model_used` and `prompt_version` (`docs/DATA_MODEL.md`) — kept deliberately, against the instinct to trim them, because they're the only mechanism making a post-hoc quality regression diagnosable after a model or prompt change (ADR-0001, D-05). During free-tier-first, recording these two fields is the founder's responsibility when loading a generation by hand — there's no automated harness doing it on their behalf, which is exactly why this stays a hard rule rather than a nice-to-have (`docs/ARCHITECTURE.md`, Load-bearing invariants).
-- **Golden-set regression testing.** A fixed set of inputs with known-good output characteristics — schema validity, no fabricated tickers outside the provided context, correct update-or-create resolution against a fixed set of active topics, and citations that read as paraphrases rather than near-verbatim excerpts — is run against the pipeline before any prompt change ships. During free-tier-first (ADR-0002), this check is run by the founder locally before a prompt change, rather than as an automated CI gate — same check, same bar, just not unattended yet. From M2 on, the set is built from the cases in `m0/intervention-log.md`: the five substantive corrections in write-ups 8, 9 and 13 (a stale premise, a favoured carrier that changed, an announcement date and price, a percentage on a dividend-adjusted basis, a consideration stated as cash only) and the support-level removals, so that a prompt change that reintroduces one of them is caught before it ships (ADR-0004, D-35).
+- **Golden-set regression testing.** A fixed set of inputs with known-good output characteristics — schema validity and the rule checks of the Agent 3 contract (a one-sentence hypothesis, at least one dated catalyst and one invalidation condition, basket weights that sum to 1, every `[n]` marker resolving to a citation), no fabricated tickers outside the provided context, correct update-or-create resolution against a fixed set of active topics, and citations that read as paraphrases rather than near-verbatim excerpts — is run against the pipeline before any prompt change ships. During free-tier-first (ADR-0002), this check is run by the founder locally before a prompt change, rather than as an automated CI gate — same check, same bar, just not unattended yet. From M2 on, the set is built from the cases in `m0/intervention-log.md`: the five substantive corrections in write-ups 8, 9 and 13 (a stale premise, a favoured carrier that changed, an announcement date and price, a percentage on a dividend-adjusted basis, a consideration stated as cash only) and the support-level removals, so that a prompt change that reintroduces one of them is caught before it ships (ADR-0004, D-35).
 - **Manual QA sampling.** During the beta, a sample of generated theses is read manually every week against a short rubric — grounded, non-generic, correctly cited — to catch regressions automated tests won't (`docs/MVP_SCOPE.md`). During free-tier-first, this happens as a natural byproduct of the founder running every generation personally (D-20), rather than as a separate sampling step layered on top of an unattended pipeline.
 
 ## Evaluating AI-generated ideas
