@@ -58,7 +58,7 @@ Boundaries: `docs/MVP_SCOPE.md` is canonical; `AGENTS.md` §11 has the short ver
 Anti-goals are the shape of what Topicron has decided *not* to be, and matter as much as what's in scope:
 
 - **Not a signal service.** No real-time alert, no "buy now," nothing engineered to reward the reader who wants a shortcut instead of the argument.
-- **Not a personalized advisor.** `suggested_basket` is naive equal-weight, applied identically to every reader — a legal line (`docs/RISKS.md`), not a placeholder for smarter allocation later.
+- **Not a personalized advisor.** `suggested_basket` weights follow the thesis's own stated conviction (equal when it states none, ADR-0003, D-32) and are applied identically to every reader, never tailored to anyone's holdings, goals, or risk tolerance — a legal line (`docs/RISKS.md`), not a placeholder for personalization later.
 - **Not a broker.** No real trades, ever, in this repository.
 - **Not a dashboard, yet.** The publication is the MVP; the interactive layer is real but gated on a retention signal that doesn't exist yet (M5).
 - **Not built on Reddit, yet.** Curated RSS proves the pipeline first; Reddit is a licensing-and-revenue decision, not an engineering one.
